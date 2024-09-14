@@ -13,32 +13,25 @@
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Optional background color */
+            background-color: #ffc0cb; /* Light pink background */
         }
 
         /* Centered and animated text */
         p {
-            font-size: 72px; /* Very large font size */
+            font-size: 72px; /* Large font size */
             font-weight: bold; /* Bold text */
             text-align: center;
-            color: #333; /* Optional text color */
-            animation: growText 2s ease-in-out; /* Animation effect */
+            color: #333; /* Text color */
+            transition: transform 0.5s ease-in-out; /* Smooth transition for hover effect */
         }
 
-        /* Animation for text */
-        @keyframes growText {
-            0% {
-                transform: scale(0.5); /* Start smaller */
-                opacity: 0; /* Start invisible */
-            }
-            100% {
-                transform: scale(1); /* End at normal size */
-                opacity: 1; /* End fully visible */
-            }
+        /* Hover effect to move the text */
+        p:hover {
+            transform: translateY(-100px) translateX(50px); /* Move text upwards and to the right when hovered */
         }
     </style>
 </head>
 <body>
-    <p>I AM SORRY.</p>
+    <p>Hover over me and watch me move!</p>
 </body>
 </html>
