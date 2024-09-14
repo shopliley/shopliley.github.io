@@ -16,15 +16,29 @@
             background-color: #f0f0f0; /* Optional background color */
         }
 
-        /* Centered text */
+        /* Centered and animated text */
         p {
-            font-size: 48px; /* Large font size */
+            font-size: 72px; /* Very large font size */
+            font-weight: bold; /* Bold text */
             text-align: center;
             color: #333; /* Optional text color */
+            animation: growText 2s ease-in-out; /* Animation effect */
+        }
+
+        /* Animation for text */
+        @keyframes growText {
+            0% {
+                transform: scale(0.5); /* Start smaller */
+                opacity: 0; /* Start invisible */
+            }
+            100% {
+                transform: scale(1); /* End at normal size */
+                opacity: 1; /* End fully visible */
+            }
         }
     </style>
 </head>
 <body>
-    <p>Your sentence here.</p>
+    <p>I AM SORRY.</p>
 </body>
 </html>
