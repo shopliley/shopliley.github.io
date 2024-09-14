@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website</title>
+    <title>I AM SORRRRYYYY</title>
     <style>
         /* Full height layout */
         body, html {
@@ -14,24 +14,100 @@
             align-items: center;
             font-family: Arial, sans-serif;
             background-color: #ffc0cb; /* Light pink background */
+            overflow: hidden;
         }
 
-        /* Centered and animated text */
-        p {
-            font-size: 72px; /* Large font size */
-            font-weight: bold; /* Bold text */
+        /* Text styling and animation */
+        .text-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 72px;
+            font-weight: bold;
             text-align: center;
-            color: #333; /* Text color */
-            transition: transform 0.5s ease-in-out; /* Smooth transition for hover effect */
+            color: #333;
+            animation: bounceIn 2s ease-in-out; /* Bounce-in effect when the page loads */
         }
 
-        /* Hover effect to move the text */
-        p:hover {
-            transform: translateY(-100px) translateX(50px); /* Move text upwards and to the right when hovered */
+        /* Bounce animation for the text */
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+            }
         }
+
+        /* Hover escape effect */
+        .text-container:hover {
+            transform: translate(
+                calc(-50px + 100px * random()), 
+                calc(-50px + 100px * random())
+            ); /* Randomly move the text when the mouse comes close */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        /* Dancing letters */
+        .letter {
+            display: inline-block;
+            animation: dance 1s infinite alternate;
+        }
+
+        /* Wiggle/dance animation for individual letters */
+        @keyframes dance {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(15deg);
+            }
+        }
+
+        /* Random delays for each letter's dance animation */
+        .letter:nth-child(1) { animation-delay: 0s; }
+        .letter:nth-child(2) { animation-delay: 0.1s; }
+        .letter:nth-child(3) { animation-delay: 0.2s; }
+        .letter:nth-child(4) { animation-delay: 0.3s; }
+        .letter:nth-child(5) { animation-delay: 0.4s; }
+        .letter:nth-child(6) { animation-delay: 0.5s; }
+        .letter:nth-child(7) { animation-delay: 0.6s; }
+        .letter:nth-child(8) { animation-delay: 0.7s; }
+        .letter:nth-child(9) { animation-delay: 0.8s; }
+        .letter:nth-child(10) { animation-delay: 0.9s; }
+        .letter:nth-child(11) { animation-delay: 1s; }
     </style>
 </head>
 <body>
-    <p>Hover over me and watch me move!</p>
+    <div class="text-container" id="text">
+        <!-- Each letter is wrapped in a span to apply individual animations -->
+        <span class="letter">I</span>
+        <span class="letter"> </span>
+        <span class="letter">A</span>
+        <span class="letter">M</span>
+        <span class="letter"> </span>
+        <span class="letter">S</span>
+        <span class="letter">O</span>
+        <span class="letter">R</span>
+        <span class="letter">R</span>
+        <span class="letter">R</span>
+        <span class="letter">Y</span>
+    </div>
+
+    <script>
+        /* Random movement when mouse hovers over the text */
+        const textContainer = document.getElementById('text');
+        
+        textContainer.addEventListener('mouseover', function() {
+            const randomX = Math.floor(Math.random() * 200) - 100; // Random X movement (-100 to 100px)
+            const randomY = Math.floor(Math.random() * 200) - 100; // Random Y movement (-100 to 100px)
+            textContainer.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        });
+    </script>
 </body>
 </html>
