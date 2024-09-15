@@ -15,23 +15,36 @@
 
         h1 {
             text-align: center;
-            font-size: 48px;
-            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
         }
 
-        .post {
-            margin-bottom: 40px;
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
-        .post h2 {
-            font-size: 32px;
-            color: #333;
+        .tabs button {
+            background-color: #ddd;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        .post p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #555;
+        .tabs button.active {
+            background-color: #333;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .post img {
@@ -40,21 +53,88 @@
             display: block;
             margin: 20px 0;
         }
+
+        .post p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
     </style>
 </head>
 <body>
 
     <h1>Kind Hearted to Heartless</h1>
 
-    <div class="post">
-        <h2>Episode 1</h2>
-        <p>
-            I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
-        </p>
-
-        <!-- Insert the image here -->
-        <img src="Images/start.png">
+    <!-- Tab Navigation -->
+    <div class="tabs">
+        <button class="tab-link active" onclick="openTab(event, 'episode1')">Episode 1</button>
+        <button class="tab-link" onclick="openTab(event, 'episode2')">Episode 2</button>
+        <button class="tab-link" onclick="openTab(event, 'episode3')">Episode 3</button>
+        <button class="tab-link" onclick="openTab(event, 'comingsoon')">Coming Soon</button>
     </div>
+
+    <!-- Episode 1 Content -->
+    <div id="episode1" class="tab-content active">
+        <div class="post">
+            <h2>Episode 1</h2>
+            <p>
+                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
+            </p>
+            <img src="Images/start.png" alt="A boy and girl playing a mobile game in a long-distance relationship">
+        </div>
+    </div>
+
+    <!-- Episode 2 Content -->
+    <div id="episode2" class="tab-content">
+        <div class="post">
+            <h2>Episode 2</h2>
+            <p>
+                Stay tuned for the next episode of "Kind Hearted to Heartless"!
+            </p>
+        </div>
+    </div>
+
+    <!-- Episode 3 Content -->
+    <div id="episode3" class="tab-content">
+        <div class="post">
+            <h2>Episode 3</h2>
+            <p>
+                Stay tuned for the next episode of "Kind Hearted to Heartless"!
+            </p>
+        </div>
+    </div>
+
+    <!-- Coming Soon Content -->
+    <div id="comingsoon" class="tab-content">
+        <div class="post">
+            <h2>Coming Soon</h2>
+            <p>Stay tuned for the next episode of "Kind Hearted to Heartless"!</p>
+        </div>
+    </div>
+
+    <script>
+        function openTab(event, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Hide all tab contents
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Remove the active class from all tab links
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab content and add active class to the clicked tab
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.className += " active";
+        }
+    </script>
 
 </body>
 </html>
