@@ -3,138 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kind Hearted to Heartless</title>
+    <title>Shopliley - Episodes as Books</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
         }
 
         h1 {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 20px;
+            margin-top: 30px;
+            color: #333;
+            font-size: 3em;
         }
 
-        .tabs {
+        .book-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
         }
 
-        .tabs button {
-            background-color: #ddd;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 5px;
+        .book {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 200px;
+            text-align: center;
             cursor: pointer;
-            font-size: 16px;
+            padding: 20px;
         }
 
-        .tabs button.active {
-            background-color: #333;
-            color: white;
+        .book:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .tab-content {
-            display: none;
+        .book img {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
         }
 
-        .tab-content.active {
-            display: block;
+        .book-title {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #333;
         }
 
-        .post img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px 0;
-        }
-
-        .post p {
-            font-size: 18px;
-            line-height: 1.6;
+        .book-description {
             color: #555;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        body {
+            background-color: #fffbdf;
+        }
+
+        .book:hover {
+            animation: hoverEffect 0.3s forwards;
+        }
+
+        @keyframes hoverEffect {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .view-more {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .view-more:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-    <h1>Kind Hearted to Heartless</h1>
+    <h1>Welcome to Shopliley - Book Collection</h1>
 
-    <!-- Tab Navigation -->
-    <div class="tabs">
-        <button class="tab-link active" onclick="openTab(event, 'episode1')">Episode 1</button>
-        <button class="tab-link" onclick="openTab(event, 'episode2')">Episode 2</button>
-        <button class="tab-link" onclick="openTab(event, 'episode3')">Episode 3</button>
-        <button class="tab-link" onclick="openTab(event, 'comingsoon')">Coming Soon</button>
-    </div>
+    <div class="book-container">
+        <!-- Episode 1: Kind Hearted to Heartless -->
+        <div class="book" onclick="window.location.href='episode1.html'">
+            <img src="Images/episode1-cover.jpg" alt="Episode 1 Cover">
+            <div class="book-title">Episode 1: Kind Hearted to Heartless</div>
+            <div class="book-description">The journey of an unexpected relationship from online gaming to long-distance romance.</div>
+            <button class="view-more">View More</button>
+        </div>
 
-    <!-- Episode 1 Content -->
-    <div id="episode1" class="tab-content active">
-        <div class="post">
-            <h2>Episode 1</h2>
-            <p>
-                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
-            </p>
-            <img src="Images/start.png" alt="A boy and girl playing a mobile game in a long-distance relationship">
+        <!-- Episode 2: Two-Faced -->
+        <div class="book" onclick="window.location.href='episode2.html'">
+            <img src="Images/start.png" alt="Episode 2 Cover">
+            <div class="book-title">Episode 2: Two-Faced</div>
+            <div class="book-description">A story of love, business, and the challenges of societal pressures.</div>
+            <button class="view-more">View More</button>
+        </div>
+
+        <!-- Episode 3: Rekindling -->
+        <div class="book" onclick="window.location.href='episode3.html'">
+            <img src="Images/rekindling.png" alt="Episode 3 Cover">
+            <div class="book-title">Episode 3: Rekindling (Coming Soon)</div>
+            <div class="book-description">Reconnecting after a long separation. A story of hope and communication.</div>
+            <button class="view-more">View More</button>
         </div>
     </div>
-
-    <!-- Episode 2 Content -->
-    <div id="episode2" class="tab-content">
-        <div class="post">
-            <h2>Episode 2</h2>
-            <p>
-                Stay tuned for the next episode of "Kind Hearted to Heartless"!
-            </p>
-        </div>
-    </div>
-
-    <!-- Episode 3 Content -->
-    <div id="episode3" class="tab-content">
-        <div class="post">
-            <h2>Episode 3</h2>
-            <p>
-                Stay tuned for the next episode of "Kind Hearted to Heartless"!
-            </p>
-        </div>
-    </div>
-
-    <!-- Coming Soon Content -->
-    <div id="comingsoon" class="tab-content">
-        <div class="post">
-            <h2>Coming Soon</h2>
-            <p>Stay tuned for the next episode of "Kind Hearted to Heartless"!</p>
-        </div>
-    </div>
-
-    <script>
-        function openTab(event, tabName) {
-            var i, tabcontent, tablinks;
-
-            // Hide all tab contents
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-
-            // Remove the active class from all tab links
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-
-            // Show the current tab content and add active class to the clicked tab
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
-            event.currentTarget.className += " active";
-        }
-    </script>
 
 </body>
 </html>
