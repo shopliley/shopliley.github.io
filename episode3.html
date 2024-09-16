@@ -11,13 +11,38 @@
             color: white;
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        /* Left side: Image */
+        .episode-image {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .episode-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Right side: Text */
+        .episode-content {
+            flex: 2;
+            text-align: center;
+            line-height: 1.8em;
         }
 
         h1 {
             color: #E50914;
-            text-align: center;
-            font-size: 3em;
+            font-size: 2.5em;
         }
 
         p {
@@ -33,39 +58,35 @@
             cursor: pointer;
             font-size: 1.2em;
             margin-top: 20px;
-            display: block;
-            width: fit-content;
         }
 
         .back-button:hover {
             background-color: #f40612;
         }
-
-        /* Optional: Style for images, if any */
-        img {
-            width: 100%;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
 
-    <h1>Rekindling</h1>
+    <div class="container">
+        <!-- Left side: Episode Image -->
+        <div class="episode-image">
+            <img src="Images/rekindling.png" alt="Rekindling">
+        </div>
 
-    <p>
-        Coming Soon. Stay tuned for the next chapter of the story, where the relationship takes a new turn as they reconnect after a separation. </p>
+        <!-- Right side: Episode Content (Text in the center) -->
+        <div class="episode-content">
+            <h1>Rekindling</h1>
+            <p>
+                Coming Soon. Stay tuned for the next chapter of the story, where the relationship takes a new turn as they reconnect after a separation. A story of hope and rekindling what was lost.
+            </p>
+            <p>
+                The next episode will dive into how two long-distance partners reconnect after months. New beginnings, new challenges, and a rekindling of the bond that was once strong.
+            </p>
 
-    <p>
-        The next episode will dive into how two long-distance partners reconnect after months. New beginnings, new challenges, and a rekindling of the bond that was once strong.
-    </p>
-
-    <!-- If there’s an image for the episode, include it here -->
-    <img src="Images/rekindling.png" alt="Episode 3: Rekindling">
-
-    <!-- Back to homepage button -->
-    <button class="back-button" onclick="window.location.href='index.html'">Back to Homepage</button>
+            <!-- Back button to go back to homepage -->
+            <button class="back-button" onclick="window.location.href='index.html'">Back to Homepage</button>
+        </div>
+    </div>
 
 </body>
 </html>

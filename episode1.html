@@ -11,13 +11,38 @@
             color: white;
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        /* Left side: Image */
+        .episode-image {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .episode-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Right side: Text (centered like reading a book) */
+        .episode-content {
+            flex: 2;
+            text-align: center;
+            line-height: 1.8em;
         }
 
         h1 {
             color: #E50914;
-            text-align: center;
-            font-size: 3em;
+            font-size: 2.5em;
         }
 
         p {
@@ -33,8 +58,6 @@
             cursor: pointer;
             font-size: 1.2em;
             margin-top: 20px;
-            display: block;
-            width: fit-content;
         }
 
         .back-button:hover {
@@ -44,15 +67,24 @@
 </head>
 <body>
 
-    <h1>Kind Hearted to Heartless</h1>
+    <div class="container">
+        <!-- Left side: Episode Image -->
+        <div class="episode-image">
+            <img src="Images/start.png" alt="Kind Hearted to Heartless">
+        </div>
 
-    <p>
-        I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
-    </p>
+        <!-- Right side: Episode Content (Text in the center) -->
+        <div class="episode-content">
+            <h1>Kind Hearted to Heartless</h1>
+            <p>
+                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
+            </p>
+            <!-- Add more content here -->
 
-    <!-- More content of the episode here -->
-
-    <button class="back-button" onclick="window.location.href='index.html'">Back to Homepage</button>
+            <!-- Back button to go back to homepage -->
+            <button class="back-button" onclick="window.location.href='index.html'">Back to Homepage</button>
+        </div>
+    </div>
 
 </body>
 </html>
