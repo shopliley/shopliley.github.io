@@ -11,127 +11,152 @@
   "@context": "https://schema.org",
   "@type": "Organization",
   "url": "https://www.shopliley.com",
-  "logo": "https://www.shopliley.com/Images/start.png"
+  "logo": "https://www.shopliley.com/Images/rekindling.png"
 }
 </script>
 
-   <style>
+    <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: white;
             margin: 0;
             padding: 0;
         }
 
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-            color: #333;
-            font-size: 3em;
-        }
-
-        .book-container {
+        /* Full-screen image for the latest episode */
+        .featured {
+            position: relative;
+            background-image: url('Images/rekindling.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            flex-direction: column;
+            justify-content: flex-end;
             padding: 20px;
         }
 
-        .book {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            width: 200px;
-            text-align: center;
-            cursor: pointer;
-            padding: 20px;
+        .featured-content {
+            max-width: 50%;
         }
 
-        .book:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        .featured h1 {
+            font-size: 3em;
+            margin: 0;
+            font-weight: bold;
         }
 
-        .book img {
-            width: 100%;
-            height: 300px;
-            border-radius: 10px;
-        }
-
-        .book-title {
-            margin-top: 10px;
+        .featured p {
             font-size: 1.2em;
-            color: #333;
+            line-height: 1.4em;
+            margin: 10px 0 20px 0;
         }
 
-        .book-description {
-            color: #555;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        body {
-            background-color: #fffbdf;
-        }
-
-        .book:hover {
-            animation: hoverEffect 0.3s forwards;
-        }
-
-        @keyframes hoverEffect {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.1);
-            }
-        }
-
-        .view-more {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
+        .featured button {
+            background-color: #E50914;
+            color: white;
             border: none;
-            border-radius: 5px;
-            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
             cursor: pointer;
         }
 
-        .view-more:hover {
-            background-color: #0056b3;
+        .featured button:hover {
+            background-color: #f40612;
+        }
+
+        /* Episode carousel */
+        .carousel {
+            margin: 20px;
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .episode {
+            flex: 0 0 300px;
+            margin-right: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .episode img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .episode:hover {
+            transform: scale(1.1);
+        }
+
+        .episode-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        .episode-description {
+            font-size: 0.9em;
+            margin: 0 10px 20px;
+            color: #bbb;
+        }
+
+        .episode button {
+            position: absolute;
+            bottom: 20px;
+            left: 10px;
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .episode button:hover {
+            background-color: #f40612;
         }
     </style>
 </head>
 <body>
 
-    <h1>Welcome to Shopliley - Book Collection</h1>
-
-    <div class="book-container">
-        <!-- Episode 1: Kind Hearted to Heartless -->
-        <div class="book" onclick="window.location.href='episode1.html'">
-            <img src="Images/start.png" alt="Episode 1 Cover">
-            <div class="book-title">Episode 1: Kind Hearted to Heartless</div>
-            <div class="book-description">The journey of an unexpected relationship from online gaming to long-distance romance.</div>
-            <button class="view-more">View More</button>
+    <!-- Featured Episode (Latest Episode) -->
+    <div class="featured">
+        <div class="featured-content">
+            <h1>Kind Hearted to Heartless</h1>
+            <p>Episode 1. The journey of an unexpected relationship from online gaming to long-distance romance.</p>
+            <button onclick="window.location.href='episode1.html'">Start Reading</button>
         </div>
+    </div>
 
-        <!-- Episode 2: Two-Faced -->
-        <div class="book" onclick="window.location.href='episode2.html'">
+    <!-- Carousel for other episodes -->
+    <h2 style="padding-left: 20px;">Other Episodes</h2>
+    <div class="carousel">
+        <!-- Episode 2 -->
+        <div class="episode">
             <img src="Images/two-faced.png" alt="Episode 2 Cover">
-            <div class="book-title">Episode 2: Two-Faced</div>
-            <div class="book-description">A story of love, business, and the challenges of societal pressures.</div>
-            <button class="view-more">View More</button>
+            <div class="episode-title">Two-Faced</div>
+            <div class="episode-description">A story of love, business, and the challenges of societal pressures.</div>
+            <button onclick="window.location.href='episode2.html'">Start Reading</button>
         </div>
 
-        <!-- Episode 3: Rekindling -->
-        <div class="book" onclick="window.location.href='episode3.html'">
+        <!-- Episode 3 (Coming Soon) -->
+        <div class="episode">
             <img src="Images/rekindling.png" alt="Episode 3 Cover">
-            <div class="book-title">Episode 3: Rekindling (Coming Soon)</div>
-            <div class="book-description">Reconnecting after a separation.</div>
-            <button class="view-more">View More</button>
+            <div class="episode-title">Rekindling (Coming Soon)</div>
+            <div class="episode-description">Reconnecting after a separation.</div>
+            <button disabled>Coming Soon</button>
         </div>
+
+        <!-- Add more episodes here as needed -->
     </div>
 
 </body>
