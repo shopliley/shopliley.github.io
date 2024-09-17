@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopliley - Episodes as Books</title>
+    <title>Heartless - More Episodes</title>
     <!-- Favicon for Tab Image and Google Search -->
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <style>
@@ -15,7 +15,7 @@
             padding: 0;
         }
 
-        /* Navigation at the top */
+        /* Navigation bar */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -34,41 +34,75 @@
             color: #E50914;
         }
 
-        .navbar .mute-btn {
-            background-color: transparent;
-            border: none;
-            color: white;
-            font-size: 1.2em;
+        .navbar .volume-slider {
+            appearance: none;
+            background: #E50914;
+            width: 100px;
+            height: 5px;
             cursor: pointer;
-            outline: none;
+            margin-top: 7px;
         }
 
-        .navbar .mute-btn:hover {
-            color: #E50914;
+        /* Main episode section */
+        .main-episode {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background-size: cover;
+            background-position: center;
+            animation: fadeEpisode 1s ease-in-out;
         }
 
-        /* Title and based on real life story text */
-        .header-text {
-            text-align: center;
-            margin-top: 20px;
+        @keyframes fadeEpisode {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
 
-        .header-text h1 {
-            font-size: 3.5em;
+        .main-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            z-index: 10;
+        }
+
+        .main-content h1 {
+            font-size: 4em;
             margin-bottom: 10px;
         }
 
-        .header-text p {
-            font-size: 1.2em;
-            color: #bbb;
+        .main-content p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
         }
 
-        /* Episode Scrolling Carousel */
+        .main-content button {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .main-content button:hover {
+            background-color: #f40612;
+        }
+
+        /* More episodes section */
+        .more-episodes {
+            padding: 20px;
+        }
+
+        .more-episodes h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
         .carousel {
             display: flex;
             overflow-x: scroll;
             scroll-behavior: smooth;
-            padding: 20px;
+            padding: 10px;
             transition: transform 0.5s ease-in-out;
         }
 
@@ -149,23 +183,6 @@
             background-color: rgba(0, 0, 0, 0.8);
         }
 
-        /* Background fading effect */
-        .background-fade {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 1.5s ease-in-out;
-            opacity: 0;
-        }
-
-        .background-fade.active {
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
@@ -174,28 +191,87 @@
     <div class="navbar">
         <a href="abstract.html">Abstract</a>
         <a href="#">Home</a>
-        <button class="mute-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="1">
     </div>
 
-    <!-- Title and Based on Real Life Story -->
-    <div class="header-text">
-        <h1>Kind Hearted to Heartless</h1>
-        <p>Based on real life story</p>
+    <!-- Main Episode Section -->
+    <div class="main-episode" id="main-episode">
+        <div class="main-content">
+            <h1 id="episode-title">Kind Hearted to Heartless</h1>
+            <p id="episode-description">A journey from online gaming to real life love story. Coming Soon!</p>
+            <button id="read-now-btn">Read Now</button>
+        </div>
     </div>
 
-    <!-- Background fading images (auto transition) -->
-    <div class="background-fade" id="bg1" style="background-image: url('Images/episode1-cover.jpg');"></div>
-    <div class="background-fade" id="bg2" style="background-image: url('Images/fake-letter.png');"></div>
-    <div class="background-fade" id="bg3" style="background-image: url('Images/BTS.png');"></div>
+    <!-- More Episodes Section -->
+    <div class="more-episodes">
+        <h2>More Episodes</h2>
+        <div class="carousel" id="episodeCarousel">
+            <div class="episode">
+                <img src="Images/episode1-cover.jpg" alt="Episode 1 Cover">
+                <div class="episode-title">Kind Hearted to Heartless</div>
+                <div class="episode-description">A journey of love from gaming to real life. Coming soon!</div>
+                <button onclick="window.location.href='episode1.html'">Read Now</button>
+            </div>
 
-    <!-- Arrows for Navigation -->
-    <button class="arrow-left" onclick="scrollLeft()">&#10094;</button>
-    <button class="arrow-right" onclick="scrollRight()">&#10095;</button>
+            <div class="episode">
+                <img src="Images/two-faced.png" alt="Episode 2 Cover">
+                <div class="episode-title">Two-Faced</div>
+                <div class="episode-description">A story of love and societal pressures.</div>
+                <button onclick="window.location.href='episode2.html'">Read Now</button>
+            </div>
 
-    <!-- Episode Scrolling Carousel -->
-    <div class="carousel" id="episodeCarousel">
-        <!-- Episode 1 to Episode 9 -->
-        <!-- (Your episode cards remain the same here) -->
+            <div class="episode">
+                <img src="Images/rekindling.png" alt="Episode 3 Cover">
+                <div class="episode-title">Rekindling (Coming Soon)</div>
+                <div class="episode-description">Reconnecting after a separation. A story of hope.</div>
+                <button disabled>Coming Soon</button>
+            </div>
+
+            <div class="episode">
+                <img src="Images/fake-letter.png" alt="Episode 4 Cover">
+                <div class="episode-title">Fake Letter</div>
+                <div class="episode-description">Sending a letter to leave, sending a letter to restart.</div>
+                <button disabled>Coming Soon</button>
+            </div>
+
+            <div class="episode">
+                <img src="Images/BTS.png" alt="Episode 5 Cover">
+                <div class="episode-title">The Taxi - BTS</div>
+                <div class="episode-description">The shocking reveal. Coming Soon!</div>
+                <button disabled>Coming Soon</button>
+            </div>
+
+            <!-- Add more episodes here -->
+            <div class="episode">
+                <img src="Images/fake-promises.png" alt="Episode 6 Cover">
+                <div class="episode-title">Fake Promises</div>
+                <div class="episode-description">When there is true love, there can be no breaking up.</div>
+                <button onclick="window.location.href='episode6.html'">Read Now</button>
+            </div>
+
+            <div class="episode">
+                <img src="Images/meetup.png" alt="Episode 7 Cover">
+                <div class="episode-title">Unexpected Turns</div>
+                <div class="episode-description"> A trip to heal all the wounds and make a long lasting memories. Coming soon !</div>
+                <button onclick="window.location.href='episode7.html'">Read Now</button>
+            </div>
+
+            <div class="episode">
+                <img src="Images/snooping1.png" alt="Episode 8 Cover">
+                <div class="episode-title">Anguish</div>
+                <div class="episode-description">Snooping to get the real truth, but fell for the tears.Coming Soon! </div>
+                <button onclick="window.location.href='episode8.html'">Read Now</button>
+            </div>
+
+            <div class="episode">
+                <img src="Images/pleading.png" alt="Episode 9 Cover">
+                <div class="episode-title">Pleading</div>
+                <div class="episode-description">I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon !</div>
+                <button onclick="window.location.href='episode9.html'">Read Now</button>
+            </div>
+
+        </div>
     </div>
 
     <!-- Background Music -->
@@ -206,47 +282,78 @@
 
     <!-- JavaScript for background image fade, episode scroll, and music control -->
     <script>
-        // Background fading
-        let backgrounds = ['bg1', 'bg2', 'bg3'];
-        let currentBackground = 0;
-        function changeBackground() {
-            backgrounds.forEach((id, index) => {
-                document.getElementById(id).classList.remove('active');
-            });
-            currentBackground = (currentBackground + 1) % backgrounds.length;
-            document.getElementById(backgrounds[currentBackground]).classList.add('active');
-        }
-        setInterval(changeBackground, 30000); // Change every 30 seconds
-
-        // Episode scroll
-        const carousel = document.getElementById('episodeCarousel');
-        function scrollLeft() {
-            carousel.scrollBy({ left: -300, behavior: 'smooth' });
-        }
-        function scrollRight() {
-            carousel.scrollBy({ left: 300, behavior: 'smooth' });
-        }
-
-        // Background Music control
+        // Background music control
         const bgMusic = document.getElementById('bg-music');
-        const muteBtn = document.getElementById('mute-btn');
-        let isMuted = false;
+        const volumeSlider = document.getElementById('volume-slider');
 
-        // Play music on load
+        volumeSlider.addEventListener('input', (e) => {
+            bgMusic.volume = e.target.value;
+        });
+
         window.onload = function() {
             bgMusic.play();
+        };
+
+        // Fading between episodes for main section
+        const mainEpisode = document.getElementById('main-episode');
+        const episodeTitle = document.getElementById('episode-title');
+        const episodeDescription = document.getElementById('episode-description');
+        const readNowBtn = document.getElementById('read-now-btn');
+
+        const episodes = [
+            {
+                title: "Kind Hearted to Heartless",
+                description: "A journey from online gaming to real life love story.",
+                image: "Images/episode1-cover.jpg"
+            },
+            {
+                title: "Two-Faced",
+                description: "A story of love, business, and societal pressures.",
+                image: "Images/two-faced.png"
+            },
+            {
+                title: "Rekindling",
+                description: "Reconnecting after a long separation. A story of hope.",
+                image: "Images/rekindling.png"
+            },
+            {
+                title: "Fake Letter",
+                description: "Sending a letter to leave, sending a letter to restart.",
+                image: "Images/fake-letter.png"
+            },
+            {
+                title: "The Taxi - BTS",
+                description: "The shocking reveal.",
+                image: "Images/BTS.png"
+            },
+            // Add more episodes as needed
+        ];
+
+        let currentEpisodeIndex = 0;
+
+        function updateMainEpisode() {
+            const episode = episodes[currentEpisodeIndex];
+            mainEpisode.style.backgroundImage = `url(${episode.image})`;
+            episodeTitle.textContent = episode.title;
+            episodeDescription.textContent = episode.description;
         }
 
-        function toggleMute() {
-            if (isMuted) {
-                bgMusic.play();
-                muteBtn.innerHTML = "🔊";
-            } else {
-                bgMusic.pause();
-                muteBtn.innerHTML = "🔇";
-            }
-            isMuted = !isMuted;
+        function nextEpisode() {
+            currentEpisodeIndex = (currentEpisodeIndex + 1) % episodes.length;
+            updateMainEpisode();
         }
+
+        function previousEpisode() {
+            currentEpisodeIndex = (currentEpisodeIndex - 1 + episodes.length) % episodes.length;
+            updateMainEpisode();
+        }
+
+        // Automatically switch episodes every 5 seconds
+        setInterval(nextEpisode, 5000);
+
+        // Initialize the main episode display
+        updateMainEpisode();
     </script>
+
 </body>
 </html>
