@@ -34,8 +34,14 @@
             color: #E50914;
         }
 
+        .navbar .volume-controls {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
         .navbar .volume-slider {
-            appearance: none;
+            display: none;
             background: #E50914;
             width: 100px;
             height: 5px;
@@ -48,6 +54,17 @@
             margin-right: 10px;
         }
 
+        .volume-popup {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            left: 150px;
+        }
+
         /* Main episode section */
         .main-episode {
             position: relative;
@@ -55,12 +72,6 @@
             height: 600px;
             background-size: cover;
             background-position: center;
-            animation: fadeEpisode 1s ease-in-out;
-        }
-
-        @keyframes fadeEpisode {
-            from {opacity: 0;}
-            to {opacity: 1;}
         }
 
         .main-content {
@@ -113,8 +124,8 @@
             display: flex;
             overflow: hidden;
             white-space: nowrap;
-            padding: 10px;
-            transition: transform 1.2s ease-in-out; /* Slower carousel */
+            position: relative;
+            padding-bottom: 30px; /* Extra space for arrows */
         }
 
         .episode {
@@ -166,8 +177,32 @@
             background-color: #f40612;
         }
 
-        .carousel:hover {
-            animation-play-state: paused;
+        /* Arrows for Carousel */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 2em;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .carousel-arrow.left {
+            left: -40px;
+            bottom: 10px; /* Adjusted for next to More Episodes */
+        }
+
+        .carousel-arrow.right {
+            right: -40px;
+            bottom: 10px;
+        }
+
+        .carousel-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         /* Abstract Section */
@@ -189,38 +224,29 @@
             max-width: 800px;
             margin: 0 auto;
         }
-
-        /* Popup for volume adjustment */
-        #volume-popup {
-            position: absolute;
-            top: 5px;
-            left: 140px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            display: none;
-        }
     </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <div class="navbar">
-        <a href="#abstract">Abstract</a>
-        <a href="#">Home</a>
-        <div class="volume-icon" onclick="toggleMute()">🔊</div>
-        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
-        <div id="volume-popup">You can adjust the volume here.</div>
+        <div>
+            <a href="#abstract">Abstract</a>
+            <a href="#">Home</a>
+        </div>
+        <div class="volume-controls">
+            <div class="volume-icon" id="volume-icon">🔊</div>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+            <div class="volume-popup" id="volume-popup">You can adjust the volume here</div>
+        </div>
     </div>
 
     <!-- Main Episode Section -->
     <div class="main-episode" id="main-episode">
         <div class="main-content">
-            <h1 id="episode-title">Kind Hearted to Heartless</h1>
-            <p id="episode-description">"The journey of love from gaming to real life." - Gabriel García Márquez</p>
-            <button id="read-now-btn" onclick="window.location.href='episode1.html'">Read Now</button>
+            <h1 id="episode-title">Shared Adventure</h1>
+            <p id="episode-description">"A journey from online gaming to real life. The beginning of a long-distance relationship."</p>
+            <button id="read-now-btn">Read Now</button>
         </div>
     </div>
 
@@ -228,122 +254,117 @@
     <div class="more-episodes">
         <h2>More Episodes</h2>
         <div class="carousel" id="episodeCarousel">
-            <!-- Episode 1 to Episode 9 -->
+            <!-- Episode 1 -->
             <div class="episode">
                 <img src="Images/start.png" alt="Episode 1 Cover">
-                <div class="episode-title">Kind Hearted to Heartless</div>
-                <div class="episode-description">A journey of love from gaming to real life.</div>
+                <div class="episode-title">Shared Adventure</div>
+                <div class="episode-description">"A journey from online gaming to real life."</div>
                 <button onclick="window.location.href='episode1.html'">Read Now</button>
             </div>
 
+            <!-- Episode 2 -->
             <div class="episode">
                 <img src="Images/two-faced.png" alt="Episode 2 Cover">
                 <div class="episode-title">Two-Faced</div>
-                <div class="episode-description">A story of love, business, and societal pressures.</div>
+                <div class="episode-description">"A story of love, business, and societal pressures."</div>
                 <button onclick="window.location.href='episode2.html'">Read Now</button>
             </div>
 
+            <!-- Episode 3 -->
             <div class="episode">
                 <img src="Images/rekindling.png" alt="Episode 3 Cover">
-                <div class="episode-title">Rekindling (Coming Soon)</div>
-                <div class="episode-description">Reconnecting after a long separation. A story of hope.</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-title">Rekindling</div>
+                <div class="episode-description">"Reconnecting after a long separation. A story of hope."</div>
+                <button onclick="window.location.href='episode3.html'">Read Now</button>
             </div>
 
+            <!-- Episode 4 -->
             <div class="episode">
                 <img src="Images/fake-letter.png" alt="Episode 4 Cover">
                 <div class="episode-title">Fake Letter</div>
-                <div class="episode-description">Sending a letter to leave, sending a letter to restart.</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-description">"Sending a letter to leave, sending a letter to restart."</div>
+                <button onclick="window.location.href='episode4.html'">Read Now</button>
             </div>
 
+            <!-- Episode 5 -->
             <div class="episode">
                 <img src="Images/BTS.png" alt="Episode 5 Cover">
                 <div class="episode-title">The Taxi - BTS</div>
-                <div class="episode-description">The shocking reveal. Coming Soon!</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-description">"The shocking reveal."</div>
+                <button onclick="window.location.href='episode5.html'">Read Now</button>
             </div>
 
+            <!-- Episode 6 -->
             <div class="episode">
                 <img src="Images/fake-promises.png" alt="Episode 6 Cover">
                 <div class="episode-title">Fake Promises</div>
-                <div class="episode-description">When there is true love, there can be no breaking up.</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-description">"When there is true love, there can be no breaking up."</div>
+                <button onclick="window.location.href='episode6.html'">Read Now</button>
             </div>
 
+            <!-- Episode 7 -->
             <div class="episode">
                 <img src="Images/meetup.png" alt="Episode 7 Cover">
-                <div class="episode-title">Reunion</div>
-                <div class="episode-description">A trip to heal all wounds and make lasting memories.</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-title">The First Meetup</div>
+                <div class="episode-description">"A trip to heal all wounds and make lasting memories."</div>
+                <button onclick="window.location.href='episode7.html'">Read Now</button>
             </div>
 
+            <!-- Episode 8 -->
             <div class="episode">
                 <img src="Images/snooping1.png" alt="Episode 8 Cover">
                 <div class="episode-title">Anguish</div>
-                <div class="episode-description">Snooping for truth but fell for the tears.</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-description">"Snooping for truth but fell for the tears."</div>
+                <button onclick="window.location.href='episode8.html'">Read Now</button>
             </div>
 
+            <!-- Episode 9 -->
             <div class="episode">
                 <img src="Images/pleading.png" alt="Episode 9 Cover">
                 <div class="episode-title">Pleading</div>
-                <div class="episode-description">I can’t hate you for breaking my heart. Coming soon!</div>
-                <button disabled>Coming Soon</button>
+                <div class="episode-description">"I can’t hate you for breaking my heart."</div>
+                <button onclick="window.location.href='episode9.html'">Read Now</button>
             </div>
         </div>
-    </div>
 
-    <!-- Abstract Section -->
-    <div id="abstract">
-        <h2>Abstract</h2>
-        <p>
-            "Kind Hearted to Heartless" is not just a book; it is a journey through the raw and vulnerable realities of love, loss, and resilience. At the heart of this true story is a boy who, despite countless betrayals, holds onto his love with unwavering devotion. Each chapter reveals the deep emotional struggles of trying to mend what’s been broken, only to find that love is not always met with the same effort. His persistence, his belief that love could conquer all, and the emotional toll of loving someone who isn’t willing to fight the same battles forms the very essence of this narrative.
-            <br><br>
-            Shopliley, much like the story it shares, has transformed. No longer just a destination for material things, it has become a home for the intangible—the stories that live within us. Each episode is a piece of a real-life experience, unfolding like the pages of a diary that was never meant to be read. With every click, you turn the pages of an honest, heartfelt tale of a love that faced unimaginable trials but held on until the very end.
-        </p>
+        <!-- Arrows for Carousel -->
+        <button class="carousel-arrow left" id="left-arrow">‹</button>
+        <button class="carousel-arrow right" id="right-arrow">›</button>
     </div>
-
-    <!-- Popup for volume adjustment -->
-    <div id="volume-popup">You can adjust the volume here.</div>
 
     <!-- Background Music -->
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop autoplay>
         <source src="Sounds/bg.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    <!-- JavaScript for background image fade, episode scroll, and music control -->
+    <!-- JavaScript for volume control and carousel scrolling -->
     <script>
         // Background music control
         const bgMusic = document.getElementById('bg-music');
         const volumeSlider = document.getElementById('volume-slider');
+        const volumeIcon = document.getElementById('volume-icon');
         const volumePopup = document.getElementById('volume-popup');
 
-        volumeSlider.addEventListener('input', (e) => {
-            bgMusic.volume = e.target.value;
-        });
+        // Start music at 30% volume
+        bgMusic.volume = 0.3;
 
-        window.onload = function() {
-            bgMusic.volume = 0.3; // Start music at 30% volume
-            bgMusic.play();
+        // Show volume slider when clicking on the volume icon
+        volumeIcon.addEventListener('click', () => {
+            volumeSlider.style.display = volumeSlider.style.display === 'none' ? 'inline-block' : 'none';
+            volumePopup.style.display = 'inline-block';
             setTimeout(() => {
                 volumePopup.style.display = 'none';
-            }, 5000); // Hide the popup after 5 seconds
-        };
+            }, 5000);
+        });
 
-        // Show volume popup on load
-        window.onload = function() {
-            volumePopup.style.display = 'block';
-        };
+        // Volume slider control
+        volumeSlider.addEventListener('input', () => {
+            bgMusic.volume = volumeSlider.value;
+            volumeIcon.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
+        });
 
-        // Mute/Unmute toggle
-        function toggleMute() {
-            bgMusic.muted = !bgMusic.muted;
-            document.querySelector('.volume-icon').textContent = bgMusic.muted ? '🔇' : '🔊';
-        }
-
-        // Fading between episodes for main section
+        // Main Episode Scroll Handling
         const mainEpisode = document.getElementById('main-episode');
         const episodeTitle = document.getElementById('episode-title');
         const episodeDescription = document.getElementById('episode-description');
@@ -351,8 +372,8 @@
 
         const episodes = [
             {
-                title: "Kind Hearted to Heartless",
-                description: '"The journey of love from gaming to real life." - Gabriel García Márquez',
+                title: "Shared Adventure",
+                description: "A journey from online gaming to real life. The beginning of a long-distance relationship.",
                 backgroundImage: "Images/start.png",
                 link: "episode1.html"
             },
@@ -363,80 +384,101 @@
                 link: "episode2.html"
             },
             {
-                title: "Rekindling (Coming Soon)",
+                title: "Rekindling",
                 description: "Reconnecting after a long separation. A story of hope.",
                 backgroundImage: "Images/rekindling.png",
-                link: "#"
+                link: "episode3.html"
             },
             {
                 title: "Fake Letter",
                 description: "Sending a letter to leave, sending a letter to restart.",
                 backgroundImage: "Images/fake-letter.png",
-                link: "#"
+                link: "episode4.html"
             },
             {
                 title: "The Taxi - BTS",
                 description: "The shocking reveal.",
                 backgroundImage: "Images/BTS.png",
-                link: "#"
+                link: "episode5.html"
             },
             {
                 title: "Fake Promises",
                 description: "When there is true love, there can be no breaking up.",
                 backgroundImage: "Images/fake-promises.png",
-                link: "#"
+                link: "episode6.html"
             },
             {
-                title: "Reunion",
+                title: "The First Meetup",
                 description: "A trip to heal all wounds and make lasting memories.",
                 backgroundImage: "Images/meetup.png",
-                link: "#"
+                link: "episode7.html"
             },
             {
                 title: "Anguish",
                 description: "Snooping for truth but fell for the tears.",
                 backgroundImage: "Images/snooping1.png",
-                link: "#"
+                link: "episode8.html"
             },
             {
                 title: "Pleading",
-                description: "I can’t hate you for breaking my heart. Coming soon!",
+                description: "I can’t hate you for breaking my heart.",
                 backgroundImage: "Images/pleading.png",
-                link: "#"
+                link: "episode9.html"
             }
         ];
 
         let currentEpisode = 0;
-        function changeEpisode() {
+
+        function changeMainEpisode() {
             const { title, description, backgroundImage, link } = episodes[currentEpisode];
             mainEpisode.style.backgroundImage = `url(${backgroundImage})`;
             episodeTitle.textContent = title;
             episodeDescription.textContent = description;
-            readNowBtn.href = link;
+            readNowBtn.onclick = () => window.location.href = link;
 
             currentEpisode = (currentEpisode + 1) % episodes.length;
         }
 
-        setInterval(changeEpisode, 8000); // Change episode every 8 seconds
+        // Automatically change the main episode every 8 seconds
+        setInterval(changeMainEpisode, 8000);
 
-        // Carousel Scroll Handling
+        // Carousel Arrows
         const carousel = document.getElementById('episodeCarousel');
-        let scrollAmount = 0;
-        const scrollSpeed = 2;  // Adjust speed
-        let scrollDirection = 1;
+        const leftArrow = document.getElementById('left-arrow');
+        const rightArrow = document.getElementById('right-arrow');
 
-        setInterval(() => {
-            scrollAmount += scrollSpeed * scrollDirection;
-            if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth || scrollAmount <= 0) {
-                scrollDirection *= -1;
-            }
-            carousel.scrollLeft = scrollAmount;
-        }, 20); // Slow auto-scroll speed
-
-        // Handle manual scroll via mouse
-        carousel.addEventListener('wheel', (e) => {
-            carousel.scrollLeft += e.deltaY > 0 ? 300 : -300;  // Change scroll amount
+        // Scroll the carousel when arrows are clicked
+        leftArrow.addEventListener('click', () => {
+            carousel.scrollLeft -= 300;
         });
+
+        rightArrow.addEventListener('click', () => {
+            carousel.scrollLeft += 300;
+        });
+
+        // Infinite scrolling for the episode carousel with mouse
+        carousel.addEventListener('wheel', (e) => {
+            carousel.scrollLeft += e.deltaY > 0 ? 300 : -300;
+        });
+
+        // Mobile swipe handling for the carousel
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX) {
+                carousel.scrollLeft += 300;
+            } else if (touchEndX > touchStartX) {
+                carousel.scrollLeft -= 300;
+            }
+        });
+
     </script>
+
 </body>
 </html>

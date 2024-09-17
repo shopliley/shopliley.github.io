@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Updated Episode</title>
-    <!-- Include Google Font for Netflix-style title -->
+    <title>The Taxi - BTS - Episode 5</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -15,7 +14,6 @@
             padding: 0;
         }
 
-        /* Navigation bar */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -41,7 +39,7 @@
             font-size: 2em;
             font-weight: 700;
             font-family: 'Montserrat', sans-serif;
-            color: #E50914; /* Netflix red */
+            color: #E50914;
             letter-spacing: 0.05em;
         }
 
@@ -71,24 +69,16 @@
             color: #E50914;
         }
 
-        /* Episode content layout */
         .container {
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .episode-left {
-            flex: 1;
-            margin-right: 20px;
         }
 
         .episode-image img {
             width: 100%;
-            max-width: 300px;
+            max-width: 500px;
             height: auto;
             border-radius: 10px;
             margin-bottom: 10px;
@@ -98,18 +88,22 @@
             font-style: italic;
             color: #bbb;
             font-size: 1.2em;
-            text-align: left;
-            max-width: 300px;
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 30px;
         }
 
-        .episode-right {
-            flex: 2;
+        .episode-content {
+            max-width: 800px;
             text-align: justify;
+            line-height: 1.8em;
+            font-size: 1.2em;
         }
 
         h1 {
             color: #E50914;
             font-size: 2.5em;
+            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -132,37 +126,31 @@
             background-color: #f40612;
         }
 
-        /* Carousel for previous/next episode */
-        .carousel {
+        .episode-navigation {
             display: flex;
-            justify-content: center;
-            margin-top: 50px;
+            align-items: center;
+            margin-top: 30px;
         }
 
-        .carousel .episode-cover {
-            flex: 1;
-            text-align: center;
-            margin: 0 20px;
-        }
-
-        .carousel .episode-cover img {
-            width: 200px;
+        .episode-nav-image {
+            width: 120px;
             height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
+            margin-right: 15px;
         }
 
-        .carousel .episode-cover img:hover {
-            transform: scale(1.1);
+        .episode-nav-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
         }
 
-        .carousel .episode-title {
-            margin-top: 10px;
-            font-size: 1.2em;
-            color: #fff;
+        .previous-episode {
+            justify-content: flex-start;
         }
 
+        .next-episode {
+            justify-content: flex-end;
+        }
     </style>
 </head>
 <body>
@@ -180,46 +168,54 @@
         </div>
     </div>
 
-    <!-- Episode Content Layout -->
+    <!-- Episode Content -->
     <div class="container">
-        <!-- Left Side: Image and Quote -->
-        <div class="episode-left">
-            <div class="episode-image">
-                <img src="Images/start.png" alt="Kind Hearted to Heartless">
-            </div>
-            <div class="episode-quote">
-                "Love doesn't make the world go 'round. Love is what makes the ride worthwhile." – Franklin P. Jones
-            </div>
+        <!-- Episode Image -->
+        <div class="episode-image">
+            <img src="Images/BTS.png" alt="The Taxi - BTS">
         </div>
 
-        <!-- Right Side: Episode Content -->
-        <div class="episode-right">
-            <h1>Shared Adventure</h1>
-            <p>
-                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
+        <!-- Episode Quote -->
+        <div class="episode-quote">
+            "Truth is like the sun. You can shut it out for a time, but it ain't goin' away. – Elvis Presley"
+        </div>
+
+        <!-- Episode Text Content -->
+        <div class="episode-content">
+            <h1>The Taxi - BTS</h1>
+            <p id="episode-text">
+                Coming Soon. Discover the shocking reveal...
             </p>
+            <!-- Add more content here -->
 
             <!-- Buttons -->
             <div class="buttons">
                 <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
+                <button class="button" id="tts-button">🔊 Read Aloud</button>
             </div>
         </div>
     </div>
 
-    <!-- Previous/Next Episode Carousel -->
-    <div class="carousel">
-        <div class="episode-cover">
-            <a href="episode2.html">
-                <img src="Images/two-faced.png" alt="Two-Faced">
-                <div class="episode-title">Previous Episode: Two-Faced</div>
-            </a>
+    <!-- Navigation for Previous/Next Episodes -->
+    <div class="container">
+        
+    <div class="episode-navigation previous-episode">
+        <img src="Images/fake-letter.png" alt="Episode 4 Cover" class="episode-nav-image">
+        <div class="episode-nav-content">
+            <div class="episode-nav-title">Fake Letter</div>
+            <button onclick="window.location.href='episode4.html'" class="button">Read Now</button>
         </div>
-        <div class="episode-cover">
-            <a href="episode3.html">
-                <img src="Images/rekindling.png" alt="Rekindling">
-                <div class="episode-title">Next Episode: Rekindling</div>
-            </a>
+    </div>
+    
+        
+    <div class="episode-navigation next-episode">
+        <img src="Images/fake-promises.png" alt="Episode 6 Cover" class="episode-nav-image">
+        <div class="episode-nav-content">
+            <div class="episode-nav-title">Fake Promises</div>
+            <button onclick="window.location.href='episode6.html'" class="button">Read Now</button>
         </div>
+    </div>
+    
     </div>
 
     <!-- Background Music -->
@@ -228,23 +224,16 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- JavaScript for music control -->
+    <!-- JavaScript for music control and text-to-speech -->
     <script>
-        // Background music control
         const bgMusic = document.getElementById('bg-music');
         const volumeSlider = document.getElementById('volume-slider');
         const muteButton = document.getElementById('mute-button');
-
-        // Set initial volume to 30%
         bgMusic.volume = 0.3;
 
         volumeSlider.addEventListener('input', (e) => {
             bgMusic.volume = e.target.value;
-            if (bgMusic.volume == 0) {
-                muteButton.textContent = '🔇';
-            } else {
-                muteButton.textContent = '🔊';
-            }
+            muteButton.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
         });
 
         muteButton.addEventListener('click', () => {
@@ -252,12 +241,45 @@
             muteButton.textContent = bgMusic.muted ? '🔇' : '🔊';
         });
 
-        // Attempt to play background music on page load
         window.onload = function() {
             bgMusic.play().catch(() => {
-                // Autoplay might be blocked; handle if necessary
+                // Handle autoplay block
             });
         };
+
+        const ttsButton = document.getElementById('tts-button');
+        const episodeTextElement = document.getElementById('episode-text');
+        const episodeText = episodeTextElement.textContent;
+        let speechSynthesisUtterance;
+        let isSpeaking = false;
+
+        ttsButton.addEventListener('click', () => {
+            if ('speechSynthesis' in window) {
+                if (!isSpeaking) {
+                    speechSynthesis.cancel();
+                    speechSynthesisUtterance = new SpeechSynthesisUtterance(episodeText);
+                    speechSynthesisUtterance.rate = 1;
+                    speechSynthesis.speak(speechSynthesisUtterance);
+                    ttsButton.textContent = '⏸ Pause';
+                    isSpeaking = true;
+
+                    speechSynthesisUtterance.onend = () => {
+                        ttsButton.textContent = '🔊 Read Aloud';
+                        isSpeaking = false;
+                    };
+                } else {
+                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                        speechSynthesis.pause();
+                        ttsButton.textContent = '▶️ Resume';
+                    } else if (speechSynthesis.paused) {
+                        speechSynthesis.resume();
+                        ttsButton.textContent = '⏸ Pause';
+                    }
+                }
+            } else {
+                alert('Sorry, your browser does not support text-to-speech.');
+            }
+        });
     </script>
 
 </body>
