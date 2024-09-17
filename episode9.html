@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pleading - Episode 9</title>
+    <title>Updated Episode</title>
     <!-- Include Google Font for Netflix-style title -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -70,43 +71,45 @@
             color: #E50914;
         }
 
-        /* Episode content */
+        /* Episode content layout */
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
             padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .episode-left {
+            flex: 1;
+            margin-right: 20px;
         }
 
         .episode-image img {
             width: 100%;
-            max-width: 500px;
+            max-width: 300px;
             height: auto;
             border-radius: 10px;
             margin-bottom: 10px;
         }
 
-        /* Quote styling */
         .episode-quote {
             font-style: italic;
             color: #bbb;
             font-size: 1.2em;
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 30px;
+            text-align: left;
+            max-width: 300px;
         }
 
-        .episode-content {
-            max-width: 800px;
+        .episode-right {
+            flex: 2;
             text-align: justify;
-            line-height: 1.8em;
-            font-size: 1.2em;
         }
 
         h1 {
             color: #E50914;
             font-size: 2.5em;
-            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -128,6 +131,38 @@
         .button:hover {
             background-color: #f40612;
         }
+
+        /* Carousel for previous/next episode */
+        .carousel {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .carousel .episode-cover {
+            flex: 1;
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .carousel .episode-cover img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .carousel .episode-cover img:hover {
+            transform: scale(1.1);
+        }
+
+        .carousel .episode-title {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -145,31 +180,45 @@
         </div>
     </div>
 
-    <!-- Episode Content -->
+    <!-- Episode Content Layout -->
     <div class="container">
-        <!-- Episode Image -->
-        <div class="episode-image">
-            <img src="Images/pleading.png" alt="Pleading">
+        <!-- Left Side: Image and Quote -->
+        <div class="episode-left">
+            <div class="episode-image">
+                <img src="Images/start.png" alt="Kind Hearted to Heartless">
+            </div>
+            <div class="episode-quote">
+                "Love doesn't make the world go 'round. Love is what makes the ride worthwhile." – Franklin P. Jones
+            </div>
         </div>
 
-        <!-- Episode Quote -->
-        <div class="episode-quote">
-            "I can't hate you for breaking my heart because I loved you too much to ever stop." – Anonymous
-        </div>
-
-        <!-- Episode Text Content -->
-        <div class="episode-content">
-            <h1>Pleading</h1>
-            <p id="episode-text">
-                Coming Soon. Experience the raw emotions of love, loss, and the desperate attempts to hold onto what's slipping away.
+        <!-- Right Side: Episode Content -->
+        <div class="episode-right">
+            <h1>Shared Adventure</h1>
+            <p>
+                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
             </p>
-            <!-- Add more content here -->
 
             <!-- Buttons -->
             <div class="buttons">
                 <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
-                <button class="button" id="tts-button">🔊 Read Aloud</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Previous/Next Episode Carousel -->
+    <div class="carousel">
+        <div class="episode-cover">
+            <a href="episode2.html">
+                <img src="Images/two-faced.png" alt="Two-Faced">
+                <div class="episode-title">Previous Episode: Two-Faced</div>
+            </a>
+        </div>
+        <div class="episode-cover">
+            <a href="episode3.html">
+                <img src="Images/rekindling.png" alt="Rekindling">
+                <div class="episode-title">Next Episode: Rekindling</div>
+            </a>
         </div>
     </div>
 
@@ -179,7 +228,7 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- JavaScript for music control and text-to-speech -->
+    <!-- JavaScript for music control -->
     <script>
         // Background music control
         const bgMusic = document.getElementById('bg-music');
@@ -191,7 +240,11 @@
 
         volumeSlider.addEventListener('input', (e) => {
             bgMusic.volume = e.target.value;
-            muteButton.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
+            if (bgMusic.volume == 0) {
+                muteButton.textContent = '🔇';
+            } else {
+                muteButton.textContent = '🔊';
+            }
         });
 
         muteButton.addEventListener('click', () => {
@@ -205,41 +258,6 @@
                 // Autoplay might be blocked; handle if necessary
             });
         };
-
-        // Text-to-Speech functionality
-        const ttsButton = document.getElementById('tts-button');
-        const episodeTextElement = document.getElementById('episode-text');
-        const episodeText = episodeTextElement.textContent;
-        let speechSynthesisUtterance;
-        let isSpeaking = false;
-
-        ttsButton.addEventListener('click', () => {
-            if ('speechSynthesis' in window) {
-                if (!isSpeaking) {
-                    speechSynthesis.cancel();
-                    speechSynthesisUtterance = new SpeechSynthesisUtterance(episodeText);
-                    speechSynthesisUtterance.rate = 1;
-                    speechSynthesis.speak(speechSynthesisUtterance);
-                    ttsButton.textContent = '⏸ Pause';
-                    isSpeaking = true;
-
-                    speechSynthesisUtterance.onend = () => {
-                        ttsButton.textContent = '🔊 Read Aloud';
-                        isSpeaking = false;
-                    };
-                } else {
-                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                        speechSynthesis.pause();
-                        ttsButton.textContent = '▶️ Resume';
-                    } else if (speechSynthesis.paused) {
-                        speechSynthesis.resume();
-                        ttsButton.textContent = '⏸ Pause';
-                    }
-                }
-            } else {
-                alert('Sorry, your browser does not support text-to-speech.');
-            }
-        });
     </script>
 
 </body>

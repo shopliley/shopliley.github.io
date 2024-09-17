@@ -1,13 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The Taxi - BTS - Episode 5</title>
+    <title>Updated Episode</title>
     <!-- Include Google Font for Netflix-style title -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Include the same CSS as in previous episodes */
-        /* Copy the entire CSS from Episode 4 here */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #141414;
@@ -16,19 +15,160 @@
             padding: 0;
         }
 
-        /* (Rest of the CSS remains the same as Episode 4) */
-
         /* Navigation bar */
-        /* ... */
-        /* (Copy all CSS styles from Episode 4) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #111;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            color: #E50914;
+        }
+
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: #E50914; /* Netflix red */
+            letter-spacing: 0.05em;
+        }
+
+        .navbar .volume-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .volume-slider {
+            appearance: none;
+            background: #E50914;
+            width: 100px;
+            height: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .navbar .mute-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .navbar .mute-button:hover {
+            color: #E50914;
+        }
+
+        /* Episode content layout */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .episode-left {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .episode-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .episode-quote {
+            font-style: italic;
+            color: #bbb;
+            font-size: 1.2em;
+            text-align: left;
+            max-width: 300px;
+        }
+
+        .episode-right {
+            flex: 2;
+            text-align: justify;
+        }
+
+        h1 {
+            color: #E50914;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .button {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .button:hover {
+            background-color: #f40612;
+        }
+
+        /* Carousel for previous/next episode */
+        .carousel {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .carousel .episode-cover {
+            flex: 1;
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .carousel .episode-cover img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .carousel .episode-cover img:hover {
+            transform: scale(1.1);
+        }
+
+        .carousel .episode-title {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
-    <!-- Copy the navigation bar code from Episode 4 -->
     <div class="navbar">
-        <!-- ... (Same as previous episodes) ... -->
         <div>
             <a href="abstract.html">Abstract</a>
             <a href="index.html">Home</a>
@@ -40,55 +180,71 @@
         </div>
     </div>
 
-    <!-- Episode Content -->
+    <!-- Episode Content Layout -->
     <div class="container">
-        <!-- Episode Image -->
-        <div class="episode-image">
-            <img src="Images/BTS.png" alt="The Taxi - BTS">
+        <!-- Left Side: Image and Quote -->
+        <div class="episode-left">
+            <div class="episode-image">
+                <img src="Images/start.png" alt="Kind Hearted to Heartless">
+            </div>
+            <div class="episode-quote">
+                "Love doesn't make the world go 'round. Love is what makes the ride worthwhile." – Franklin P. Jones
+            </div>
         </div>
 
-        <!-- Episode Quote -->
-        <div class="episode-quote">
-            "Truth is like the sun. You can shut it out for a time, but it ain't goin' away." – Elvis Presley
-        </div>
-
-        <!-- Episode Text Content -->
-        <div class="episode-content">
-            <h1>The Taxi - BTS</h1>
-            <p id="episode-text">
-                Coming Soon. Discover the shocking reveal in this episode, where hidden truths come to light in the most unexpected ways.
+        <!-- Right Side: Episode Content -->
+        <div class="episode-right">
+            <h1>Shared Adventure</h1>
+            <p>
+                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
             </p>
-            <!-- Add more content here -->
 
             <!-- Buttons -->
             <div class="buttons">
                 <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
-                <button class="button" id="tts-button">🔊 Read Aloud</button>
             </div>
         </div>
     </div>
 
+    <!-- Previous/Next Episode Carousel -->
+    <div class="carousel">
+        <div class="episode-cover">
+            <a href="episode2.html">
+                <img src="Images/two-faced.png" alt="Two-Faced">
+                <div class="episode-title">Previous Episode: Two-Faced</div>
+            </a>
+        </div>
+        <div class="episode-cover">
+            <a href="episode3.html">
+                <img src="Images/rekindling.png" alt="Rekindling">
+                <div class="episode-title">Next Episode: Rekindling</div>
+            </a>
+        </div>
+    </div>
+
     <!-- Background Music -->
-    <!-- Copy the background music code from Episode 4 -->
     <audio id="bg-music" loop autoplay>
         <source src="Sounds/bg.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    <!-- JavaScript for music control and text-to-speech -->
-    <!-- Copy the JavaScript code from Episode 4 -->
+    <!-- JavaScript for music control -->
     <script>
         // Background music control
-        // ... (Same as previous episodes)
         const bgMusic = document.getElementById('bg-music');
         const volumeSlider = document.getElementById('volume-slider');
         const muteButton = document.getElementById('mute-button');
 
+        // Set initial volume to 30%
         bgMusic.volume = 0.3;
 
         volumeSlider.addEventListener('input', (e) => {
             bgMusic.volume = e.target.value;
-            muteButton.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
+            if (bgMusic.volume == 0) {
+                muteButton.textContent = '🔇';
+            } else {
+                muteButton.textContent = '🔊';
+            }
         });
 
         muteButton.addEventListener('click', () => {
@@ -96,47 +252,12 @@
             muteButton.textContent = bgMusic.muted ? '🔇' : '🔊';
         });
 
+        // Attempt to play background music on page load
         window.onload = function() {
             bgMusic.play().catch(() => {
-                // Handle autoplay block
+                // Autoplay might be blocked; handle if necessary
             });
         };
-
-        // Text-to-Speech functionality
-        const ttsButton = document.getElementById('tts-button');
-        const episodeTextElement = document.getElementById('episode-text');
-        const episodeText = episodeTextElement.textContent;
-        let speechSynthesisUtterance;
-        let isSpeaking = false;
-
-        ttsButton.addEventListener('click', () => {
-            // Same as previous episodes
-            if ('speechSynthesis' in window) {
-                if (!isSpeaking) {
-                    speechSynthesis.cancel();
-                    speechSynthesisUtterance = new SpeechSynthesisUtterance(episodeText);
-                    speechSynthesisUtterance.rate = 1;
-                    speechSynthesis.speak(speechSynthesisUtterance);
-                    ttsButton.textContent = '⏸ Pause';
-                    isSpeaking = true;
-
-                    speechSynthesisUtterance.onend = () => {
-                        ttsButton.textContent = '🔊 Read Aloud';
-                        isSpeaking = false;
-                    };
-                } else {
-                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                        speechSynthesis.pause();
-                        ttsButton.textContent = '▶️ Resume';
-                    } else if (speechSynthesis.paused) {
-                        speechSynthesis.resume();
-                        ttsButton.textContent = '⏸ Pause';
-                    }
-                }
-            } else {
-                alert('Sorry, your browser does not support text-to-speech.');
-            }
-        });
     </script>
 
 </body>

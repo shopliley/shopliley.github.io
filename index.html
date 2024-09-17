@@ -69,16 +69,21 @@
             left: 50px;
             z-index: 10;
             text-align: left;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
         }
 
         .main-content h1 {
             font-size: 4em;
             margin-bottom: 10px;
+            color: white;
         }
 
         .main-content p {
             font-size: 1.5em;
             margin-bottom: 20px;
+            color: white;
         }
 
         .main-content button {
@@ -214,8 +219,8 @@
     <div class="main-episode" id="main-episode">
         <div class="main-content">
             <h1 id="episode-title">Kind Hearted to Heartless</h1>
-            <p id="episode-description">A journey from online gaming to real life love story. Coming Soon!</p>
-            <button id="read-now-btn">Read Now</button>
+            <p id="episode-description">"The journey of love from gaming to real life." - Gabriel García Márquez</p>
+            <button id="read-now-btn" onclick="window.location.href='episode1.html'">Read Now</button>
         </div>
     </div>
 
@@ -227,7 +232,7 @@
             <div class="episode">
                 <img src="Images/start.png" alt="Episode 1 Cover">
                 <div class="episode-title">Kind Hearted to Heartless</div>
-                <div class="episode-description">A journey of love from gaming to real life. Coming soon!</div>
+                <div class="episode-description">A journey of love from gaming to real life.</div>
                 <button onclick="window.location.href='episode1.html'">Read Now</button>
             </div>
 
@@ -347,7 +352,7 @@
         const episodes = [
             {
                 title: "Kind Hearted to Heartless",
-                description: "A journey from online gaming to real life love story. Coming Soon!",
+                description: '"The journey of love from gaming to real life." - Gabriel García Márquez',
                 backgroundImage: "Images/start.png",
                 link: "episode1.html"
             },
@@ -412,7 +417,26 @@
             currentEpisode = (currentEpisode + 1) % episodes.length;
         }
 
-        setInterval(changeEpisode, 20000); // Change episode every 20 seconds
+        setInterval(changeEpisode, 8000); // Change episode every 8 seconds
+
+        // Carousel Scroll Handling
+        const carousel = document.getElementById('episodeCarousel');
+        let scrollAmount = 0;
+        const scrollSpeed = 2;  // Adjust speed
+        let scrollDirection = 1;
+
+        setInterval(() => {
+            scrollAmount += scrollSpeed * scrollDirection;
+            if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth || scrollAmount <= 0) {
+                scrollDirection *= -1;
+            }
+            carousel.scrollLeft = scrollAmount;
+        }, 20); // Slow auto-scroll speed
+
+        // Handle manual scroll via mouse
+        carousel.addEventListener('wheel', (e) => {
+            carousel.scrollLeft += e.deltaY > 0 ? 300 : -300;  // Change scroll amount
+        });
     </script>
 </body>
 </html>

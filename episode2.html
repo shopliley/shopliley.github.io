@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Two-Faced - Episode 2</title>
+    <title>Updated Episode</title>
     <!-- Include Google Font for Netflix-style title -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -70,43 +71,45 @@
             color: #E50914;
         }
 
-        /* Episode content */
+        /* Episode content layout */
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
             padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .episode-left {
+            flex: 1;
+            margin-right: 20px;
         }
 
         .episode-image img {
             width: 100%;
-            max-width: 500px;
+            max-width: 300px;
             height: auto;
             border-radius: 10px;
             margin-bottom: 10px;
         }
 
-        /* Quote styling */
         .episode-quote {
             font-style: italic;
             color: #bbb;
             font-size: 1.2em;
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 30px;
+            text-align: left;
+            max-width: 300px;
         }
 
-        .episode-content {
-            max-width: 800px;
+        .episode-right {
+            flex: 2;
             text-align: justify;
-            line-height: 1.8em;
-            font-size: 1.2em;
         }
 
         h1 {
             color: #E50914;
             font-size: 2.5em;
-            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -128,6 +131,38 @@
         .button:hover {
             background-color: #f40612;
         }
+
+        /* Carousel for previous/next episode */
+        .carousel {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .carousel .episode-cover {
+            flex: 1;
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .carousel .episode-cover img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .carousel .episode-cover img:hover {
+            transform: scale(1.1);
+        }
+
+        .carousel .episode-title {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -145,33 +180,45 @@
         </div>
     </div>
 
-    <!-- Episode Content -->
+    <!-- Episode Content Layout -->
     <div class="container">
-        <!-- Episode Image -->
-        <div class="episode-image">
-            <img src="Images/two-faced.png" alt="Two-Faced">
+        <!-- Left Side: Image and Quote -->
+        <div class="episode-left">
+            <div class="episode-image">
+                <img src="Images/start.png" alt="Kind Hearted to Heartless">
+            </div>
+            <div class="episode-quote">
+                "Love doesn't make the world go 'round. Love is what makes the ride worthwhile." – Franklin P. Jones
+            </div>
         </div>
 
-        <!-- Episode Quote -->
-        <div class="episode-quote">
-            "What goes around comes around, and the world is surprisingly small." – Anonymous
-        </div>
-
-        <!-- Episode Text Content -->
-        <div class="episode-content">
-            <h1>Two-Faced</h1>
-            <p id="episode-text">
-                We always used to play together. When we were not in games, we used to be on call 24 hours. She had also started her small business which was going good. I was doing good with my studies. We were seeing the future together. But, her parents did not want us to talk as our caste was different. Even though we ignored it, we loved each other. Our calls used to be at least 12 hours on average. Even when we did not talk, the call was on.
-            </p>
+        <!-- Right Side: Episode Content -->
+        <div class="episode-right">
+            <h1>Shared Adventure</h1>
             <p>
-                Later, we decided to team up to grow her business. We took a risk by sourcing products from China. We both invested in it, though the cost was higher than expected. But when the product arrived, we were happy and named the business "3011" after our matching birthdates. However, as time passed, her family’s pressure increased. We had to make the tough decision to stay friends, trying to avoid further pain while still holding on to our business partnership.
+                I used to play an online game called PUBG. I used to be on YouTube livestream. One day, my friend told me that there was a girl who always asked about me. Then one day, we played together. After that day, we became friends. Later, she requested to be my partner in the game. We always played together. Slowly, we started talking on social media. We started calling each other "babe." This is how our long-distance relationship started.
             </p>
 
             <!-- Buttons -->
             <div class="buttons">
                 <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
-                <button class="button" id="tts-button">🔊 Read Aloud</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Previous/Next Episode Carousel -->
+    <div class="carousel">
+        <div class="episode-cover">
+            <a href="episode2.html">
+                <img src="Images/two-faced.png" alt="Two-Faced">
+                <div class="episode-title">Previous Episode: Two-Faced</div>
+            </a>
+        </div>
+        <div class="episode-cover">
+            <a href="episode3.html">
+                <img src="Images/rekindling.png" alt="Rekindling">
+                <div class="episode-title">Next Episode: Rekindling</div>
+            </a>
         </div>
     </div>
 
@@ -181,7 +228,7 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- JavaScript for music control and text-to-speech -->
+    <!-- JavaScript for music control -->
     <script>
         // Background music control
         const bgMusic = document.getElementById('bg-music');
@@ -211,43 +258,6 @@
                 // Autoplay might be blocked; handle if necessary
             });
         };
-
-        // Text-to-Speech functionality
-        const ttsButton = document.getElementById('tts-button');
-        const episodeTextElement = document.getElementById('episode-text');
-        const episodeText = episodeTextElement.textContent + episodeTextElement.nextElementSibling.textContent;
-        let speechSynthesisUtterance;
-        let isSpeaking = false;
-
-        ttsButton.addEventListener('click', () => {
-            if ('speechSynthesis' in window) {
-                if (!isSpeaking) {
-                    // Start speaking
-                    speechSynthesis.cancel(); // Cancel any ongoing speech
-                    speechSynthesisUtterance = new SpeechSynthesisUtterance(episodeText);
-                    speechSynthesisUtterance.rate = 1; // Adjust speaking rate
-                    speechSynthesis.speak(speechSynthesisUtterance);
-                    ttsButton.textContent = '⏸ Pause';
-                    isSpeaking = true;
-
-                    speechSynthesisUtterance.onend = () => {
-                        ttsButton.textContent = '🔊 Read Aloud';
-                        isSpeaking = false;
-                    };
-                } else {
-                    // Pause or resume speaking
-                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                        speechSynthesis.pause();
-                        ttsButton.textContent = '▶️ Resume';
-                    } else if (speechSynthesis.paused) {
-                        speechSynthesis.resume();
-                        ttsButton.textContent = '⏸ Pause';
-                    }
-                }
-            } else {
-                alert('Sorry, your browser does not support text-to-speech.');
-            }
-        });
     </script>
 
 </body>
