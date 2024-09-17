@@ -19,6 +19,7 @@
         .navbar {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 10px 20px;
             background-color: #111;
         }
@@ -34,13 +35,38 @@
             color: #E50914;
         }
 
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar .volume-controls {
+            display: flex;
+            align-items: center;
+        }
+
         .navbar .volume-slider {
             appearance: none;
             background: #E50914;
             width: 100px;
             height: 5px;
             cursor: pointer;
-            margin-top: 7px;
+            margin-left: 10px;
+        }
+
+        .navbar .mute-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .navbar .mute-button:hover {
+            color: #E50914;
         }
 
         /* Main episode section */
@@ -100,14 +126,9 @@
 
         .carousel {
             display: flex;
-            overflow-x: scroll;
+            overflow-x: hidden;
             scroll-behavior: smooth;
             padding: 10px;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel::-webkit-scrollbar {
-            display: none;
         }
 
         .episode {
@@ -158,31 +179,6 @@
             background-color: #f40612;
         }
 
-        /* Arrows for navigation */
-        .arrow-left, .arrow-right {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            font-size: 2em;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .arrow-left {
-            left: 10px;
-        }
-
-        .arrow-right {
-            right: 10px;
-        }
-
-        .arrow-left:hover, .arrow-right:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
     </style>
 </head>
 <body>
@@ -190,8 +186,11 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <a href="abstract.html">Abstract</a>
-        <a href="#">Home</a>
-        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="1">
+        <div class="title">Heartless</div>
+        <div class="volume-controls">
+            <button class="mute-button" id="mute-button">🔊</button>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+        </div>
     </div>
 
     <!-- Main Episode Section -->
@@ -208,7 +207,7 @@
         <h2>More Episodes</h2>
         <div class="carousel" id="episodeCarousel">
             <div class="episode">
-                <img src="Images/episode1-cover.jpg" alt="Episode 1 Cover">
+                <img src="Images/start.png" alt="Episode 1 Cover">
                 <div class="episode-title">Kind Hearted to Heartless</div>
                 <div class="episode-description">A journey of love from gaming to real life. Coming soon!</div>
                 <button onclick="window.location.href='episode1.html'">Read Now</button>
@@ -242,7 +241,6 @@
                 <button disabled>Coming Soon</button>
             </div>
 
-            <!-- Add more episodes here -->
             <div class="episode">
                 <img src="Images/fake-promises.png" alt="Episode 6 Cover">
                 <div class="episode-title">Fake Promises</div>
@@ -253,24 +251,23 @@
             <div class="episode">
                 <img src="Images/meetup.png" alt="Episode 7 Cover">
                 <div class="episode-title">Unexpected Turns</div>
-                <div class="episode-description"> A trip to heal all the wounds and make a long lasting memories. Coming soon !</div>
+                <div class="episode-description">A trip to heal all the wounds and make a long-lasting memory. Coming soon!</div>
                 <button onclick="window.location.href='episode7.html'">Read Now</button>
             </div>
 
             <div class="episode">
                 <img src="Images/snooping1.png" alt="Episode 8 Cover">
                 <div class="episode-title">Anguish</div>
-                <div class="episode-description">Snooping to get the real truth, but fell for the tears.Coming Soon! </div>
+                <div class="episode-description">Snooping to get the real truth, but fell for the tears. Coming Soon!</div>
                 <button onclick="window.location.href='episode8.html'">Read Now</button>
             </div>
 
             <div class="episode">
                 <img src="Images/pleading.png" alt="Episode 9 Cover">
                 <div class="episode-title">Pleading</div>
-                <div class="episode-description">I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon !</div>
+                <div class="episode-description">I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon!</div>
                 <button onclick="window.location.href='episode9.html'">Read Now</button>
             </div>
-
         </div>
     </div>
 
@@ -285,9 +282,23 @@
         // Background music control
         const bgMusic = document.getElementById('bg-music');
         const volumeSlider = document.getElementById('volume-slider');
+        const muteButton = document.getElementById('mute-button');
+
+        // Set initial volume to 30%
+        bgMusic.volume = 0.3;
 
         volumeSlider.addEventListener('input', (e) => {
             bgMusic.volume = e.target.value;
+            if (bgMusic.volume == 0) {
+                muteButton.textContent = '🔇';
+            } else {
+                muteButton.textContent = '🔊';
+            }
+        });
+
+        muteButton.addEventListener('click', () => {
+            bgMusic.muted = !bgMusic.muted;
+            muteButton.textContent = bgMusic.muted ? '🔇' : '🔊';
         });
 
         window.onload = function() {
@@ -304,7 +315,7 @@
             {
                 title: "Kind Hearted to Heartless",
                 description: "A journey from online gaming to real life love story.",
-                image: "Images/episode1-cover.jpg"
+                image: "Images/start.png"
             },
             {
                 title: "Two-Faced",
@@ -326,7 +337,26 @@
                 description: "The shocking reveal.",
                 image: "Images/BTS.png"
             },
-            // Add more episodes as needed
+            {
+                title: "Fake Promises",
+                description: "When there is true love, there can be no breaking up.",
+                image: "Images/fake-promises.png"
+            },
+            {
+                title: "Unexpected Turns",
+                description: "A trip to heal all the wounds and make a long-lasting memory. Coming soon!",
+                image: "Images/meetup.png"
+            },
+            {
+                title: "Anguish",
+                description: "Snooping to get the real truth, but fell for the tears. Coming Soon!",
+                image: "Images/snooping1.png"
+            },
+            {
+                title: "Pleading",
+                description: "I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon!",
+                image: "Images/pleading.png"
+            }
         ];
 
         let currentEpisodeIndex = 0;
@@ -348,11 +378,36 @@
             updateMainEpisode();
         }
 
-        // Automatically switch episodes every 5 seconds
-        setInterval(nextEpisode, 5000);
+        // Automatically switch episodes every 30 seconds
+        setInterval(nextEpisode, 30000);
 
         // Initialize the main episode display
         updateMainEpisode();
+
+        // Automatic scrolling for the carousel
+        const carousel = document.getElementById('episodeCarousel');
+        let scrollInterval;
+
+        function startAutoScroll() {
+            scrollInterval = setInterval(() => {
+                if (carousel.scrollLeft < (carousel.scrollWidth - carousel.clientWidth)) {
+                    carousel.scrollLeft += 1;
+                } else {
+                    carousel.scrollLeft = 0;
+                }
+            }, 50); // Adjust speed as needed
+        }
+
+        carousel.addEventListener('mouseover', () => {
+            clearInterval(scrollInterval);
+        });
+
+        carousel.addEventListener('mouseout', () => {
+            startAutoScroll();
+        });
+
+        // Start auto-scrolling when the page loads
+        startAutoScroll();
     </script>
 
 </body>
