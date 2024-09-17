@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Anguish - Episode 8</title>
+    <title>Abstract - Heartless</title>
     <!-- Include Google Font for Netflix-style title -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -70,34 +70,11 @@
             color: #E50914;
         }
 
-        /* Episode content */
+        /* Abstract content */
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
-        .episode-image img {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        /* Quote styling */
-        .episode-quote {
-            font-style: italic;
-            color: #bbb;
-            font-size: 1.2em;
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-
-        .episode-content {
             max-width: 800px;
+            margin: 60px auto;
+            padding: 20px;
             text-align: justify;
             line-height: 1.8em;
             font-size: 1.2em;
@@ -105,15 +82,14 @@
 
         h1 {
             color: #E50914;
-            font-size: 2.5em;
+            font-size: 3em;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .buttons {
             margin-top: 30px;
-            display: flex;
-            gap: 20px;
+            text-align: center;
         }
 
         .button {
@@ -123,6 +99,7 @@
             padding: 12px 24px;
             cursor: pointer;
             font-size: 1em;
+            margin: 0 10px;
         }
 
         .button:hover {
@@ -135,7 +112,6 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <div>
-            <a href="abstract.html">Abstract</a>
             <a href="index.html">Home</a>
         </div>
         <div class="title">Heartless</div>
@@ -145,31 +121,28 @@
         </div>
     </div>
 
-    <!-- Episode Content -->
+    <!-- Abstract Content -->
     <div class="container">
-        <!-- Episode Image -->
-        <div class="episode-image">
-            <img src="Images/snooping1.png" alt="Anguish">
-        </div>
+        <h1>Abstract</h1>
+        <p>
+            <em>"Heartless"</em> is a profound journey into the depths of love, betrayal, and resilience. This true story chronicles the life of a young man who gave his heart wholly to a woman he believed was his soulmate. Despite facing deceit multiple times, his unwavering love pushed him to fight for a relationship that seemed destined to fail. His perseverance contrasts sharply with her indifference, painting a vivid picture of unreciprocated devotion.
+        </p>
+        <p>
+            The narrative unfolds through a series of episodes, each capturing the emotional turmoil and the intricate dynamics of their relationship. It's a tale that resonates with anyone who has loved deeply and faced the sting of betrayal.
+        </p>
+        <p>
+            The title, "Heartless," reflects not only the actions that led to heartbreak but also the transformation that occurs when one is pushed beyond their limits. It's a poignant exploration of how love can both heal and wound, often simultaneously.
+        </p>
+        <p>
+            The website, <strong>Shopliley.com</strong>, serves as a delicate metaphor for this story. The name "Liley" symbolizes a beautiful flower, representing purity, love, and the fragile nature of relationships. Just as a flower requires care and attention to flourish, so does love. The "Shop" in the domain is not about commerce but about offering an experience—a place to immerse oneself in an emotional journey. Here, visitors can "browse" through the chapters of a heartfelt story, much like strolling through a garden of lilies, each bloom telling its own tale.
+        </p>
+        <p>
+            We invite you to delve into this emotional odyssey, to feel the highs and lows, and perhaps find reflections of your own experiences within its pages. "Heartless" is more than a story; it's a testament to the enduring human spirit and the complexities of the heart.
+        </p>
 
-        <!-- Episode Quote -->
-        <div class="episode-quote">
-            "The worst kind of pain is when you're smiling just to stop the tears from falling." – Anonymous
-        </div>
-
-        <!-- Episode Text Content -->
-        <div class="episode-content">
-            <h1>Anguish</h1>
-            <p id="episode-text">
-                Coming Soon. Dive into a story of seeking truth and the emotional turmoil that follows when reality unfolds.
-            </p>
-            <!-- Add more content here -->
-
-            <!-- Buttons -->
-            <div class="buttons">
-                <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
-                <button class="button" id="tts-button">🔊 Read Aloud</button>
-            </div>
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
         </div>
     </div>
 
@@ -179,7 +152,7 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- JavaScript for music control and text-to-speech -->
+    <!-- JavaScript for music control -->
     <script>
         // Background music control
         const bgMusic = document.getElementById('bg-music');
@@ -205,41 +178,6 @@
                 // Autoplay might be blocked; handle if necessary
             });
         };
-
-        // Text-to-Speech functionality
-        const ttsButton = document.getElementById('tts-button');
-        const episodeTextElement = document.getElementById('episode-text');
-        const episodeText = episodeTextElement.textContent;
-        let speechSynthesisUtterance;
-        let isSpeaking = false;
-
-        ttsButton.addEventListener('click', () => {
-            if ('speechSynthesis' in window) {
-                if (!isSpeaking) {
-                    speechSynthesis.cancel();
-                    speechSynthesisUtterance = new SpeechSynthesisUtterance(episodeText);
-                    speechSynthesisUtterance.rate = 1;
-                    speechSynthesis.speak(speechSynthesisUtterance);
-                    ttsButton.textContent = '⏸ Pause';
-                    isSpeaking = true;
-
-                    speechSynthesisUtterance.onend = () => {
-                        ttsButton.textContent = '🔊 Read Aloud';
-                        isSpeaking = false;
-                    };
-                } else {
-                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                        speechSynthesis.pause();
-                        ttsButton.textContent = '▶️ Resume';
-                    } else if (speechSynthesis.paused) {
-                        speechSynthesis.resume();
-                        ttsButton.textContent = '⏸ Pause';
-                    }
-                }
-            } else {
-                alert('Sorry, your browser does not support text-to-speech.');
-            }
-        });
     </script>
 
 </body>

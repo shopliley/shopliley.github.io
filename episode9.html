@@ -1,17 +1,246 @@
-<!-- Episode 9: Pleading -->
-<div class="container">
-    <!-- Left side: Episode Image -->
-    <div class="episode-image">
-        <img src="Images/pleading.png" alt="Pleading">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pleading - Episode 9</title>
+    <!-- Include Google Font for Netflix-style title -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #111;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            color: #E50914;
+        }
+
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: #E50914; /* Netflix red */
+            letter-spacing: 0.05em;
+        }
+
+        .navbar .volume-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .volume-slider {
+            appearance: none;
+            background: #E50914;
+            width: 100px;
+            height: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .navbar .mute-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .navbar .mute-button:hover {
+            color: #E50914;
+        }
+
+        /* Episode content */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .episode-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Quote styling */
+        .episode-quote {
+            font-style: italic;
+            color: #bbb;
+            font-size: 1.2em;
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .episode-content {
+            max-width: 800px;
+            text-align: justify;
+            line-height: 1.8em;
+            font-size: 1.2em;
+        }
+
+        h1 {
+            color: #E50914;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .button {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .button:hover {
+            background-color: #f40612;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div>
+            <a href="abstract.html">Abstract</a>
+            <a href="index.html">Home</a>
+        </div>
+        <div class="title">Heartless</div>
+        <div class="volume-controls">
+            <button class="mute-button" id="mute-button">🔊</button>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+        </div>
     </div>
 
-    <!-- Right side: Episode Content (Text in the center) -->
-    <div class="episode-content">
-        <h1>Pleading</h1>
-        <p>I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon!</p>
-        <blockquote>"I wish I could give you my pain just for one moment, not to hurt you, but so you could understand how much you hurt me." – Anonymous</blockquote>
+    <!-- Episode Content -->
+    <div class="container">
+        <!-- Episode Image -->
+        <div class="episode-image">
+            <img src="Images/pleading.png" alt="Pleading">
+        </div>
 
-        <!-- Back button to go back to homepage -->
-        <button class="back-button" onclick="window.location.href='index.html'">Back to Homepage</button>
+        <!-- Episode Quote -->
+        <div class="episode-quote">
+            "I can't hate you for breaking my heart because I loved you too much to ever stop." – Anonymous
+        </div>
+
+        <!-- Episode Text Content -->
+        <div class="episode-content">
+            <h1>Pleading</h1>
+            <p id="episode-text">
+                Coming Soon. Experience the raw emotions of love, loss, and the desperate attempts to hold onto what's slipping away.
+            </p>
+            <!-- Add more content here -->
+
+            <!-- Buttons -->
+            <div class="buttons">
+                <button class="button" onclick="window.location.href='index.html'">Back to Homepage</button>
+                <button class="button" id="tts-button">🔊 Read Aloud</button>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop autoplay>
+        <source src="Sounds/bg.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- JavaScript for music control and text-to-speech -->
+    <script>
+        // Background music control
+        const bgMusic = document.getElementById('bg-music');
+        const volumeSlider = document.getElementById('volume-slider');
+        const muteButton = document.getElementById('mute-button');
+
+        // Set initial volume to 30%
+        bgMusic.volume = 0.3;
+
+        volumeSlider.addEventListener('input', (e) => {
+            bgMusic.volume = e.target.value;
+            muteButton.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
+        });
+
+        muteButton.addEventListener('click', () => {
+            bgMusic.muted = !bgMusic.muted;
+            muteButton.textContent = bgMusic.muted ? '🔇' : '🔊';
+        });
+
+        // Attempt to play background music on page load
+        window.onload = function() {
+            bgMusic.play().catch(() => {
+                // Autoplay might be blocked; handle if necessary
+            });
+        };
+
+        // Text-to-Speech functionality
+        const ttsButton = document.getElementById('tts-button');
+        const episodeTextElement = document.getElementById('episode-text');
+        const episodeText = episodeTextElement.textContent;
+        let speechSynthesisUtterance;
+        let isSpeaking = false;
+
+        ttsButton.addEventListener('click', () => {
+            if ('speechSynthesis' in window) {
+                if (!isSpeaking) {
+                    speechSynthesis.cancel();
+                    speechSynthesisUtterance = new SpeechSynthesisUtterance(episodeText);
+                    speechSynthesisUtterance.rate = 1;
+                    speechSynthesis.speak(speechSynthesisUtterance);
+                    ttsButton.textContent = '⏸ Pause';
+                    isSpeaking = true;
+
+                    speechSynthesisUtterance.onend = () => {
+                        ttsButton.textContent = '🔊 Read Aloud';
+                        isSpeaking = false;
+                    };
+                } else {
+                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                        speechSynthesis.pause();
+                        ttsButton.textContent = '▶️ Resume';
+                    } else if (speechSynthesis.paused) {
+                        speechSynthesis.resume();
+                        ttsButton.textContent = '⏸ Pause';
+                    }
+                }
+            } else {
+                alert('Sorry, your browser does not support text-to-speech.');
+            }
+        });
+    </script>
+
+</body>
+</html>

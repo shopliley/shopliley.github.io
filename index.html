@@ -6,6 +6,8 @@
     <title>Heartless - More Episodes</title>
     <!-- Favicon for Tab Image and Google Search -->
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+    <!-- Include Google Font for Netflix-style title -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -39,8 +41,10 @@
             flex-grow: 1;
             text-align: center;
             font-size: 2em;
-            font-weight: bold;
-            color: white;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: #E50914; /* Netflix red */
+            letter-spacing: 0.05em;
         }
 
         .navbar .volume-controls {
@@ -124,11 +128,21 @@
             margin-bottom: 10px;
         }
 
+        .carousel-container {
+            position: relative;
+        }
+
         .carousel {
             display: flex;
-            overflow-x: hidden;
+            overflow-x: auto; /* Allow horizontal scrolling */
+            overflow-y: hidden; /* Hide vertical scrollbar */
             scroll-behavior: smooth;
             padding: 10px;
+            scroll-snap-type: x mandatory; /* Optional for snapping */
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none; /* Hide scrollbar */
         }
 
         .episode {
@@ -179,6 +193,31 @@
             background-color: #f40612;
         }
 
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(20, 20, 20, 0.5);
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 10;
+        }
+
+        .carousel-btn.left {
+            left: 0;
+        }
+
+        .carousel-btn.right {
+            right: 0;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(20, 20, 20, 0.8);
+        }
+
     </style>
 </head>
 <body>
@@ -205,74 +244,78 @@
     <!-- More Episodes Section -->
     <div class="more-episodes">
         <h2>More Episodes</h2>
-        <div class="carousel" id="episodeCarousel">
-            <div class="episode">
-                <img src="Images/start.png" alt="Episode 1 Cover">
-                <div class="episode-title">Kind Hearted to Heartless</div>
-                <div class="episode-description">A journey of love from gaming to real life. Coming soon!</div>
-                <button onclick="window.location.href='episode1.html'">Read Now</button>
-            </div>
+        <div class="carousel-container">
+            <button class="carousel-btn left" id="left-arrow">‹</button>
+            <div class="carousel" id="episodeCarousel">
+                <div class="episode">
+                    <img src="Images/start.png" alt="Episode 1 Cover">
+                    <div class="episode-title">Shared Adventure</div>
+                    <div class="episode-description">A journey of love from gaming to real life. Coming soon!</div>
+                    <button onclick="window.location.href='episode1.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/two-faced.png" alt="Episode 2 Cover">
-                <div class="episode-title">Two-Faced</div>
-                <div class="episode-description">A story of love and societal pressures.</div>
-                <button onclick="window.location.href='episode2.html'">Read Now</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/two-faced.png" alt="Episode 2 Cover">
+                    <div class="episode-title">Two-Faced</div>
+                    <div class="episode-description">A story of love and societal pressures.</div>
+                    <button onclick="window.location.href='episode2.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/rekindling.png" alt="Episode 3 Cover">
-                <div class="episode-title">Rekindling (Coming Soon)</div>
-                <div class="episode-description">Reconnecting after a separation. A story of hope.</div>
-                <button disabled>Coming Soon</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/rekindling.png" alt="Episode 3 Cover">
+                    <div class="episode-title">Rekindling (Coming Soon)</div>
+                    <div class="episode-description">Reconnecting after a separation. A story of hope.</div>
+                    <button onclick="window.location.href='episode3.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/fake-letter.png" alt="Episode 4 Cover">
-                <div class="episode-title">Fake Letter</div>
-                <div class="episode-description">Sending a letter to leave, sending a letter to restart.</div>
-                <button disabled>Coming Soon</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/fake-letter.png" alt="Episode 4 Cover">
+                    <div class="episode-title">Fake Letter</div>
+                    <div class="episode-description">Sending a letter to leave, sending a letter to restart.</div>
+                    <button onclick="window.location.href='episode4.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/BTS.png" alt="Episode 5 Cover">
-                <div class="episode-title">The Taxi - BTS</div>
-                <div class="episode-description">The shocking reveal. Coming Soon!</div>
-                <button disabled>Coming Soon</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/BTS.png" alt="Episode 5 Cover">
+                    <div class="episode-title">The Taxi - BTS</div>
+                    <div class="episode-description">The shocking reveal. Coming Soon!</div>
+                    <button onclick="window.location.href='episode5.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/fake-promises.png" alt="Episode 6 Cover">
-                <div class="episode-title">Fake Promises</div>
-                <div class="episode-description">When there is true love, there can be no breaking up.</div>
-                <button onclick="window.location.href='episode6.html'">Read Now</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/fake-promises.png" alt="Episode 6 Cover">
+                    <div class="episode-title">Fake Promises</div>
+                    <div class="episode-description">When there is true love, there can be no breaking up.</div>
+                    <button onclick="window.location.href='episode6.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/meetup.png" alt="Episode 7 Cover">
-                <div class="episode-title">Unexpected Turns</div>
-                <div class="episode-description">A trip to heal all the wounds and make a long-lasting memory. Coming soon!</div>
-                <button onclick="window.location.href='episode7.html'">Read Now</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/meetup.png" alt="Episode 7 Cover">
+                    <div class="episode-title">Unexpected Turns</div>
+                    <div class="episode-description">A trip to heal all the wounds and make a long-lasting memory. Coming soon!</div>
+                    <button onclick="window.location.href='episode7.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/snooping1.png" alt="Episode 8 Cover">
-                <div class="episode-title">Anguish</div>
-                <div class="episode-description">Snooping to get the real truth, but fell for the tears. Coming Soon!</div>
-                <button onclick="window.location.href='episode8.html'">Read Now</button>
-            </div>
+                <div class="episode">
+                    <img src="Images/snooping1.png" alt="Episode 8 Cover">
+                    <div class="episode-title">Anguish</div>
+                    <div class="episode-description">Snooping to get the real truth, but fell for the tears. Coming Soon!</div>
+                    <button onclick="window.location.href='episode8.html'">Read Now</button>
+                </div>
 
-            <div class="episode">
-                <img src="Images/pleading.png" alt="Episode 9 Cover">
-                <div class="episode-title">Pleading</div>
-                <div class="episode-description">I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon!</div>
-                <button onclick="window.location.href='episode9.html'">Read Now</button>
+                <div class="episode">
+                    <img src="Images/pleading.png" alt="Episode 9 Cover">
+                    <div class="episode-title">Pleading</div>
+                    <div class="episode-description">I can’t hate you for breaking my heart because I loved you too much to ever stop. Coming Soon!</div>
+                    <button onclick="window.location.href='episode9.html'">Read Now</button>
+                </div>
             </div>
+            <button class="carousel-btn right" id="right-arrow">›</button>
         </div>
     </div>
 
     <!-- Background Music -->
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop autoplay>
         <source src="Sounds/bg.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -313,7 +356,7 @@
 
         const episodes = [
             {
-                title: "Kind Hearted to Heartless",
+                title: "Shared Adventure",
                 description: "A journey from online gaming to real life love story.",
                 image: "Images/start.png"
             },
@@ -343,7 +386,7 @@
                 image: "Images/fake-promises.png"
             },
             {
-                title: "Unexpected Turns",
+                title: "Meetup",
                 description: "A trip to heal all the wounds and make a long-lasting memory. Coming soon!",
                 image: "Images/meetup.png"
             },
@@ -391,11 +434,11 @@
         function startAutoScroll() {
             scrollInterval = setInterval(() => {
                 if (carousel.scrollLeft < (carousel.scrollWidth - carousel.clientWidth)) {
-                    carousel.scrollLeft += 1;
+                    carousel.scrollLeft += 0.5; // Slower scrolling
                 } else {
                     carousel.scrollLeft = 0;
                 }
-            }, 50); // Adjust speed as needed
+            }, 100); // Adjust speed as needed
         }
 
         carousel.addEventListener('mouseover', () => {
@@ -408,6 +451,25 @@
 
         // Start auto-scrolling when the page loads
         startAutoScroll();
+
+        // Arrow buttons for carousel control
+        const leftArrow = document.getElementById('left-arrow');
+        const rightArrow = document.getElementById('right-arrow');
+
+        leftArrow.addEventListener('click', () => {
+            carousel.scrollBy({
+                left: -300, // Adjust scroll amount as needed
+                behavior: 'smooth'
+            });
+        });
+
+        rightArrow.addEventListener('click', () => {
+            carousel.scrollBy({
+                left: 300, // Adjust scroll amount as needed
+                behavior: 'smooth'
+            });
+        });
+
     </script>
 
 </body>
