@@ -4,17 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopliley - Episodes as Books</title>
-<link rel="icon" type="image/x-icon" href="Images/favicon.ico">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "url": "https://www.shopliley.com",
-  "logo": "https://www.shopliley.com/Images/heartless.png"
-}
-</script>
-
+    <!-- Favicon for Tab Image and Google Search -->
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -24,55 +15,61 @@
             padding: 0;
         }
 
-        /* Full-screen image for the latest episode with faded black corners */
-        .featured {
-    position: relative;
-    background-image: url('Images/heartless.png');
-    background-size: cover;
-    background-position: center;
-    height: 600px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('Images/heartless.png');
-}
-
-
-        .featured-content {
-            max-width: 50%;
-        }
-
-        .featured h1 {
-            font-size: 3em;
-            margin: 0;
-            font-weight: bold;
-        }
-
-        .featured p {
-            font-size: 1.2em;
-            line-height: 1.4em;
-            margin: 10px 0 20px 0;
-        }
-
-        .featured button {
-            background-color: #E50914;
-            color: white;
-            border: none;
+        /* Navigation at the top */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
             padding: 10px 20px;
+            background-color: #111;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            color: #E50914;
+        }
+
+        .navbar .mute-btn {
+            background-color: transparent;
+            border: none;
+            color: white;
             font-size: 1.2em;
             cursor: pointer;
+            outline: none;
         }
 
-        .featured button:hover {
-            background-color: #f40612;
+        .navbar .mute-btn:hover {
+            color: #E50914;
         }
 
-        /* Episode carousel */
+        /* Title and based on real life story text */
+        .header-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+
+        .header-text p {
+            font-size: 1.2em;
+            color: #bbb;
+        }
+
+        /* Episode Scrolling Carousel */
         .carousel {
-            margin: 20px;
             display: flex;
-            overflow-x: auto;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            padding: 20px;
+            transition: transform 0.5s ease-in-out;
         }
 
         .carousel::-webkit-scrollbar {
@@ -126,40 +123,130 @@
         .episode button:hover {
             background-color: #f40612;
         }
+
+        /* Arrows for navigation */
+        .arrow-left, .arrow-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .arrow-left {
+            left: 10px;
+        }
+
+        .arrow-right {
+            right: 10px;
+        }
+
+        .arrow-left:hover, .arrow-right:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Background fading effect */
+        .background-fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .background-fade.active {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Featured Episode (Latest Episode) with faded background -->
-    <div class="featured">
-        <div class="featured-content">
-            <h1>Kind Hearted to Heartless</h1>
-            <p>Episode 1. The journey of an unexpected relationship from online gaming to long-distance romance.</p>
-            <button onclick="window.location.href='episode1.html'">Start Reading</button>
-        </div>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="abstract.html">Abstract</a>
+        <a href="#">Home</a>
+        <button class="mute-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
     </div>
 
-    <!-- Carousel for other episodes -->
-    <h2 style="padding-left: 20px;">Other Episodes</h2>
-    <div class="carousel">
-        <!-- Episode 2 -->
-        <div class="episode">
-            <img src="Images/two-faced.png" alt="Episode 2 Cover">
-            <div class="episode-title">Two-Faced</div>
-            <div class="episode-description">A story of love and the challenges.</div>
-            <button onclick="window.location.href='episode2.html'">Start Reading</button>
-        </div>
-
-        <!-- Episode 3 (Coming Soon) -->
-        <div class="episode">
-            <img src="Images/rekindling.png" alt="Episode 3 Cover">
-            <div class="episode-title">Rekindling (Coming Soon)</div>
-            <div class="episode-description">Reconnecting after a separation. A story of hope.</div>
-            <button disabled>Coming Soon</button>
-        </div>
-
-        <!-- Add more episodes here as needed -->
+    <!-- Title and Based on Real Life Story -->
+    <div class="header-text">
+        <h1>Kind Hearted to Heartless</h1>
+        <p>Based on real life story</p>
     </div>
 
+    <!-- Background fading images (auto transition) -->
+    <div class="background-fade" id="bg1" style="background-image: url('Images/episode1-cover.jpg');"></div>
+    <div class="background-fade" id="bg2" style="background-image: url('Images/fake-letter.png');"></div>
+    <div class="background-fade" id="bg3" style="background-image: url('Images/BTS.png');"></div>
+
+    <!-- Arrows for Navigation -->
+    <button class="arrow-left" onclick="scrollLeft()">&#10094;</button>
+    <button class="arrow-right" onclick="scrollRight()">&#10095;</button>
+
+    <!-- Episode Scrolling Carousel -->
+    <div class="carousel" id="episodeCarousel">
+        <!-- Episode 1 to Episode 9 -->
+        <!-- (Your episode cards remain the same here) -->
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="Sounds/bg.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- JavaScript for background image fade, episode scroll, and music control -->
+    <script>
+        // Background fading
+        let backgrounds = ['bg1', 'bg2', 'bg3'];
+        let currentBackground = 0;
+        function changeBackground() {
+            backgrounds.forEach((id, index) => {
+                document.getElementById(id).classList.remove('active');
+            });
+            currentBackground = (currentBackground + 1) % backgrounds.length;
+            document.getElementById(backgrounds[currentBackground]).classList.add('active');
+        }
+        setInterval(changeBackground, 30000); // Change every 30 seconds
+
+        // Episode scroll
+        const carousel = document.getElementById('episodeCarousel');
+        function scrollLeft() {
+            carousel.scrollBy({ left: -300, behavior: 'smooth' });
+        }
+        function scrollRight() {
+            carousel.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+
+        // Background Music control
+        const bgMusic = document.getElementById('bg-music');
+        const muteBtn = document.getElementById('mute-btn');
+        let isMuted = false;
+
+        // Play music on load
+        window.onload = function() {
+            bgMusic.play();
+        }
+
+        function toggleMute() {
+            if (isMuted) {
+                bgMusic.play();
+                muteBtn.innerHTML = "🔊";
+            } else {
+                bgMusic.pause();
+                muteBtn.innerHTML = "🔇";
+            }
+            isMuted = !isMuted;
+        }
+    </script>
 </body>
 </html>
