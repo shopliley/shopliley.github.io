@@ -43,6 +43,11 @@
             margin-top: 7px;
         }
 
+        .navbar .volume-icon {
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
         /* Main episode section */
         .main-episode {
             position: relative;
@@ -63,6 +68,7 @@
             bottom: 50px;
             left: 50px;
             z-index: 10;
+            text-align: left;
         }
 
         .main-content h1 {
@@ -100,14 +106,19 @@
 
         .carousel {
             display: flex;
-            overflow-x: scroll;
-            scroll-behavior: smooth;
+            overflow: hidden;
+            white-space: nowrap;
             padding: 10px;
-            transition: transform 0.5s ease-in-out;
+            animation: scrollLeft 20s linear infinite;
         }
 
-        .carousel::-webkit-scrollbar {
-            display: none;
+        @keyframes scrollLeft {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
         }
 
         .episode {
@@ -118,6 +129,7 @@
             overflow: hidden;
             position: relative;
             transition: transform 0.3s;
+            display: inline-block;
         }
 
         .episode img {
@@ -158,29 +170,8 @@
             background-color: #f40612;
         }
 
-        /* Arrows for navigation */
-        .arrow-left, .arrow-right {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            font-size: 2em;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .arrow-left {
-            left: 10px;
-        }
-
-        .arrow-right {
-            right: 10px;
-        }
-
-        .arrow-left:hover, .arrow-right:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+        .carousel:hover {
+            animation-play-state: paused;
         }
 
         /* Abstract Section */
@@ -203,15 +194,28 @@
             margin: 0 auto;
         }
 
+        /* Popup for volume adjustment */
+        #volume-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1em;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <div class="navbar">
-        <a href="#abstract">Abstract</a> <!-- Now links to the abstract section within the same page -->
+        <a href="#abstract">Abstract</a>
         <a href="#">Home</a>
-        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="1">
+        <div class="volume-icon" onclick="toggleMute()">🔊</div>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
     </div>
 
     <!-- Main Episode Section -->
@@ -231,7 +235,7 @@
             <div class="episode">
                 <img src="Images/start.png" alt="Episode 1 Cover">
                 <div class="episode-title">Kind Hearted to Heartless</div>
-                <div class="episode-description">A journey of love from gaming to real life.</div>
+                <div class="episode-description">A journey of love from gaming to real life. Coming soon!</div>
                 <button onclick="window.location.href='episode1.html'">Read Now</button>
             </div>
 
@@ -303,6 +307,11 @@
         </p>
     </div>
 
+    <!-- Popup for volume adjustment -->
+    <div id="volume-popup">
+        You can adjust the volume here.
+    </div>
+
     <!-- Background Music -->
     <audio id="bg-music" loop>
         <source src="Sounds/bg.mp3" type="audio/mpeg">
@@ -314,14 +323,30 @@
         // Background music control
         const bgMusic = document.getElementById('bg-music');
         const volumeSlider = document.getElementById('volume-slider');
+        const volumePopup = document.getElementById('volume-popup');
 
         volumeSlider.addEventListener('input', (e) => {
             bgMusic.volume = e.target.value;
         });
 
         window.onload = function() {
+            bgMusic.volume = 0.3; // Start music at 30% volume
             bgMusic.play();
+            setTimeout(() => {
+                volumePopup.style.display = 'none';
+            }, 5000); // Hide the popup after 5 seconds
         };
+
+        // Show volume popup on load
+        window.onload = function() {
+            volumePopup.style.display = 'block';
+        };
+
+        // Mute/Unmute toggle
+        function toggleMute() {
+            bgMusic.muted = !bgMusic.muted;
+            document.querySelector('.volume-icon').textContent = bgMusic.muted ? '🔇' : '🔊';
+        }
 
         // Fading between episodes for main section
         const mainEpisode = document.getElementById('main-episode');
@@ -332,19 +357,19 @@
         const episodes = [
             {
                 title: "Kind Hearted to Heartless",
-                description: "A journey from online gaming to real life love story. Coming Soon!",
+                description: "A journey from online gaming to real life love story.",
                 backgroundImage: "Images/start.png",
                 link: "episode1.html"
             },
             {
                 title: "Two-Faced",
-                description: "A story of love, business, and societal pressures.",
+                description: "A story of love and pressures.",
                 backgroundImage: "Images/two-faced.png",
                 link: "episode2.html"
             },
             {
                 title: "Rekindling (Coming Soon)",
-                description: "Reconnecting after a long separation. A story of hope.",
+                description: "Reconnecting after a separation. A story of hope.",
                 backgroundImage: "Images/rekindling.png",
                 link: "#"
             },
@@ -397,7 +422,7 @@
             currentEpisode = (currentEpisode + 1) % episodes.length;
         }
 
-        setInterval(changeEpisode, 60000); // Change episode every 1 minute (60,000 ms)
+        setInterval(changeEpisode, 20000); // Change episode every 20 seconds
     </script>
 </body>
 </html>
