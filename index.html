@@ -40,12 +40,12 @@
             width: 100px;
             height: 5px;
             cursor: pointer;
-            margin-top: 7px;
+            margin-left: 10px;
         }
 
         .navbar .volume-icon {
             cursor: pointer;
-            margin-right: 15px;
+            margin-right: 10px;
         }
 
         /* Main episode section */
@@ -109,16 +109,7 @@
             overflow: hidden;
             white-space: nowrap;
             padding: 10px;
-            animation: scrollLeft 20s linear infinite;
-        }
-
-        @keyframes scrollLeft {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                transform: translateX(-100%);
-            }
+            transition: transform 1.2s ease-in-out; /* Slower carousel */
         }
 
         .episode {
@@ -196,14 +187,14 @@
 
         /* Popup for volume adjustment */
         #volume-popup {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+            position: absolute;
+            top: 5px;
+            left: 140px;
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
-            font-size: 1em;
+            font-size: 0.9em;
             display: none;
         }
     </style>
@@ -216,6 +207,7 @@
         <a href="#">Home</a>
         <div class="volume-icon" onclick="toggleMute()">🔊</div>
         <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+        <div id="volume-popup">You can adjust the volume here.</div>
     </div>
 
     <!-- Main Episode Section -->
@@ -308,9 +300,7 @@
     </div>
 
     <!-- Popup for volume adjustment -->
-    <div id="volume-popup">
-        You can adjust the volume here.
-    </div>
+    <div id="volume-popup">You can adjust the volume here.</div>
 
     <!-- Background Music -->
     <audio id="bg-music" loop>
@@ -357,19 +347,19 @@
         const episodes = [
             {
                 title: "Kind Hearted to Heartless",
-                description: "A journey from online gaming to real life love story.",
+                description: "A journey from online gaming to real life love story. Coming Soon!",
                 backgroundImage: "Images/start.png",
                 link: "episode1.html"
             },
             {
                 title: "Two-Faced",
-                description: "A story of love and pressures.",
+                description: "A story of love, business, and societal pressures.",
                 backgroundImage: "Images/two-faced.png",
                 link: "episode2.html"
             },
             {
                 title: "Rekindling (Coming Soon)",
-                description: "Reconnecting after a separation. A story of hope.",
+                description: "Reconnecting after a long separation. A story of hope.",
                 backgroundImage: "Images/rekindling.png",
                 link: "#"
             },
