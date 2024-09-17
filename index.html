@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heartless - Episodes</title>
+    <title>Heartless - More Episodes</title>
+    <!-- Favicon for Tab Image and Google Search -->
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,10 +15,11 @@
             padding: 0;
         }
 
-        /* Navbar */
+        /* Navigation bar */
         .navbar {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 10px 20px;
             background-color: #111;
         }
@@ -27,6 +28,7 @@
             color: white;
             text-decoration: none;
             font-size: 1.2em;
+            margin-right: 15px;
         }
 
         .navbar a:hover {
@@ -34,37 +36,43 @@
         }
 
         .navbar .title {
+            flex-grow: 1;
+            text-align: center;
             font-size: 2em;
-            font-family: 'Montserrat', sans-serif;
-            color: #E50914;
+            font-weight: bold;
+            color: white;
         }
 
-        .volume-controls {
+        .navbar .volume-controls {
             display: flex;
             align-items: center;
         }
 
-        .volume-slider {
+        .navbar .volume-slider {
+            appearance: none;
             background: #E50914;
             width: 100px;
             height: 5px;
+            cursor: pointer;
             margin-left: 10px;
         }
 
-        .mute-button {
+        .navbar .mute-button {
             background: none;
             border: none;
             color: white;
             font-size: 1.5em;
+            cursor: pointer;
         }
 
-        .mute-button:hover {
+        .navbar .mute-button:hover {
             color: #E50914;
         }
 
         /* Main episode section */
         .main-episode {
             position: relative;
+            width: 100%;
             height: 600px;
             background-size: cover;
             background-position: center;
@@ -80,14 +88,17 @@
             position: absolute;
             bottom: 50px;
             left: 50px;
+            z-index: 10;
         }
 
         .main-content h1 {
             font-size: 4em;
+            margin-bottom: 10px;
         }
 
         .main-content p {
             font-size: 1.5em;
+            margin-bottom: 20px;
         }
 
         .main-content button {
@@ -96,23 +107,28 @@
             border: none;
             padding: 10px 20px;
             font-size: 1.5em;
+            cursor: pointer;
         }
 
-        /* Carousel styling */
-        .carousel-container {
-            position: relative;
+        .main-content button:hover {
+            background-color: #f40612;
+        }
+
+        /* More episodes section */
+        .more-episodes {
+            padding: 20px;
+        }
+
+        .more-episodes h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
         }
 
         .carousel {
             display: flex;
-            overflow-x: auto;
+            overflow-x: hidden;
             scroll-behavior: smooth;
             padding: 10px;
-            scroll-snap-type: x mandatory;
-        }
-
-        .carousel::-webkit-scrollbar {
-            display: none;
         }
 
         .episode {
@@ -120,6 +136,8 @@
             margin-right: 20px;
             background-color: #222;
             border-radius: 10px;
+            overflow: hidden;
+            position: relative;
             transition: transform 0.3s;
         }
 
@@ -135,6 +153,7 @@
 
         .episode-title {
             font-size: 1.2em;
+            font-weight: bold;
             margin: 10px;
         }
 
@@ -144,28 +163,27 @@
             color: #bbb;
         }
 
-        .carousel-btn {
+        .episode button {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(20, 20, 20, 0.5);
-            border: none;
-            font-size: 2em;
-            padding: 10px;
+            bottom: 20px;
+            left: 10px;
+            background-color: #E50914;
             color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1em;
         }
 
-        .carousel-btn.left {
-            left: 0;
+        .episode button:hover {
+            background-color: #f40612;
         }
 
-        .carousel-btn.right {
-            right: 0;
-        }
     </style>
 </head>
 <body>
 
+    <!-- Navigation Bar -->
     <div class="navbar">
         <a href="javascript:void(0)" onclick="loadPage('abstract.html')">Abstract</a>
         <div class="title">Heartless</div>
@@ -175,82 +193,135 @@
         </div>
     </div>
 
+    <!-- Main Episode Section -->
     <div class="main-episode" id="main-episode">
         <div class="main-content">
             <h1 id="episode-title">Kind Hearted to Heartless</h1>
-            <p id="episode-description">A journey from online gaming to real life love story.</p>
+            <p id="episode-description">A journey from online gaming to real life love story. Coming Soon!</p>
             <button id="read-now-btn">Read Now</button>
         </div>
     </div>
 
-    <div class="carousel-container">
-        <button class="carousel-btn left" id="left-arrow">‹</button>
+    <!-- More Episodes Section -->
+    <div class="more-episodes">
+        <h2>More Episodes</h2>
         <div class="carousel" id="episodeCarousel">
-            <div class="episode" onclick="window.location.href='episode1.html'">
-                <img src="Images/start.png" alt="Episode 1">
-                <div class="episode-title">Shared Adventure</div>
+            <div class="episode">
+                <img src="Images/start.png" alt="Episode 1 Cover">
+                <div class="episode-title">Kind Hearted to Heartless</div>
                 <div class="episode-description">A journey of love from gaming to real life.</div>
+                <button onclick="window.location.href='episode1.html'">Read Now</button>
             </div>
-            <div class="episode" onclick="window.location.href='episode2.html'">
-                <img src="Images/two-faced.png" alt="Episode 2">
+
+            <div class="episode">
+                <img src="Images/two-faced.png" alt="Episode 2 Cover">
                 <div class="episode-title">Two-Faced</div>
                 <div class="episode-description">A story of love and societal pressures.</div>
+                <button onclick="window.location.href='episode2.html'">Read Now</button>
             </div>
-            <div class="episode" onclick="window.location.href='episode3.html'">
-                <img src="Images/rekindling.png" alt="Episode 3">
-                <div class="episode-title">Rekindling</div>
-                <div class="episode-description">Reconnecting after a long separation.</div>
+
+            <div class="episode">
+                <img src="Images/rekindling.png" alt="Episode 3 Cover">
+                <div class="episode-title">Rekindling (Coming Soon)</div>
+                <div class="episode-description">Reconnecting after a separation. A story of hope.</div>
+                <button disabled>Coming Soon</button>
             </div>
+
+            <!-- Continue for all 9 episodes here with similar structure -->
         </div>
-        <button class="carousel-btn right" id="right-arrow">›</button>
     </div>
 
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="Sounds/bg.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- JavaScript for background image fade, episode scroll, and music control -->
     <script>
-        // Volume control and persistence
+        // Background music control
         const bgMusic = document.getElementById('bg-music');
         const volumeSlider = document.getElementById('volume-slider');
         const muteButton = document.getElementById('mute-button');
 
-        const savedVolume = localStorage.getItem('volume');
-        const savedMute = localStorage.getItem('mute');
-
-        if (savedVolume) {
-            bgMusic.volume = savedVolume;
-            volumeSlider.value = savedVolume;
-        }
-
-        if (savedMute === 'true') {
-            bgMusic.muted = true;
-            muteButton.textContent = '🔇';
-        }
+        // Set initial volume to 30%
+        bgMusic.volume = 0.3;
 
         volumeSlider.addEventListener('input', (e) => {
             bgMusic.volume = e.target.value;
-            localStorage.setItem('volume', e.target.value);
+            if (bgMusic.volume == 0) {
+                muteButton.textContent = '🔇';
+            } else {
+                muteButton.textContent = '🔊';
+            }
         });
 
         muteButton.addEventListener('click', () => {
             bgMusic.muted = !bgMusic.muted;
             muteButton.textContent = bgMusic.muted ? '🔇' : '🔊';
-            localStorage.setItem('mute', bgMusic.muted);
         });
 
-        // Load abstract
-        function loadPage(page) {
-            fetch(page)
-                .then(response => response.text())
-                .then(data => {
-                    document.body.innerHTML = data;
-                });
+        window.onload = function() {
+            bgMusic.play();
+        };
+
+        // Fading between episodes for main section
+        const mainEpisode = document.getElementById('main-episode');
+        const episodeTitle = document.getElementById('episode-title');
+        const episodeDescription = document.getElementById('episode-description');
+        const readNowBtn = document.getElementById('read-now-btn');
+
+        const episodes = [
+            {
+                title: "Kind Hearted to Heartless",
+                description: "A journey from online gaming to real life love story.",
+                image: "Images/start.png",
+                link: "episode1.html"
+            },
+            {
+                title: "Two-Faced",
+                description: "A story of love, business, and societal pressures.",
+                image: "Images/two-faced.png",
+                link: "episode2.html"
+            },
+            {
+                title: "Rekindling",
+                description: "Reconnecting after a long separation. A story of hope.",
+                image: "Images/rekindling.png",
+                link: "episode3.html"
+            }
+            // Add remaining episodes
+        ];
+
+        let currentEpisodeIndex = 0;
+
+        function updateMainEpisode() {
+            const episode = episodes[currentEpisodeIndex];
+            mainEpisode.style.backgroundImage = `url(${episode.image})`;
+            episodeTitle.textContent = episode.title;
+            episodeDescription.textContent = episode.description;
+            readNowBtn.onclick = () => {
+                window.location.href = episode.link;
+            };
         }
 
-        // Read Now button functionality
-        const readNowBtn = document.getElementById('read-now-btn');
-        readNowBtn.addEventListener('click', () => {
-            window.location.href = 'episode1.html';
-        });
+        function nextEpisode() {
+            currentEpisodeIndex = (currentEpisodeIndex + 1) % episodes.length;
+            updateMainEpisode();
+        }
 
-        // Carousel automatic scrolling
+        function previousEpisode() {
+            currentEpisodeIndex = (currentEpisodeIndex - 1 + episodes.length) % episodes.length;
+            updateMainEpisode();
+        }
+
+        // Automatically switch episodes every 20 seconds
+        setInterval(nextEpisode, 20000);
+
+        // Initialize the main episode display
+        updateMainEpisode();
+
+        // Automatic scrolling for the carousel
         const carousel = document.getElementById('episodeCarousel');
         let scrollInterval;
 
@@ -261,7 +332,7 @@
                 } else {
                     carousel.scrollLeft = 0;
                 }
-            }, 100);
+            }, 50); // Adjust speed as needed
         }
 
         carousel.addEventListener('mouseover', () => {
@@ -276,16 +347,12 @@
             clearInterval(scrollInterval);
         });
 
+        document.getElementById('read-now-btn').addEventListener('click', () => {
+            window.location.href = 'episode1.html';
+        });
+
+        // Start auto-scrolling when the page loads
         startAutoScroll();
-
-        document.getElementById('left-arrow').addEventListener('click', () => {
-            carousel.scrollBy({left: -300, behavior: 'smooth'});
-        });
-
-        document.getElementById('right-arrow').addEventListener('click', () => {
-            carousel.scrollBy({left: 300, behavior: 'smooth'});
-        });
-
     </script>
 
 </body>
