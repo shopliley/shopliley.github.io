@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,233 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heartless - More Episodes</title>
     <!-- Favicon for Tab Image and Google Search -->
-    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #141414;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Navigation bar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #111;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            margin-right: 15px;
-        }
-
-        .navbar a:hover {
-            color: #E50914;
-        }
-
-        .navbar .volume-controls {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        .navbar .volume-slider {
-            display: none;
-            background: #E50914;
-            width: 100px;
-            height: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .navbar .volume-icon {
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .volume-popup {
-            display: none;
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            left: 150px;
-        }
-
-        /* Main episode section */
-        .main-episode {
-            position: relative;
-            width: 100%;
-            height: 600px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .main-content {
-            position: absolute;
-            bottom: 50px;
-            left: 50px;
-            z-index: 10;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .main-content h1 {
-            font-size: 4em;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .main-content p {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .main-content button {
-            background-color: #E50914;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        .main-content button:hover {
-            background-color: #f40612;
-        }
-
-        /* More episodes section */
-        .more-episodes {
-            padding: 20px;
-        }
-
-        .more-episodes h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .carousel {
-            display: flex;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-            padding-bottom: 30px; /* Extra space for arrows */
-        }
-
-        .episode {
-            flex: 0 0 300px;
-            margin-right: 20px;
-            background-color: #222;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.3s;
-            display: inline-block;
-        }
-
-        .episode img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .episode:hover {
-            transform: scale(1.1);
-        }
-
-        .episode-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 10px;
-        }
-
-        .episode-description {
-            font-size: 0.9em;
-            margin: 0 10px 20px;
-            color: #bbb;
-        }
-
-        .episode button {
-            position: absolute;
-            bottom: 20px;
-            left: 10px;
-            background-color: #E50914;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .episode button:hover {
-            background-color: #f40612;
-        }
-
-        /* Arrows for Carousel */
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            font-size: 2em;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .carousel-arrow.left {
-            left: -40px;
-            bottom: 10px; /* Adjusted for next to More Episodes */
-        }
-
-        .carousel-arrow.right {
-            right: -40px;
-            bottom: 10px;
-        }
-
-        .carousel-arrow:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        /* Abstract Section */
-        #abstract {
-            padding: 50px;
-            background-color: #222;
-            color: #fff;
-            margin-top: 50px;
-        }
-
-        #abstract h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        #abstract p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <div class="navbar">
         <div>
-            <a href="#abstract">Abstract</a>
+            <a href="#" id="load-abstract">Abstract</a>
             <a href="#">Home</a>
         </div>
         <div class="volume-controls">
@@ -256,7 +39,7 @@
         <div class="carousel" id="episodeCarousel">
             <!-- Episode 1 -->
             <div class="episode">
-                <img src="Images/start.png" alt="Episode 1 Cover">
+                <img src="images/start.png" alt="Episode 1 Cover">
                 <div class="episode-title">Shared Adventure</div>
                 <div class="episode-description">"A journey from online gaming to real life."</div>
                 <button onclick="window.location.href='episode1.html'">Read Now</button>
@@ -264,7 +47,7 @@
 
             <!-- Episode 2 -->
             <div class="episode">
-                <img src="Images/two-faced.png" alt="Episode 2 Cover">
+                <img src="images/two-faced.png" alt="Episode 2 Cover">
                 <div class="episode-title">Two-Faced</div>
                 <div class="episode-description">"A story of love, business, and societal pressures."</div>
                 <button onclick="window.location.href='episode2.html'">Read Now</button>
@@ -272,7 +55,7 @@
 
             <!-- Episode 3 -->
             <div class="episode">
-                <img src="Images/rekindling.png" alt="Episode 3 Cover">
+                <img src="images/rekindling.png" alt="Episode 3 Cover">
                 <div class="episode-title">Rekindling</div>
                 <div class="episode-description">"Reconnecting after a long separation. A story of hope."</div>
                 <button onclick="window.location.href='episode3.html'">Read Now</button>
@@ -280,7 +63,7 @@
 
             <!-- Episode 4 -->
             <div class="episode">
-                <img src="Images/fake-letter.png" alt="Episode 4 Cover">
+                <img src="images/fake-letter.png" alt="Episode 4 Cover">
                 <div class="episode-title">Fake Letter</div>
                 <div class="episode-description">"Sending a letter to leave, sending a letter to restart."</div>
                 <button onclick="window.location.href='episode4.html'">Read Now</button>
@@ -288,7 +71,7 @@
 
             <!-- Episode 5 -->
             <div class="episode">
-                <img src="Images/BTS.png" alt="Episode 5 Cover">
+                <img src="images/BTS.png" alt="Episode 5 Cover">
                 <div class="episode-title">The Taxi - BTS</div>
                 <div class="episode-description">"The shocking reveal."</div>
                 <button onclick="window.location.href='episode5.html'">Read Now</button>
@@ -296,7 +79,7 @@
 
             <!-- Episode 6 -->
             <div class="episode">
-                <img src="Images/fake-promises.png" alt="Episode 6 Cover">
+                <img src="images/fake-promises.png" alt="Episode 6 Cover">
                 <div class="episode-title">Fake Promises</div>
                 <div class="episode-description">"When there is true love, there can be no breaking up."</div>
                 <button onclick="window.location.href='episode6.html'">Read Now</button>
@@ -304,7 +87,7 @@
 
             <!-- Episode 7 -->
             <div class="episode">
-                <img src="Images/meetup.png" alt="Episode 7 Cover">
+                <img src="images/meetup.png" alt="Episode 7 Cover">
                 <div class="episode-title">The First Meetup</div>
                 <div class="episode-description">"A trip to heal all wounds and make lasting memories."</div>
                 <button onclick="window.location.href='episode7.html'">Read Now</button>
@@ -312,7 +95,7 @@
 
             <!-- Episode 8 -->
             <div class="episode">
-                <img src="Images/snooping1.png" alt="Episode 8 Cover">
+                <img src="images/snooping1.png" alt="Episode 8 Cover">
                 <div class="episode-title">Anguish</div>
                 <div class="episode-description">"Snooping for truth but fell for the tears."</div>
                 <button onclick="window.location.href='episode8.html'">Read Now</button>
@@ -320,7 +103,7 @@
 
             <!-- Episode 9 -->
             <div class="episode">
-                <img src="Images/pleading.png" alt="Episode 9 Cover">
+                <img src="images/pleading.png" alt="Episode 9 Cover">
                 <div class="episode-title">Pleading</div>
                 <div class="episode-description">"I can’t hate you for breaking my heart."</div>
                 <button onclick="window.location.href='episode9.html'">Read Now</button>
@@ -332,153 +115,16 @@
         <button class="carousel-arrow right" id="right-arrow">›</button>
     </div>
 
-    <!-- Background Music -->
-    <audio id="bg-music" loop autoplay>
-        <source src="Sounds/bg.mp3" type="audio/mpeg">
+    <!-- Abstract Section (dynamically loaded) -->
+    <section id="abstract-content"></section>
+
+    <!-- Background Music Control (autoplay removed) -->
+    <audio id="bg-music" loop>
+        <source src="sounds/bg.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    <button id="play-music-btn">Play Music</button>
 
-    <!-- JavaScript for volume control and carousel scrolling -->
-    <script>
-        // Background music control
-        const bgMusic = document.getElementById('bg-music');
-        const volumeSlider = document.getElementById('volume-slider');
-        const volumeIcon = document.getElementById('volume-icon');
-        const volumePopup = document.getElementById('volume-popup');
-
-        // Start music at 30% volume
-        bgMusic.volume = 0.3;
-
-        // Show volume slider when clicking on the volume icon
-        volumeIcon.addEventListener('click', () => {
-            volumeSlider.style.display = volumeSlider.style.display === 'none' ? 'inline-block' : 'none';
-            volumePopup.style.display = 'inline-block';
-            setTimeout(() => {
-                volumePopup.style.display = 'none';
-            }, 5000);
-        });
-
-        // Volume slider control
-        volumeSlider.addEventListener('input', () => {
-            bgMusic.volume = volumeSlider.value;
-            volumeIcon.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
-        });
-
-        // Main Episode Scroll Handling
-        const mainEpisode = document.getElementById('main-episode');
-        const episodeTitle = document.getElementById('episode-title');
-        const episodeDescription = document.getElementById('episode-description');
-        const readNowBtn = document.getElementById('read-now-btn');
-
-        const episodes = [
-            {
-                title: "Shared Adventure",
-                description: "A journey from online gaming to real life. The beginning of a long-distance relationship.",
-                backgroundImage: "Images/start.png",
-                link: "episode1.html"
-            },
-            {
-                title: "Two-Faced",
-                description: "A story of love, business, and societal pressures.",
-                backgroundImage: "Images/two-faced.png",
-                link: "episode2.html"
-            },
-            {
-                title: "Rekindling",
-                description: "Reconnecting after a long separation. A story of hope.",
-                backgroundImage: "Images/rekindling.png",
-                link: "episode3.html"
-            },
-            {
-                title: "Fake Letter",
-                description: "Sending a letter to leave, sending a letter to restart.",
-                backgroundImage: "Images/fake-letter.png",
-                link: "episode4.html"
-            },
-            {
-                title: "The Taxi - BTS",
-                description: "The shocking reveal.",
-                backgroundImage: "Images/BTS.png",
-                link: "episode5.html"
-            },
-            {
-                title: "Fake Promises",
-                description: "When there is true love, there can be no breaking up.",
-                backgroundImage: "Images/fake-promises.png",
-                link: "episode6.html"
-            },
-            {
-                title: "The First Meetup",
-                description: "A trip to heal all wounds and make lasting memories.",
-                backgroundImage: "Images/meetup.png",
-                link: "episode7.html"
-            },
-            {
-                title: "Anguish",
-                description: "Snooping for truth but fell for the tears.",
-                backgroundImage: "Images/snooping1.png",
-                link: "episode8.html"
-            },
-            {
-                title: "Pleading",
-                description: "I can’t hate you for breaking my heart.",
-                backgroundImage: "Images/pleading.png",
-                link: "episode9.html"
-            }
-        ];
-
-        let currentEpisode = 0;
-
-        function changeMainEpisode() {
-            const { title, description, backgroundImage, link } = episodes[currentEpisode];
-            mainEpisode.style.backgroundImage = `url(${backgroundImage})`;
-            episodeTitle.textContent = title;
-            episodeDescription.textContent = description;
-            readNowBtn.onclick = () => window.location.href = link;
-
-            currentEpisode = (currentEpisode + 1) % episodes.length;
-        }
-
-        // Automatically change the main episode every 8 seconds
-        setInterval(changeMainEpisode, 8000);
-
-        // Carousel Arrows
-        const carousel = document.getElementById('episodeCarousel');
-        const leftArrow = document.getElementById('left-arrow');
-        const rightArrow = document.getElementById('right-arrow');
-
-        // Scroll the carousel when arrows are clicked
-        leftArrow.addEventListener('click', () => {
-            carousel.scrollLeft -= 300;
-        });
-
-        rightArrow.addEventListener('click', () => {
-            carousel.scrollLeft += 300;
-        });
-
-        // Infinite scrolling for the episode carousel with mouse
-        carousel.addEventListener('wheel', (e) => {
-            carousel.scrollLeft += e.deltaY > 0 ? 300 : -300;
-        });
-
-        // Mobile swipe handling for the carousel
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        carousel.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        carousel.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (touchEndX < touchStartX) {
-                carousel.scrollLeft += 300;
-            } else if (touchEndX > touchStartX) {
-                carousel.scrollLeft -= 300;
-            }
-        });
-
-    </script>
-
+    <script src="js/script.js"></script>
 </body>
 </html>
