@@ -117,3 +117,34 @@ rightArrow.addEventListener('click', () => {
 carousel.addEventListener('wheel', (e) => {
     carousel.scrollLeft += e.deltaY > 0 ? 300 : -300;  // Scroll with mouse wheel
 });
+// Popup Modal Script
+document.addEventListener("DOMContentLoaded", function() {
+    const popup = document.getElementById('abstract-popup');
+    const closePopupBtn = document.getElementById('close-popup');
+    const continueBtn = document.getElementById('continue-btn');
+    const abstractMessage = document.getElementById('abstract-message');
+
+    // Show the popup on page load
+    popup.style.display = 'flex';
+
+    // Fetch the abstract content from abstract.html
+    fetch('abstract.html')
+        .then(response => response.text())
+        .then(data => {
+            abstractMessage.innerHTML = data;  // Insert abstract content into the popup
+        })
+        .catch(error => {
+            abstractMessage.innerHTML = "<p>Sorry, the abstract content could not be loaded.</p>";
+            console.error('Error loading abstract:', error);
+        });
+
+    // Close popup when 'X' is clicked
+    closePopupBtn.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
+    // Close popup when 'Continue' button is clicked
+    continueBtn.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+});

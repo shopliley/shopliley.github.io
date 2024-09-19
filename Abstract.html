@@ -14,62 +14,7 @@
             padding: 0;
         }
 
-        /* Navigation bar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #111;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            margin-right: 15px;
-        }
-
-        .navbar a:hover {
-            color: #E50914;
-        }
-
-        .navbar .title {
-            flex-grow: 1;
-            text-align: center;
-            font-size: 2em;
-            font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-            color: #E50914; /* Netflix red */
-            letter-spacing: 0.05em;
-        }
-
-        .navbar .volume-controls {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar .volume-slider {
-            appearance: none;
-            background: #E50914;
-            width: 100px;
-            height: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .navbar .mute-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        .navbar .mute-button:hover {
-            color: #E50914;
-        }
-
+        
         /* Abstract content */
         .container {
             max-width: 800px;
@@ -109,18 +54,7 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <div>
-            <a href="index.html">Home</a>
-        </div>
-        <div class="title">Heartless</div>
-        <div class="volume-controls">
-            <button class="mute-button" id="mute-button">🔊</button>
-            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
-        </div>
-    </div>
-
+    
     <!-- Abstract Content -->
     <div class="container">
         <h1>Abstract</h1>
@@ -146,39 +80,6 @@
         </div>
     </div>
 
-    <!-- Background Music -->
-    <audio id="bg-music" loop autoplay>
-        <source src="Sounds/bg.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <!-- JavaScript for music control -->
-    <script>
-        // Background music control
-        const bgMusic = document.getElementById('bg-music');
-        const volumeSlider = document.getElementById('volume-slider');
-        const muteButton = document.getElementById('mute-button');
-
-        // Set initial volume to 30%
-        bgMusic.volume = 0.3;
-
-        volumeSlider.addEventListener('input', (e) => {
-            bgMusic.volume = e.target.value;
-            muteButton.textContent = bgMusic.volume == 0 ? '🔇' : '🔊';
-        });
-
-        muteButton.addEventListener('click', () => {
-            bgMusic.muted = !bgMusic.muted;
-            muteButton.textContent = bgMusic.muted ? '🔇' : '🔊';
-        });
-
-        // Attempt to play background music on page load
-        window.onload = function() {
-            bgMusic.play().catch(() => {
-                // Autoplay might be blocked; handle if necessary
-            });
-        };
-    </script>
-
+    
 </body>
 </html>

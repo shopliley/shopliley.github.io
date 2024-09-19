@@ -6,7 +6,7 @@ html, body {
     color: white;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;  /* Disable horizontal scrolling */
+    overflow-x: hidden;
 }
 
 /* Navigation bar */
@@ -26,7 +26,7 @@ html, body {
 }
 
 .navbar a:hover {
-    color: #E50914;  /* Netflix red hover color */
+    color: #E50914;
 }
 
 .navbar .volume-controls {
@@ -55,7 +55,7 @@ html, body {
     height: 600px;
     background-size: cover;
     background-position: center;
-    background-image: url('images/start.png'); /* Placeholder background image */
+    background-image: url('images/start.png');
 }
 
 .main-content {
@@ -96,10 +96,10 @@ html, body {
     background-color: #f40612;
 }
 
-/* Netflix-style carousel layout */
+/* Carousel section */
 .more-episodes {
     padding: 20px;
-    position: relative; /* Needed for arrows to position correctly */
+    position: relative;
 }
 
 .more-episodes h2 {
@@ -109,16 +109,14 @@ html, body {
 
 .carousel {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: auto;
     white-space: nowrap;
     scroll-behavior: smooth;
-    position: relative;
-    padding-bottom: 30px;  /* Extra space for arrows */
     scrollbar-width: none;
 }
 
 .carousel::-webkit-scrollbar {
-    display: none;  /* Hide scrollbar on Chrome/Safari */
+    display: none;
 }
 
 .episode {
@@ -127,9 +125,7 @@ html, body {
     background-color: #222;
     border-radius: 10px;
     overflow: hidden;
-    position: relative;
     transition: transform 0.3s;
-    display: inline-block;
 }
 
 .episode img {
@@ -145,7 +141,7 @@ html, body {
 
 .episode:hover {
     transform: scale(1.1);
-    z-index: 10;  /* Bring the hovered episode to the front */
+    z-index: 10;
 }
 
 .episode-title {
@@ -170,44 +166,42 @@ html, body {
     padding: 8px 16px;
     cursor: pointer;
     font-size: 1em;
-    transition: background-color 0.3s ease;
 }
 
 .episode button:hover {
     background-color: #f40612;
 }
 
-/* Rectangular arrows for Carousel */
+/* Carousel Arrows */
 .carousel-arrow {
     position: absolute;
-    top: 0;  /* Align the arrow with the top of the More Episodes section */
-    background-color: rgba(0, 0, 0, 0.3);  /* Transparent background */
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.3);
     border: none;
     color: white;
     font-size: 3em;
-    padding: 0 10px;
     cursor: pointer;
     z-index: 10;
     width: 60px;
-    height: 100%;  /* Full height matching the More Episodes section */
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .carousel-arrow.left {
-    left: 0;  /* Positioned at the start of the carousel */
+    left: 0;
 }
 
 .carousel-arrow.right {
-    right: 0;  /* Positioned at the end of the carousel */
+    right: 0;
 }
 
 .carousel-arrow:hover {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Mobile responsiveness */
+/* Responsive adjustments */
 @media screen and (max-width: 768px) {
     .main-content {
         left: 20px;
@@ -229,12 +223,12 @@ html, body {
     }
 
     .episode {
-        flex: 0 0 200px;  /* Smaller episodes for mobile */
+        flex: 0 0 200px;
         margin-right: 10px;
     }
 
     .carousel-arrow {
-        display: none;  /* Hide the arrows on mobile for better space utilization */
+        display: none;
     }
 }
 
@@ -259,7 +253,7 @@ html, body {
     }
 
     .episode {
-        flex: 0 0 150px;  /* Even smaller episodes for very small screens */
+        flex: 0 0 150px;
     }
 
     .episode-title {
@@ -270,24 +264,65 @@ html, body {
         font-size: 0.8em;
     }
 }
+/* Popup container adjustment */
+.popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    background-image: url('images/all-episodes-faded.png');
+    background-size: cover;
+}
 
-/* Abstract Section */
-#abstract-content {
-    padding: 50px;
-    background-color: #222;
+/* Adjust popup content */
+.popup-content {
+    position: relative;
+    width: 1000px;  /* Set a fixed width */
+    max-width: 90%;  /* Ensure it’s responsive */
+    height: 500px;   /* Set height to match your request */
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* Close button adjustment */
+.close-btn {
+    position: absolute;
+    right: 20px;   /* Adjusted to align properly */
+    top: 20px;     /* Keep it inside the popup */
+    font-size: 24px;
+    cursor: pointer;
     color: white;
-    margin-top: 50px;
-    text-align: center;
+    z-index: 1001;  /* Make sure it's above the content */
 }
 
-#abstract-content h2 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+/* Adjust popup footer to center the continue button */
+.popup-footer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;   /* Adjust to move the button upward slightly */
+    left: 0;
+    right: 0;
 }
 
-#abstract-content p {
+.continue-btn {
+    background-color: #E50914;
+    color: white;
+    border: none;
+    padding: 10px 40px;  /* Adjust width for better alignment */
     font-size: 1.2em;
-    line-height: 1.8;
-    max-width: 800px;
-    margin: 0 auto;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.continue-btn:hover {
+    background-color: #f40612;
 }
