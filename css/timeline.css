@@ -1,0 +1,93 @@
+/* Timeline container */
+.timeline {
+    position: relative;
+    margin: 50px 0;
+    padding: 0;
+    list-style: none;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Timeline items */
+.timeline-item {
+    padding: 20px;
+    position: relative;
+    width: 50%;
+    margin: 20px 0;
+    clear: both;
+}
+
+/* Timeline content: Images, titles, and descriptions */
+.timeline-content {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: white;
+    text-align: left;
+}
+
+/* Image inside the timeline */
+.timeline-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Timeline alternating items left and right */
+.timeline-item:nth-child(odd) {
+    float: left;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    float: right;
+    text-align: left;
+}
+
+/* Center vertical line in the timeline */
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background-color: #E50914;
+    transform: translateX(-50%);
+}
+
+/* Dots on the vertical line */
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #E50914;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .timeline-item {
+        width: 100%;
+        text-align: left;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        float: none;
+        text-align: left;
+    }
+
+    .timeline:before {
+        left: 10px; /* Adjust the vertical line for small screens */
+    }
+
+    .timeline-item:before {
+        left: 10px;
+    }
+}

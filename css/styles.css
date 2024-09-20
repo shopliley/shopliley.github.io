@@ -28,7 +28,14 @@ html, body {
 .navbar a:hover {
     color: #E50914;
 }
+/* Custom styles for Memories and Promises */
+.navbar a[href="#memories-section"] {
+    color: lightblue;
+}
 
+.navbar a[href="#promises-section"] {
+    color: lightgreen;
+}
 .navbar .volume-controls {
     display: flex;
     align-items: center;
@@ -283,11 +290,11 @@ html, body {
 /* Adjust popup content */
 .popup-content {
     position: relative;
-    width: 1000px;  /* Set a fixed width */
-    max-width: 90%;  /* Ensure it’s responsive */
+    width: 600px;  /* Set a fixed width */
+    max-width: 95%;  /* Ensure it’s responsive */
     height: 500px;   /* Set height to match your request */
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
 }
 
@@ -313,7 +320,7 @@ html, body {
 }
 
 .continue-btn {
-    background-color: #E50914;
+    background-color: #e90c1a;
     color: white;
     border: none;
     padding: 10px 40px;  /* Adjust width for better alignment */
