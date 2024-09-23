@@ -30,48 +30,18 @@ const episodes = [
         backgroundImage: "images/start.png",
         link: "episode1.html"
     },
-    {
-        title: "Two-Faced",
-        description: "A story of love, business, and societal pressures.",
-        backgroundImage: "images/two-faced.png",
-        link: "episode2.html"
-    },
-    {
-        title: "Rekindling",
-        description: "Reconnecting after a long separation. A story of hope.",
-        backgroundImage: "images/rekindling.png",
-        link: "episode3.html"
-    },
-    {
-        title: "Fake Letter",
-        description: "Sending a letter to leave, sending a letter to restart.",
-        backgroundImage: "images/fake-letter.png",
-        link: "episode4.html"
-    },
-    {
-        title: "The Taxi - BTS",
-        description: "The shocking reveal.",
-        backgroundImage: "images/BTS.png",
-        link: "episode5.html"
-    },
-    {
-        title: "Fake Promises",
-        description: "When there is true love, there can be no breaking up.",
-        backgroundImage: "images/fake-promises.png",
-        link: "episode6.html"
-    },
+   
+   
+    
+   
+    
     {
         title: "The First Meetup",
         description: "A trip to heal all wounds and make lasting memories.",
         backgroundImage: "images/meetup.png",
         link: "episode7.html"
     },
-    {
-        title: "Anguish",
-        description: "Snooping for truth but fell for the tears.",
-        backgroundImage: "images/snooping1.png",
-        link: "episode8.html"
-    },
+    
     {
         title: "Pleading",
         description: "I can’t hate you for breaking my heart.",
