@@ -25,10 +25,10 @@ volumeSlider.addEventListener('input', () => {
 // Episode Switching
 const episodes = [
     {
-        title: "Shared Adventure",
-        description: "A journey from online gaming to real life.",
+        title: "Please read the Memories",
+        description: "I hate you 1% but I love you 99",
         backgroundImage: "images/start.png",
-        link: "episode1.html"
+        link: "memories.html"
     },
    
    
