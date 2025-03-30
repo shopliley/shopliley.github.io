@@ -9,14 +9,29 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<!-- Popup Modal for Abstract -->
-<div class="popup" id="abstract-popup">
+
+<!-- Giveaway Popup (Appears First) -->
+<div class="popup" id="giveaway-popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close-btn" id="close-giveaway-popup">&times;</span>
+        </div>
+        <div class="popup-body">
+            <h2>🎉 Enter Our Giveaway! 🎉</h2>
+            <p>Enter now for a chance to win! Just answer a simple question.</p>
+            <button id="enter-giveaway-btn" class="continue-btn">Enter Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Abstract Popup -->
+<div class="popup" id="abstract-popup" style="display: none;">
     <div class="popup-content">
         <div class="popup-header">
             <span class="close-btn" id="close-popup">&times;</span>
         </div>
         <div class="popup-body">
-            <iframe src="content/abstract.html" style="width: 95%; height: 600px; border: none;"></iframe>
+            <iframe src="content/abstract.html" style="width: 100%; height: 600px; border: none;"></iframe>
         </div>
         <div class="popup-footer">
             <button id="continue-btn" class="continue-btn">Continue</button>
@@ -24,87 +39,54 @@
     </div>
 </div>
 
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <div>
-            <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promises - Heartless</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- Link to your existing CSS for consistent design -->
-</head>
-<body>
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div>
+        <a href="index.html">Home</a>
+        <a href="memories.html">Memories</a>
+        <a href="promises.html">Promises</a>
+        <a href="abstract.html">Abstract</a>
+    </div>
+    <div class="volume-controls">
+        <div class="volume-icon" id="volume-icon">🔊</div>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+    </div>
+</div>
 
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <div>
-            <a href="index.html">Home</a> <!-- Go back to the homepage -->
-            <a href="memories.html">Memories</a>
-            <a href="promises.html">Promises</a>
-            <a href="abstract.html">Abstract</a>
-        </div>
-        <div class="volume-controls">
-            <div class="volume-icon" id="volume-icon">🔊</div>
-            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+<!-- Main Episode Section -->
+<div class="main-episode" id="main-episode">
+    <div class="main-content">
+        <h1 id="episode-title">READ THE MEMORIES</h1>
+        <p id="episode-description">"I cannot forget the moments I had with you."</p>
+        <button id="read-now-btn">Read Now</button>
+    </div>
+</div>
+
+<!-- More Episodes Section -->
+<div class="more-episodes">
+    <h2>Recently Added</h2>
+    <div class="carousel" id="episodeCarousel">
+        <div class="episode">
+            <img src="memories/memory1.jpg" alt="Memory1">
+            <div class="episode-title">Please Read This</div>
+            <div class="episode-description">"4 years of Memories"</div>
+            <button onclick="window.location.href='memories.html'">Read Now</button>
         </div>
     </div>
+    <!-- Arrows for Carousel -->
+    <button class="carousel-arrow left" id="left-arrow">‹</button>
+    <button class="carousel-arrow right" id="right-arrow">›</button>
+</div>
 
+<!-- Background Music Control -->
+<audio id="bg-music" loop>
+    <source src="sounds/bg.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<button id="play-music-btn">Play Music</button>
 
+<!-- Scripts -->
+<script type="module" src="js/script.js"></script>
 
-</body>
-</html>
-
-        </div>
-        <div class="volume-controls">
-            <div class="volume-icon" id="volume-icon">🔊</div>
-            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
-            <div class="volume-popup" id="volume-popup">You can adjust the volume here</div>
-        </div>
-        
-    </div>
-
-    <!-- Main Episode Section -->
-    <div class="main-episode" id="main-episode">
-        <div class="main-content">
-            <h1 id="episode-title">READ THE MEMORIES</h1>
-            <p id="episode-description">"I cannot forget the momemts I had with you."</p>
-            <button id="read-now-btn">Read Now</button>
-        </div>
-    </div>
-
-    <!-- More Episodes Section -->
-    <div class="more-episodes">
-        <h2>Recently Added</h2>
-        <div class="carousel" id="episodeCarousel">
-
-            <!-- Memories -->
-
-                                                                                                   
-            <div class="episode">
-                <img src="memories/memory1.jpg" alt="Memory1">
-                <div class="episode-title">Please Read This</div>
-                <div class="episode-description">"4 years of Memories"</div>
-                <button onclick="window.location.href='memories.html'">Read Now</button>
-            </div>
-        
-
-        <!-- Arrows for Carousel -->
-        <button class="carousel-arrow left" id="left-arrow">‹</button>
-        <button class="carousel-arrow right" id="right-arrow">›</button>
-    </div>
-
-    <!-- Abstract Section (dynamically loaded) -->
-    <section id="abstract-content"></section>
-
-    <!-- Background Music Control (autoplay removed) -->
-    <audio id="bg-music" loop>
-        <source src="sounds/bg.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <button id="play-music-btn">Play Music</button>
-
-    <script src="js/script.js"></script>
 </body>
 </html>

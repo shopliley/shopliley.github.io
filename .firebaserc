@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "giveawayapp-c4e99",
+    "production": "giveawayapp-c4e99"
+  },
+  "targets": {},
+  "etags": {}
+}

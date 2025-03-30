@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "shoplileygithubio"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "shoplileygithubio-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]
