@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShopLiley</title>
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   <style>
@@ -17,160 +17,145 @@
       text-align: center;
       min-height: 100vh;
       padding-top: 100px;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .navbar {
+    video#bg-video {
       position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 15px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      z-index: 10;
+      right: 0;
+      bottom: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      z-index: -1;
+      object-fit: cover;
+      filter: brightness(0.4);
     }
 
-    .navbar div a {
-      margin: 0 20px;
-      text-decoration: none;
+    #entry-warning, #click-to-start {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.85);
+      padding: 30px 40px;
+      border: 2px solid #e50914;
       color: #f0f0f0;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .volume-controls {
-      margin-right: 30px;
-    }
-
-    .ink-title {
-      font-size: 4em;
+      font-size: 20px;
       font-weight: bold;
-      letter-spacing: 2px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #e50914;
+      animation: pulse 2s infinite;
+      z-index: 10000;
+      text-align: center;
+    }
+
+    #entry-warning {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .entry-btn {
+      padding: 12px 25px;
+      background-color: #e50914;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    #disclaimer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      z-index: 999;
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+      50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+    }
+
+    h1 {
+      font-size: 3.5rem;
       color: #e50914;
-      animation: inkFlow 5s ease-in-out infinite;
+      text-shadow: 0 0 10px #e50914;
+      margin-top: 80px;
+      animation: fadeInTitle 2s ease-in-out;
+    }
+
+    @keyframes fadeInTitle {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .section {
+      max-width: 800px;
+      padding: 30px 20px;
+      animation: fadeInContent 2s ease 1s forwards;
       opacity: 0;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
     }
 
-    @keyframes inkFlow {
-      0% { opacity: 0; transform: translateY(-10px); text-shadow: 0 0 10px #e50914; }
-      25% { opacity: 1; transform: translateY(0); text-shadow: 0 0 20px #e50914; }
-      50% { opacity: 0.85; text-shadow: 0 0 8px #e50914; }
-      75% { opacity: 1; text-shadow: 0 0 18px #e50914; }
-      100% { opacity: 0; transform: translateY(10px); text-shadow: 0 0 4px #e50914; }
-    }
-
-    #countdown {
-      font-size: 1.8em;
-      font-weight: bold;
-      letter-spacing: 1px;
-      color: #f5f5f5;
-      text-shadow: 0 0 8px #e50914;
-      margin: 30px 0;
-      opacity: 0;
-      animation: fadeIn 3s ease 1s forwards;
-    }
-
-    @keyframes fadeIn {
+    @keyframes fadeInContent {
       to { opacity: 1; }
     }
 
-    .under-text {
-      font-size: 18px;
+    .section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
       margin-bottom: 20px;
-      color: #aaa;
-      animation: fadeIn 3s ease 1.5s forwards;
-      opacity: 0;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
     }
 
-    .quotes, .laws {
-      max-width: 800px;
-      margin-top: 30px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-
-    .visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .quotes p, .laws p {
+    .quotes p {
       font-style: italic;
-      margin: 20px 0;
-      font-size: 18px;
-      color: #ddd;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-    }
-
-    .laws h2 {
-      color: #e50914;
-      font-size: 24px;
-      margin-top: 60px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-    }
-
-    footer {
-      margin-top: 60px;
-      font-size: 12px;
-      text-align: center;
-      color: #666;
-      padding: 20px;
-      opacity: 0;
-      animation: fadeIn 3s ease 2.5s forwards;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
 
-<!-- Dark overlay for video background readability -->
-<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: -1;"></div>
-
 <!-- Background Video -->
-<video autoplay muted loop playsinline style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -2; object-fit: cover;">
+<video autoplay muted loop playsinline id="bg-video">
   <source src="video-bg.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-<!-- Navigation Bar -->
-<div class="navbar">
-  <div>
-    <a href="index.html">Home</a>
-    <a href="memories.html">Memories</a>
-    <a href="promises.html">Promises</a>
-    <a href="abstract.html">Abstract</a>
-  </div>
-  <div class="volume-controls">
-    <div class="volume-icon" id="volume-icon">🔊</div>
-    <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
-  </div>
+<!-- Age Gate Warning -->
+<div id="entry-warning">
+  <div>⚠️ This content may contain poetic overthinking, and dramatic metaphors.</div>
+  <div>Are you emotionally 18+ and ready to dive in?</div>
+  <button class="entry-btn" onclick="enterSite()">Yes, I’m mentally unstable. Proceed.</button>
 </div>
 
-<!-- Animated Title -->
-<h1 class="ink-title">INK HASN’T DRIED YET</h1>
+<!-- Tap to Begin Prompt -->
+<div id="click-to-start" style="display: none;">Tap to begin the experience 🎧</div>
 
-<!-- Countdown Timer -->
-<div id="countdown"></div>
+<!-- Audio Background -->
+<audio id="bg-audio" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
-<!-- Launch Message -->
-<p class="under-text">
-  This site is under construction. A 10th edition project is launching soon. Stay curious.<br>
-  The story was never meant to end.
-</p>
+<!-- Main Content -->
+<h1>INK HASN’T DRIED YET</h1>
 
-<!-- Quote Intro -->
-<p class="under-text" style="margin-top: 30px; font-style: italic;">
-  Here are a few quotes I’ve written myself to enjoy until then:
-</p>
+<div class="section">
+  <p>This site is under construction. A 10th edition project is launching soon. Stay curious.<br>
+  The story was never meant to end.</p>
+</div>
 
-<!-- Quotes Section -->
-<div class="quotes">
+<div class="section quotes">
   <p>1. How can we blame the wind for the mess if we were the one who opened the window.</p>
   <p>2. There was once a rose with beautiful petals. I forgot it had stems hidden.</p>
   <p>3. Boomerang Theory — what you throw out will always find its way back to you.</p>
@@ -183,58 +168,39 @@
   <p>10. “You deserve better,” they said—then became the very thing I deserved better than.</p>
 </div>
 
-<!-- Famous Laws Section -->
-<div class="laws">
-  <h2>The Top 5 Most Famous Laws in the World:</h2>
-  <p><strong>1. Murphy’s Law:</strong> Anything that can go wrong, will go wrong.</p>
-  <p><strong>2. Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
-  <p><strong>3. Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
-  <p><strong>4. Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
-  <p><strong>5. Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
+<div class="section">
+  <h2>The Top 5 Most Famous Laws in the World</h2>
+  <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happening.</p>
+  <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
+  <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
+  <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
+  <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
 </div>
 
-<!-- Legal Disclaimer -->
-<footer>
-  <p>This website is a personal creative space intended for artistic expression only.</p>
-  <p>It is not affiliated with, referring to, or representing any other business, individual, or entity with similar names.</p>
-  <p>All characters, ideas, and references are fictional or metaphorical. Any resemblance is purely coincidental.</p>
-</footer>
+<!-- Disclaimer -->
+<div id="disclaimer">
+  This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br>
+  Any resemblance to actual persons, businesses, or events is purely coincidental.
+</div>
 
-<!-- Countdown Script -->
+<!-- Script -->
 <script>
-  function updateCountdown() {
-    const countDownDate = new Date("Dec 31, 2025 23:59:59").getTime();
-    const now = new Date().getTime();
-    const distance = countDownDate - now;
+  const bgAudio = document.getElementById("bg-audio");
+  const startPrompt = document.getElementById("click-to-start");
+  const entryWarning = document.getElementById("entry-warning");
 
-    if (distance < 0) {
-      document.getElementById("countdown").innerHTML = "The project is live!";
-      return;
-    }
-
-    const days = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-    const hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-    const minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    const seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
-
-    document.getElementById("countdown").innerHTML =
-      `Countdown to launch: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  function enterSite() {
+    entryWarning.style.display = "none";
+    startPrompt.style.display = "block";
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // Scroll reveal animation
-  const revealElements = document.querySelectorAll('.quotes, .laws');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  revealElements.forEach(el => observer.observe(el));
+  startPrompt.addEventListener("click", () => {
+    if (bgAudio && bgAudio.paused) {
+      bgAudio.volume = 0.3;
+      bgAudio.play().catch(err => console.log("Audio play blocked:", err));
+    }
+    startPrompt.style.display = "none";
+  });
 </script>
 
 </body>
