@@ -153,7 +153,23 @@
       padding: 10px;
       z-index: 999;
     }
-  </style>
+  /* Mobile Responsive Fixes */
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+        white-space: normal;
+        padding: 0 10px;
+      }
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .section p, .section.laws p {
+        font-size: 0.95rem;
+        padding: 0 10px;
+      }
+    }
+</style>
 </head>
 <body>
   <!-- Background Effects -->
@@ -170,36 +186,35 @@
   <h1><span id="type-text"></span><span class="cursor"></span></h1>
   <!-- Flip-Style Countdown Timer -->
   <div class="clock-container"><div class="clock"></div></div>
-  <div class="section">
-    <p>This site is under construction. A 10th edition project is launching soon. Stay curious.<br>
-    The story was never meant to end.<br>
-    Congratulations—Chapter 9 had to end.<br>
-    Chapter 10 is launching soon.<br>
-    And then—11, 12, and beyond.<br>
-    So long as I breathe, the ink will flow.</p>
-  </div>
+  <div class="section" id="main-message"></div>
   <!-- Quotes Section -->
   <div class="section quotes">
-    <p>1. How can we blame the wind for the mess if we were the one who opened the window.</p>
-    <p>2. There was once a rose with beautiful petals. I forgot it had stems hidden.</p>
-    <p>3. Boomerang Theory — what you throw out will always find its way back to you.</p>
-    <p>4. The view from the top of the building will look amazing until it starts to shake. Natural disasters should not be ignored.</p>
-    <p>5. The more cuts, the better the final movie.</p>
-    <p>6. Some people set fire to bridges and then complain there's no way back.</p>
-    <p>7. It’s amazing how silence becomes a weapon only when it’s not theirs.</p>
-    <p>8. They always said “don’t change,” and then walked away because I didn’t.</p>
-    <p>9. Healers don’t hold scalpels. Some just twist the knife slower.</p>
-    <p>10. “You deserve better,” they said—then became the very thing I deserved better than.</p>
+    <p>Years of pain.</p>
+    <p>Sleepless nights.</p>
+    <p>Loss of appetite—loyalty stayed, but peace didn’t.</p>
+    <p>Everyone deserves an honest life without overthinking and heartbreak.</p>
+    <p>While some found joy in secret, others were left to carry the weight.</p>
+    <p>The weight could have been erased, but it only grew.</p>
+    <p>Some follow the story as it unfolds—</p>
+    <p>and it will continue until it finds a better ending for everyone.</p>
   </div>
+  <div class="section quotes" id="quotes-container"></div>
   <!-- Laws Section -->
   <div class="section laws">
-    <h2>The Top 5 Most Famous Laws in the World</h2>
-    <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happening.</p>
-    <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
-    <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
-    <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
-    <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
-  </div>
+  <h2>The Top 5 Most Famous Laws in the World</h2>
+  <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happening.</p>
+  <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
+  <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
+  <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
+  <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
+  <br>
+  <h3>Bonus Reflections:</h3>
+  <p><strong>Peter’s Principle:</strong> In a hierarchy, every employee tends to rise to their level of incompetence.</p>
+  <p><strong>Sutton’s Law:</strong> Go where the money is.</p>
+  <p><strong>Hofstadter’s Law:</strong> It always takes longer than you expect, even when you take Hofstadter’s Law into account.</p>
+  <p><strong>Goodhart’s Law:</strong> When a measure becomes a target, it ceases to be a good measure.</p>
+  <p><strong>Hanlon’s Razor:</strong> Never attribute to malice that which is adequately explained by stupidity.</p>
+</div>
   <!-- Interaction Prompt -->
   <div id="click-to-start">Tap to begin the experience 🎧</div>
   <!-- Background Music -->
@@ -215,75 +230,97 @@
   <script>
     // Ink ripple
     const canvas = document.getElementById('inkCanvas'), ctx = canvas.getContext('2d');
-    function resizeC() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resizeC);
-    resizeC();
-    const drops = Array.from({ length: 50 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 6 + 2,
-      alpha: Math.random() * 0.1 + 0.02,
-      dx: (Math.random() - 0.5) * 0.5,
-      dy: Math.random() * -0.7 - 0.2
-    }));
-    function drawInk() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drops.forEach(d => {
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${d.alpha})`;
-        ctx.fill();
-        d.x += d.dx;
-        d.y += d.dy;
-        if (d.y < -10 || d.x < -10 || d.x > canvas.width + 10) {
-          d.x = Math.random() * canvas.width;
-          d.y = canvas.height + 10;
-        }
-      });
-      requestAnimationFrame(drawInk);
-    }
-    drawInk();
+    function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}window.addEventListener('resize',resizeCanvas);resizeCanvas();
+    const drops=Array.from({ length: 50 },()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2,alpha:Math.random()*0.1+0.02,dx:(Math.random()-0.5)*0.5,dy:Math.random()*-0.7-0.2}));
+    function drawInk(){ctx.clearRect(0,0,canvas.width,canvas.height);drops.forEach(d=>{ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${d.alpha})`;ctx.fill();d.x+=d.dx;d.y+=d.dy;if(d.y<0||d.x<0||d.x>canvas.width){d.x=Math.random()*canvas.width;d.y=canvas.height;} });requestAnimationFrame(drawInk);}drawInk();
     // Typing Effect
-    const txt = "INK HASN’T DRIED YET";
-    const typeEl = document.getElementById('type-text');
-    let idx = 0;
-    function type() {
-      if (idx < txt.length) {
-        typeEl.textContent += txt[idx++];
-        setTimeout(type, 120);
-      }
-    }
-    document.addEventListener('DOMContentLoaded', type);
+    const text="INK HASN’T DRIED YET",typeEl=document.getElementById('type-text');let idx=0;function type(){if(idx<text.length){typeEl.textContent+=text[idx++];setTimeout(type,120);}}document.addEventListener('DOMContentLoaded',type);
   </script>
   <!-- jQuery & FlipClock Timer -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
   <script>
-    $(function() {
-      const secondsLeft = Math.floor((new Date('2025-12-31T00:00:00').getTime() - Date.now()) / 1000);
-      $('.clock').FlipClock(secondsLeft, {
-        clockFace: 'DailyCounter',
-        countdown: true
-      });
-    });
-    const bgAudio = document.getElementById('bg-audio');
-    const prompt = document.getElementById('click-to-start');
-    prompt.addEventListener('click', () => {
-      bgAudio.volume = 0.3;
-      bgAudio.play().catch(() => {});
-      prompt.style.display = 'none';
-    });
-    // Reveal on scroll
-    const revealEls = document.querySelectorAll('.section, .clock-container');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    revealEls.forEach(el => obs.observe(el));
+    $(function(){const secs=Math.floor((new Date('2025-12-31T00:00:00').getTime()-Date.now())/1000);$('.clock').FlipClock(secs,{clockFace:'DailyCounter',countdown:true});});
+    document.getElementById('click-to-start').addEventListener('click',()=>{const a=document.getElementById('bg-audio');a.volume=0.3;a.play().catch(()=>{});document.getElementById('click-to-start').style.display='none';});
+    const revealEls=document.querySelectorAll('.section, .clock-container');const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:0.2});revealEls.forEach(el=>obs.observe(el));
   </script>
+<script>
+  const quotes = [
+    "1. How can we blame the wind for the mess if we were the one who opened the window.",
+    "2. There was once a rose with beautiful petals. I forgot it had stems hidden.",
+    "3. Boomerang Theory — what you throw out will always find its way back to you.",
+    "4. The view from the top of the building will look amazing until it starts to shake. Natural disasters should not be ignored.",
+    "5. The more cuts, the better the final movie.",
+    "6. Some people set fire to bridges and then complain there's no way back.",
+    "7. It’s amazing how silence becomes a weapon only when it’s not theirs.",
+    "8. They always said “don’t change,” and then walked away because I didn’t.",
+    "9. Healers don’t hold scalpels. Some just twist the knife slower.",
+    "10. “You deserve better,” they said—then became the very thing I deserved better than.",
+    "11. If someone really values you, they won’t make you feel replaced for a second.",
+    "12. Pain isn’t poetic, but those who survive it are.",
+    "13. Truth doesn’t need defense. Lies need rehearsals.",
+    "14. Distance doesn't ruin relationships. Doubts do.",
+    "15. Not all storms come to disrupt your life—some come to clear your path."
+  ];
+  const container = document.getElementById('quotes-container');
+  let quoteIndex = 0;
+  let charIndex = 0;
+  let quoteElement = document.createElement('p');
+  quoteElement.classList.add('typewriter');
+  container.appendChild(quoteElement);
+
+  function typeQuote() {
+    if (quoteIndex >= quotes.length) return;
+    const currentQuote = quotes[quoteIndex];
+    if (charIndex < currentQuote.length) {
+      quoteElement.innerHTML += currentQuote.charAt(charIndex);
+      charIndex++;
+      setTimeout(typeQuote, 40);
+    } else {
+      quoteIndex++;
+      charIndex = 0;
+      quoteElement = document.createElement('p');
+      quoteElement.classList.add('typewriter');
+      container.appendChild(quoteElement);
+      setTimeout(typeQuote, 600);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', typeQuote);
+</script>
+<script>
+  const mainMessage = [
+    "This site is under construction.",
+    "A 10th edition project is launching soon.",
+    "Stay curious.",
+    "The story was never meant to end.",
+    "Congratulations—Chapter 9 had to end.",
+    "Chapter 10 is launching soon; it will not be the end—there will be 11, 12, and beyond.",
+    "I will end all the chapters gracefully and on my own terms.",
+    "So long as I breathe, the ink will flow."
+  ];
+  const msgContainer = document.getElementById('main-message');
+  let mIndex = 0;
+  let mChar = 0;
+  let msgEl = document.createElement('p');
+  msgEl.classList.add('typewriter');
+  msgContainer.appendChild(msgEl);
+  function typeMain() {
+    if (mIndex >= mainMessage.length) return;
+    const line = mainMessage[mIndex];
+    if (mChar < line.length) {
+      msgEl.innerHTML += line.charAt(mChar);
+      mChar++;
+      setTimeout(typeMain, 40);
+    } else {
+      mIndex++;
+      mChar = 0;
+      msgEl = document.createElement('p');
+      msgEl.classList.add('typewriter');
+      msgContainer.appendChild(msgEl);
+      setTimeout(typeMain, 600);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', typeMain);
+</script>
 </body>
 </html>
