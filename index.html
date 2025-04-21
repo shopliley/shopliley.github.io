@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ShopLiley</title>
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <!-- FlipClock CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css" />
   <style>
+    /* Global Styles */
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
@@ -21,19 +24,101 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+    .navbar a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    .navbar a:hover {
+      color: #e50914;
+    }
+    /* Background Video */
     video#bg-video {
       position: fixed;
       right: 0;
       bottom: 0;
       min-width: 100vw;
       min-height: 100vh;
-      z-index: -1;
+      z-index: -2;
       object-fit: cover;
       filter: brightness(0.4);
     }
-
-    #entry-warning, #click-to-start {
+    /* Ink Canvas */
+    canvas#inkCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    /* Typing Title */
+    h1 {
+      font-size: 3.5rem;
+      color: #e50914;
+      text-shadow: 0 0 10px #e50914;
+      margin-top: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .cursor {
+      display: inline-block;
+      background-color: #e50914;
+      margin-left: 5px;
+      width: 10px;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    /* Reveal Animations */
+    .section,
+    .clock-container {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Sections styling */
+    .section.quotes p {
+      font-style: italic;
+      color: #ccc;
+      margin: 15px 0;
+    }
+    .section.laws h2 {
+      color: #e50914;
+      margin-bottom: 10px;
+    }
+    .section.laws p {
+      margin: 8px 0;
+    }
+    /* Countdown clock container */
+    .clock-container {
+      margin: 30px 0;
+    }
+    /* Click to Start */
+    #click-to-start {
       position: fixed;
       top: 50%;
       left: 50%;
@@ -51,24 +136,12 @@
       z-index: 10000;
       text-align: center;
     }
-
-    #entry-warning {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+      50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
     }
-
-    .entry-btn {
-      padding: 12px 25px;
-      background-color: #e50914;
-      border: none;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
+    /* Disclaimer */
     #disclaimer {
       position: fixed;
       bottom: 10px;
@@ -80,128 +153,137 @@
       padding: 10px;
       z-index: 999;
     }
-
-    @keyframes pulse {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-      50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-    }
-
-    h1 {
-      font-size: 3.5rem;
-      color: #e50914;
-      text-shadow: 0 0 10px #e50914;
-      margin-top: 80px;
-      animation: fadeInTitle 2s ease-in-out;
-    }
-
-    @keyframes fadeInTitle {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .section {
-      max-width: 800px;
-      padding: 30px 20px;
-      animation: fadeInContent 2s ease 1s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeInContent {
-      to { opacity: 1; }
-    }
-
-    .section p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .quotes p {
-      font-style: italic;
-      color: #ccc;
-    }
   </style>
 </head>
 <body>
-
-<!-- Background Video -->
-<video autoplay muted loop playsinline id="bg-video">
-  <source src="video-bg.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-<!-- Age Gate Warning -->
-<div id="entry-warning">
-  <div>⚠️ This content may contain poetic overthinking, and dramatic metaphors.</div>
-  <div>Are you emotionally 18+ and ready to dive in?</div>
-  <button class="entry-btn" onclick="enterSite()">Yes, I’m mentally unstable. Proceed.</button>
-</div>
-
-<!-- Tap to Begin Prompt -->
-<div id="click-to-start" style="display: none;">Tap to begin the experience 🎧</div>
-
-<!-- Audio Background -->
-<audio id="bg-audio" loop>
-  <source src="music.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<!-- Main Content -->
-<h1>INK HASN’T DRIED YET</h1>
-
-<div class="section">
-  <p>This site is under construction. A 10th edition project is launching soon. Stay curious.<br>
-  The story was never meant to end.</p>
-</div>
-
-<div class="section quotes">
-  <p>1. How can we blame the wind for the mess if we were the one who opened the window.</p>
-  <p>2. There was once a rose with beautiful petals. I forgot it had stems hidden.</p>
-  <p>3. Boomerang Theory — what you throw out will always find its way back to you.</p>
-  <p>4. The view from the top of the building will look amazing until it starts to shake. Natural disasters should not be ignored.</p>
-  <p>5. The more cuts, the better the final movie.</p>
-  <p>6. Some people set fire to bridges and then complain there's no way back.</p>
-  <p>7. It’s amazing how silence becomes a weapon only when it’s not theirs.</p>
-  <p>8. They always said “don’t change,” and then walked away because I didn’t.</p>
-  <p>9. Healers don’t hold scalpels. Some just twist the knife slower.</p>
-  <p>10. “You deserve better,” they said—then became the very thing I deserved better than.</p>
-</div>
-
-<div class="section">
-  <h2>The Top 5 Most Famous Laws in the World</h2>
-  <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happening.</p>
-  <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
-  <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
-  <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
-  <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
-</div>
-
-<!-- Disclaimer -->
-<div id="disclaimer">
-  This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br>
-  Any resemblance to actual persons, businesses, or events is purely coincidental.
-</div>
-
-<!-- Script -->
-<script>
-  const bgAudio = document.getElementById("bg-audio");
-  const startPrompt = document.getElementById("click-to-start");
-  const entryWarning = document.getElementById("entry-warning");
-
-  function enterSite() {
-    entryWarning.style.display = "none";
-    startPrompt.style.display = "block";
-  }
-
-  startPrompt.addEventListener("click", () => {
-    if (bgAudio && bgAudio.paused) {
-      bgAudio.volume = 0.3;
-      bgAudio.play().catch(err => console.log("Audio play blocked:", err));
+  <!-- Background Effects -->
+  <canvas id="inkCanvas"></canvas>
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="video-bg.mp4" type="video/mp4">
+  </video>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="memories.html">Memories</a>
+  </div>
+  <!-- Main Content -->
+  <h1><span id="type-text"></span><span class="cursor"></span></h1>
+  <!-- Flip-Style Countdown Timer -->
+  <div class="clock-container"><div class="clock"></div></div>
+  <div class="section">
+    <p>This site is under construction. A 10th edition project is launching soon. Stay curious.<br>
+    The story was never meant to end.<br>
+    Congratulations—Chapter 9 had to end.<br>
+    Chapter 10 is launching soon.<br>
+    And then—11, 12, and beyond.<br>
+    So long as I breathe, the ink will flow.</p>
+  </div>
+  <!-- Quotes Section -->
+  <div class="section quotes">
+    <p>1. How can we blame the wind for the mess if we were the one who opened the window.</p>
+    <p>2. There was once a rose with beautiful petals. I forgot it had stems hidden.</p>
+    <p>3. Boomerang Theory — what you throw out will always find its way back to you.</p>
+    <p>4. The view from the top of the building will look amazing until it starts to shake. Natural disasters should not be ignored.</p>
+    <p>5. The more cuts, the better the final movie.</p>
+    <p>6. Some people set fire to bridges and then complain there's no way back.</p>
+    <p>7. It’s amazing how silence becomes a weapon only when it’s not theirs.</p>
+    <p>8. They always said “don’t change,” and then walked away because I didn’t.</p>
+    <p>9. Healers don’t hold scalpels. Some just twist the knife slower.</p>
+    <p>10. “You deserve better,” they said—then became the very thing I deserved better than.</p>
+  </div>
+  <!-- Laws Section -->
+  <div class="section laws">
+    <h2>The Top 5 Most Famous Laws in the World</h2>
+    <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happening.</p>
+    <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
+    <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
+    <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
+    <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
+  </div>
+  <!-- Interaction Prompt -->
+  <div id="click-to-start">Tap to begin the experience 🎧</div>
+  <!-- Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  <!-- Disclaimer -->
+  <div id="disclaimer">
+    This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br>
+    Any resemblance to actual persons, businesses, or events is purely coincidental.
+  </div>
+  <!-- Scripts for Effects -->
+  <script>
+    // Ink ripple
+    const canvas = document.getElementById('inkCanvas'), ctx = canvas.getContext('2d');
+    function resizeC() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeC);
+    resizeC();
+    const drops = Array.from({ length: 50 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 6 + 2,
+      alpha: Math.random() * 0.1 + 0.02,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: Math.random() * -0.7 - 0.2
+    }));
+    function drawInk() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drops.forEach(d => {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${d.alpha})`;
+        ctx.fill();
+        d.x += d.dx;
+        d.y += d.dy;
+        if (d.y < -10 || d.x < -10 || d.x > canvas.width + 10) {
+          d.x = Math.random() * canvas.width;
+          d.y = canvas.height + 10;
+        }
+      });
+      requestAnimationFrame(drawInk);
     }
-    startPrompt.style.display = "none";
-  });
-</script>
-
+    drawInk();
+    // Typing Effect
+    const txt = "INK HASN’T DRIED YET";
+    const typeEl = document.getElementById('type-text');
+    let idx = 0;
+    function type() {
+      if (idx < txt.length) {
+        typeEl.textContent += txt[idx++];
+        setTimeout(type, 120);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', type);
+  </script>
+  <!-- jQuery & FlipClock Timer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+  <script>
+    $(function() {
+      const secondsLeft = Math.floor((new Date('2025-12-31T00:00:00').getTime() - Date.now()) / 1000);
+      $('.clock').FlipClock(secondsLeft, {
+        clockFace: 'DailyCounter',
+        countdown: true
+      });
+    });
+    const bgAudio = document.getElementById('bg-audio');
+    const prompt = document.getElementById('click-to-start');
+    prompt.addEventListener('click', () => {
+      bgAudio.volume = 0.3;
+      bgAudio.play().catch(() => {});
+      prompt.style.display = 'none';
+    });
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.section, .clock-container');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    revealEls.forEach(el => obs.observe(el));
+  </script>
 </body>
 </html>

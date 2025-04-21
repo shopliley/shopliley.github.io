@@ -1,82 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memories - Timeline</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/timeline.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memories - ShopLiley</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <!-- FlipClock CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css" />
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #000;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      padding-top: 100px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+    .navbar a { color: #f0f0f0; text-decoration: none; font-weight: bold; font-size: 1rem; transition: color 0.3s; }
+    .navbar a:hover, .navbar .active { color: #e50914; }
+    /* Background Video */
+    video#bg-video { position: fixed; right:0; bottom:0; min-width:100vw; min-height:100vh; z-index:-2; object-fit:cover; filter:brightness(0.4); }
+    /* Ink Canvas */
+    canvas#inkCanvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+    /* Typing Title */
+    h1 { font-size:3.5rem; color:#e50914; text-shadow:0 0 10px #e50914; margin-top:100px; white-space:nowrap; overflow:hidden; }
+    .cursor { display:inline-block; background-color:#e50914; width:10px; margin-left:5px; animation:blink .7s infinite; }
+    @keyframes blink {0%,50%{opacity:1;}51%,100%{opacity:0;}}
+    /* Countdown clock container */
+    .clock-container { margin:30px 0; }
+    /* Section Styles: always visible */
+    .section, .timeline-item {
+      max-width:800px; padding:30px 20px; margin-bottom:40px;
+    }
+    .section.quotes p { font-style:italic; color:#ccc; margin:15px 0; }
+    .section.laws h2 { color:#e50914; margin-bottom:10px; }
+    .section.laws p { margin:8px 0; }
+    /* Timeline Image Styles */
+    .timeline-content img { max-width: 100%; height: auto; display: block; margin: 0 auto 10px; border-radius: 8px; }
+    /* Disclaimer */
+    #disclaimer { position:fixed; bottom:10px; width:100%; text-align:center; font-size:13px; color:#888; background:rgba(0,0,0,0.6); padding:10px; z-index:999; }
+  </style>
 </head>
 <body>
+  <canvas id="inkCanvas"></canvas>
+  <video autoplay muted loop playsinline id="bg-video"><source src="video-bg.mp4" type="video/mp4"></video>
+  <div class="navbar"><a href="index.html">Home</a><a href="memories.html" class="active">Memories</a></div>
+  <h1><span id="type-text"></span><span class="cursor"></span></h1>
+  <div class="clock-container"><div class="clock"></div></div>
 
-<!-- Navigation Bar -->
-<div class="navbar">
-    <div>
-        <a href="index.html">Home</a>
-        <a href="memories.html">Memories</a>
-        <a href="promises.html">Promises</a>
-        <a href="abstract.html">Abstract</a>
-    </div>
-</div>
+  <div class="section">
+    <h2 style="color:#e50914; margin-bottom:10px;">Echo of a Dream</h2>
+    <p style="font-size:1.1rem; line-height:1.6;">
+      I had a dream last night.<br>
+      It felt too real—<br>
+      two people, no fights,<br>
+      just love, still whole.<br><br>
+      They said distance breaks some,<br>
+      but not the ones who hold on,<br>
+      who stay loyal across oceans,<br>
+      who believe in the unseen.<br><br>
+      A warmth lingered in that dream—<br>
+      a memory, maybe.<br>
+      Of hugs that melted the world outside.<br>
+      Of eyes that once teared up over little things.<br><br>
+      But then came the echo.<br>
+      Not of betrayal,<br>
+      but of choices.<br>
+      Of two people standing still,<br>
+      but on different roads.<br><br>
+      I woke up with a weight in my chest.<br>
+      A quiet ache that words can’t fix.<br>
+      Sometimes the hardest part<br>
+      is knowing what could’ve been fixed<br>
+      with just a little more belief.<br><br>
+      If ever she reads the winds of this world,<br>
+      may she find peace,<br>
+      and walk paths that don’t need<br>
+      to prove or pretend.<br><br>
+      This isn’t a story of blame,<br>
+      just of what’s left behind<br>
+      when hearts part with loose ends<br>
+      and too much hope.
+    </p>
+  </div>
 
-<!-- Featured Poem Section -->
-<div class="featured-entry" style="max-width: 800px; margin: 60px auto; padding: 20px; background: #f9f9f9; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); font-family: Georgia, serif; color: #222;">
-    <h2 style="text-align: center; color: #333;">Echo of a Dream</h2>
-    <p>I had a dream last night.<br>
-    It felt too real—<br>
-    two people, no fights,<br>
-    just love, still whole.</p>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/1/800/600" alt="First Confession"><h2>First Confession</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/2/800/600" alt="Promise Made"><h2>Promise Made</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/3/800/600" alt="The First Call"><h2>The First Call</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/4/800/600" alt="The Pressure"><h2>The Pressure</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/5/800/600" alt="Shifting Paths"><h2>Shifting Paths</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/6/800/600" alt="Quiet Reunion"><h2>Quiet Reunion</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/7/800/600" alt="Unspoken Words"><h2>Unspoken Words</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/8/800/600" alt="Echoes"><h2>Echoes</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/9/800/600" alt="The Meetup"><h2>The Meetup</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/10/800/600" alt="The Memories"><h2>The Memories</h2><p>I wish I could stop the clock on that trip</p></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/11/800/600" alt="The Storm"><h2>The Storm</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/12/800/600" alt="The Emergency"><h2>The Emergency</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/13/800/600" alt="More Promises"><h2>More Promises</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/14/800/600" alt="A Pause"><h2>A Pause</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/15/800/600" alt="Midnight Hours"><h2>Midnight Hours</h2></div></div>
+  <div class="timeline-item"><div class="timeline-content"><img src="https://picsum.photos/seed/16/800/600" alt="What Wasn't Said"><h2>What Wasn't Said</h2></div></div>
 
-    <p>They said distance breaks some,<br>
-    but not the ones who hold on,<br>
-    who stay loyal across oceans,<br>
-    who believe in the unseen.</p>
-
-    <p>A warmth lingered in that dream—<br>
-    a memory, maybe.<br>
-    Of hugs that melted the world outside.<br>
-    Of eyes that once teared up over little things.</p>
-
-    <p>But then came the echo.<br>
-    Not of betrayal,<br>
-    but of choices.<br>
-    Of two people standing still,<br>
-    but on different roads.</p>
-
-    <p>I woke up with a weight in my chest.<br>
-    A quiet ache that words can’t fix.<br>
-    Sometimes the hardest part<br>
-    is knowing what could’ve been fixed<br>
-    with just a little more belief.</p>
-
-    <p>If ever she reads the winds of this world,<br>
-    may she find peace,<br>
-    and walk paths that don’t need<br>
-    to prove or pretend.</p>
-
-    <p>This isn’t a story of blame,<br>
-    just of what’s left behind<br>
-    when hearts part with loose ends<br>
-    and too much hope.</p>
-</div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory1.jpg"><h2>First Confession</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory2.jpg"><h2>Promise Made</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory3.jpg"><h2>The First Call</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory4.jpg"><h2>The Pressure</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory5.jpg"><h2>Shifting Paths</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory6.jpg"><h2>Quiet Reunion</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory7.jpg"><h2>Unspoken Words</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory8.jpg"><h2>Echoes</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory9.jpg"><h2>The Meetup</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory10.jpg"><h2>The Memories</h2><p>I wish I could stop the clock on that trip</p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory11.jpg"><h2>The Storm</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory12.jpg"><h2>The Emergency</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory13.jpg"><h2>More Promises</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory14.jpg"><h2>A Pause</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory15.jpg"><h2>Midnight Hours</h2><p></p></div></div>
-    <div class="timeline-item"><div class="timeline-content"><img src="memories/memory16.jpg"><h2>What Wasn't Said</h2><p></p></div></div>
-
-</div>
-
+  <div id="disclaimer">This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br>Any resemblance to actual persons, businesses, or events is purely coincidental.</div>
+  <script>
+    // Ink ripple animation
+    const canvas = document.getElementById('inkCanvas'), ctx = canvas.getContext('2d');
+    function resizeC() { canvas.width = innerWidth; canvas.height = innerHeight; }
+    window.addEventListener('resize', resizeC); resizeC();
+    const drops = Array.from({ length: 50 }, () => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*6+2, alpha: Math.random()*0.1+0.02, dx: (Math.random()-0.5)*0.5, dy: Math.random()*-0.7-0.2 }));
+    function drawInk() { ctx.clearRect(0,0,canvas.width,canvas.height); drops.forEach(d=>{ ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${d.alpha})`;ctx.fill();d.x+=d.dx;d.y+=d.dy;if(d.y<-10||d.x<-10||d.x>canvas.width+10){d.x=Math.random()*canvas.width;d.y=canvas.height+10;}});requestAnimationFrame(drawInk);}drawInk();
+    // Typing effect
+    const txt = "Memories", el = document.getElementById('type-text'); let i=0;
+    function type() { if (i<txt.length) { el.textContent+=txt[i++]; setTimeout(type,100); }}
+    document.addEventListener('DOMContentLoaded', type);
+    // FlipClock Timer
+    $(function(){ const secondsLeft = Math.floor((new Date('2025-12-31T00:00:00').getTime()-Date.now())/1000); $('.clock').FlipClock(secondsLeft,{ clockFace:'DailyCounter', countdown:true }); });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
 </body>
 </html>
