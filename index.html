@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ShopLiley</title>
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-  <!-- FlipClock CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css" />
   <style>
-    /* Global Styles */
+    :root {
+      --bg: #000;
+      --text: #f0f0f0;
+      --accent: #e50914;
+    }
+    [data-theme="light"] {
+      --bg: #fff;
+      --text: #111;
+      --accent: #d32f2f;
+    }
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
-      background-color: #000;
-      color: #f0f0f0;
+      background-color: var(--bg);
+      color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,10 +29,8 @@
       min-height: 100vh;
       padding-top: 100px;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.3s, color 0.3s;
     }
-    /* Navbar */
     .navbar {
       position: fixed;
       top: 0;
@@ -33,22 +39,35 @@
       background: rgba(0, 0, 0, 0.85);
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 30px;
       padding: 15px 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
     .navbar a {
-      color: #f0f0f0;
+      color: var(--text);
       text-decoration: none;
       font-weight: bold;
       font-size: 1rem;
-      transition: color 0.3s;
     }
     .navbar a:hover {
-      color: #e50914;
+      color: var(--accent);
     }
-    /* Background Video */
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .audio-controls button, .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .audio-controls input[type="range"] {
+      width: 100px;
+    }
     video#bg-video {
       position: fixed;
       right: 0;
@@ -59,7 +78,6 @@
       object-fit: cover;
       filter: brightness(0.4);
     }
-    /* Ink Canvas */
     canvas#inkCanvas {
       position: fixed;
       top: 0;
@@ -69,18 +87,17 @@
       z-index: -1;
       pointer-events: none;
     }
-    /* Typing Title */
     h1 {
       font-size: 3.5rem;
-      color: #e50914;
-      text-shadow: 0 0 10px #e50914;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
       margin-top: 100px;
       white-space: nowrap;
       overflow: hidden;
     }
     .cursor {
       display: inline-block;
-      background-color: #e50914;
+      background-color: var(--accent);
       margin-left: 5px;
       width: 10px;
       animation: blink 0.7s infinite;
@@ -89,9 +106,7 @@
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
-    /* Reveal Animations */
-    .section,
-    .clock-container {
+    .section, .clock-container {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
@@ -100,48 +115,15 @@
       opacity: 1;
       transform: translateY(0);
     }
-    /* Sections styling */
     .section.quotes p {
       font-style: italic;
       color: #ccc;
       margin: 15px 0;
+      max-width: 90vw;
     }
-    .section.laws h2 {
-      color: #e50914;
-      margin-bottom: 10px;
-    }
-    .section.laws p {
-      margin: 8px 0;
-    }
-    /* Countdown clock container */
     .clock-container {
       margin: 30px 0;
     }
-    /* Click to Start */
-    #click-to-start {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.85);
-      padding: 30px 40px;
-      border: 2px solid #e50914;
-      color: #f0f0f0;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 20px #e50914;
-      animation: pulse 2s infinite;
-      z-index: 10000;
-      text-align: center;
-    }
-    @keyframes pulse {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-      50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-    }
-    /* Disclaimer */
     #disclaimer {
       position: fixed;
       bottom: 10px;
@@ -153,41 +135,38 @@
       padding: 10px;
       z-index: 999;
     }
-  /* Mobile Responsive Fixes */
-    @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-        white-space: normal;
-        padding: 0 10px;
-      }
-      .navbar {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .section p, .section.laws p {
-        font-size: 0.95rem;
-        padding: 0 10px;
-      }
-    }
-</style>
+  </style>
 </head>
 <body>
-  <!-- Background Effects -->
-  <canvas id="inkCanvas"></canvas>
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="video-bg.mp4" type="video/mp4">
-  </video>
-  <!-- Navbar -->
-  <div class="navbar">
+ <canvas id="inkCanvas"></canvas>
+  <video autoplay muted loop playsinline id="bg-video"><source src="video-bg.mp4" type="video/mp4" /></video>
+
+  <div class="navbar" id="navbar">
     <a href="index.html">Home</a>
     <a href="memories.html">Memories</a>
+    <div class="audio-controls">
+      <button id="play-music">🔊</button>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+    </div>
+    <div class="mood-controls">
+      <label for="mood-select" style="color:var(--text);font-weight:bold;">Select your mood:</label>
+      <select id="mood-select" onchange="setMood(this.value)">
+        <option value="neutral">😶‍🌫️ Neutral</option>
+        <option value="hope">🕊️ Hope</option>
+        <option value="rage">🔥 Rage</option>
+        <option value="sad">💔 Sad</option>
+      </select>
+    </div>
+    <button class="theme-toggle" title="Toggle Theme">🌗</button>
   </div>
-  <!-- Main Content -->
+
   <h1><span id="type-text"></span><span class="cursor"></span></h1>
-  <!-- Flip-Style Countdown Timer -->
   <div class="clock-container"><div class="clock"></div></div>
+
+  <!-- MAIN MESSAGES -->
   <div class="section" id="main-message"></div>
-  <!-- Quotes Section -->
+<div class="section" id="quotes-container"></div>
+  <!-- QUOTES SECTION -->
   <div class="section quotes">
     <p>Years of pain.</p>
     <p>Sleepless nights.</p>
@@ -199,128 +178,224 @@
     <p>and it will continue until it finds a better ending for everyone.</p>
   </div>
   <div class="section quotes" id="quotes-container"></div>
-  <!-- Laws Section -->
+
+  <!-- LAWS SECTION -->
   <div class="section laws">
-  <h2>The Top 5 Most Famous Laws in the World</h2>
-  <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happening.</p>
-  <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
-  <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
-  <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
-  <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
-  <br>
-  <h3>Bonus Reflections:</h3>
-  <p><strong>Peter’s Principle:</strong> In a hierarchy, every employee tends to rise to their level of incompetence.</p>
-  <p><strong>Sutton’s Law:</strong> Go where the money is.</p>
-  <p><strong>Hofstadter’s Law:</strong> It always takes longer than you expect, even when you take Hofstadter’s Law into account.</p>
-  <p><strong>Goodhart’s Law:</strong> When a measure becomes a target, it ceases to be a good measure.</p>
-  <p><strong>Hanlon’s Razor:</strong> Never attribute to malice that which is adequately explained by stupidity.</p>
-</div>
-  <!-- Interaction Prompt -->
-  <div id="click-to-start">Tap to begin the experience 🎧</div>
-  <!-- Background Music -->
+    <h2>The Top 5 Most Famous Laws in the World</h2>
+    <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happen.</p>
+    <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
+    <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
+    <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
+    <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
+    <h3>Bonus Reflections:</h3>
+    <p><strong>Peter’s Principle:</strong> In a hierarchy, every employee tends to rise to their level of incompetence.</p>
+    <p><strong>Sutton’s Law:</strong> Go where the money is.</p>
+    <p><strong>Hofstadter’s Law:</strong> It always takes longer than you expect, even when you take Hofstadter’s Law into account.</p>
+    <p><strong>Goodhart’s Law:</strong> When a measure becomes a target, it ceases to be a good measure.</p>
+    <p><strong>Hanlon’s Razor:</strong> Never attribute to malice that which is adequately explained by stupidity.</p>
+  </div>
+
+  <!-- AUDIO -->
   <audio id="bg-audio" loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg" />
   </audio>
-  <!-- Disclaimer -->
+
+  <!-- DISCLAIMER -->
   <div id="disclaimer">
-    This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br>
+    This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br />
     Any resemblance to actual persons, businesses, or events is purely coincidental.
   </div>
-  <!-- Scripts for Effects -->
+
+  <!-- SCRIPTS -->
   <script>
-    // Ink ripple
     const canvas = document.getElementById('inkCanvas'), ctx = canvas.getContext('2d');
-    function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}window.addEventListener('resize',resizeCanvas);resizeCanvas();
-    const drops=Array.from({ length: 50 },()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2,alpha:Math.random()*0.1+0.02,dx:(Math.random()-0.5)*0.5,dy:Math.random()*-0.7-0.2}));
-    function drawInk(){ctx.clearRect(0,0,canvas.width,canvas.height);drops.forEach(d=>{ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${d.alpha})`;ctx.fill();d.x+=d.dx;d.y+=d.dy;if(d.y<0||d.x<0||d.x>canvas.width){d.x=Math.random()*canvas.width;d.y=canvas.height;} });requestAnimationFrame(drawInk);}drawInk();
-    // Typing Effect
-    const text="INK HASN’T DRIED YET",typeEl=document.getElementById('type-text');let idx=0;function type(){if(idx<text.length){typeEl.textContent+=text[idx++];setTimeout(type,120);}}document.addEventListener('DOMContentLoaded',type);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    const drops = Array.from({ length: 50 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 6 + 2,
+      alpha: Math.random() * 0.1 + 0.02,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: Math.random() * -0.7 - 0.2
+    }));
+    function drawInk() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drops.forEach(d => {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${d.alpha})`;
+        ctx.fill();
+        d.x += d.dx;
+        d.y += d.dy;
+        if (d.y < 0 || d.x < 0 || d.x > canvas.width) {
+          d.x = Math.random() * canvas.width;
+          d.y = canvas.height;
+        }
+      });
+      requestAnimationFrame(drawInk);
+    }
+    drawInk();
+
+    // Title Typing
+    const text = "INK HASN’T DRIED YET", typeEl = document.getElementById('type-text');
+    let idx = 0;
+    function type() {
+      if (idx < text.length) {
+        typeEl.textContent += text[idx++];
+        setTimeout(type, 120);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', type);
+
+    // Main Message Typing
+    const mainMessage = [
+      "This site is under construction.",
+      "A 10th edition project is launching soon.",
+      "Stay curious.",
+      "The story was never meant to end and will not end, until it goes back to the first day",
+      "Congratulations—Chapter 9 had to end. It's amazing to have 9 chapters in such a short time",
+      "Chapter 10 is launching soon; it will not be the end—there will be 11, 12, and beyond.",
+      "I will end all the chapters gracefully and on my own terms.",
+      "So long as I breathe, the ink will flow. Chill, Enjoy and Wait for the launch at the Unexpected Time"
+    ];
+    const msgContainer = document.getElementById('main-message');
+    let mIndex = 0, mChar = 0, msgEl = document.createElement('p');
+    msgEl.classList.add('typewriter');
+    msgContainer.appendChild(msgEl);
+    function typeMain() {
+      if (mIndex >= mainMessage.length) return;
+      const line = mainMessage[mIndex];
+      if (mChar < line.length) {
+        msgEl.innerHTML += line.charAt(mChar++);
+        setTimeout(typeMain, 40);
+      } else {
+        mIndex++;
+        mChar = 0;
+        msgEl = document.createElement('p');
+        msgEl.classList.add('typewriter');
+        msgContainer.appendChild(msgEl);
+        setTimeout(typeMain, 600);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', typeMain);
+
+    // Music
+    const music = document.getElementById('bg-audio');
+    document.getElementById('play-music').onclick = () => {
+      music.paused ? music.play() : music.pause();
+    };
+    document.getElementById('volume-slider').oninput = e => {
+      music.volume = e.target.value;
+    };
+
+    // Theme Toggle
+    document.querySelector('.theme-toggle').onclick = () => {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
+    };
+
+    // Quotes
+    const quotes = [
+      "1. How can we blame the wind for the mess if we were the one who opened the window.",
+      "2. There was once a rose with beautiful petals. I forgot it had stems hidden.",
+      "3. Boomerang Theory — what you throw out will always find its way back to you.",
+      "4. The view from the top of the building will look amazing until it starts to shake.",
+      "5. The more cuts, the better the final movie.",
+      "6. Some people set fire to bridges and then complain there's no way back.",
+      "7. Silence becomes a weapon only when it’s not theirs.",
+      "8. They said “don’t change,” and then walked away because I didn’t.",
+      "9. Healers don’t hold scalpels. Some just twist the knife slower.",
+      "10. If someone really values you, they won’t make you feel replaced.",
+      "11. Pain isn’t poetic, but those who survive it are.",
+      "12. Truth doesn’t need defense. Lies need rehearsals.",
+      "13. Working is only for distraction from the pain now.",
+      "14. Going to sleep with a heavy heart, waking up with the same and working 10 hrs shift is a tough one."
+    ];
+    const container = document.getElementById('quotes-container');
+    let quoteIndex = 0;
+    function showQuote() {
+      if (quoteIndex >= quotes.length) return;
+      const p = document.createElement('p');
+      p.textContent = quotes[quoteIndex++];
+      container.appendChild(p);
+      setTimeout(showQuote, 2000);
+    }
+    document.addEventListener('DOMContentLoaded', showQuote);
   </script>
-  <!-- jQuery & FlipClock Timer -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
   <script>
-    $(function(){const secs=Math.floor((new Date('2025-12-31T00:00:00').getTime()-Date.now())/1000);$('.clock').FlipClock(secs,{clockFace:'DailyCounter',countdown:true});});
-    document.getElementById('click-to-start').addEventListener('click',()=>{const a=document.getElementById('bg-audio');a.volume=0.3;a.play().catch(()=>{});document.getElementById('click-to-start').style.display='none';});
-    const revealEls=document.querySelectorAll('.section, .clock-container');const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}})},{threshold:0.2});revealEls.forEach(el=>obs.observe(el));
+    $(function(){
+      const secs = Math.floor((new Date('2025-12-31T00:00:00').getTime() - Date.now()) / 1000);
+      $('.clock').FlipClock(secs, { clockFace: 'DailyCounter', countdown: true });
+    });
+    const revealEls = document.querySelectorAll('.section, .clock-container');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    revealEls.forEach(el => obs.observe(el));
   </script>
-<script>
-  const quotes = [
-    "1. How can we blame the wind for the mess if we were the one who opened the window.",
-    "2. There was once a rose with beautiful petals. I forgot it had stems hidden.",
-    "3. Boomerang Theory — what you throw out will always find its way back to you.",
-    "4. The view from the top of the building will look amazing until it starts to shake. Natural disasters should not be ignored.",
-    "5. The more cuts, the better the final movie.",
-    "6. Some people set fire to bridges and then complain there's no way back.",
-    "7. It’s amazing how silence becomes a weapon only when it’s not theirs.",
-    "8. They always said “don’t change,” and then walked away because I didn’t.",
-    "9. Healers don’t hold scalpels. Some just twist the knife slower.",
-    "10. “You deserve better,” they said, but gave me heavy wight to bear",
-    "11. If someone really values you, they won’t make you feel replaced for a second.",
-    "12. Pain isn’t poetic, but those who survive it are.",
-    "13. Truth doesn’t need defense. Lies need rehearsals.",
-    "14. Working is only for distraction from the pain now.",
-    "15. Going to sleep with a heavy heart, waking up with the same thing and working 10 hrs shift is a tough one."
-  ];
-  const container = document.getElementById('quotes-container');
-  let quoteIndex = 0;
-  let charIndex = 0;
-  let quoteElement = document.createElement('p');
-  quoteElement.classList.add('typewriter');
-  container.appendChild(quoteElement);
+<!-- Mood Selector -->
+<div class="section" style="margin: 40px auto;">
+  <h3>Choose Your Mood</h3>
+  <button onclick="setMood('hope')">🕊️ Hope</button>
+  <button onclick="setMood('rage')">🔥 Rage</button>
+  <button onclick="setMood('neutral')">😶‍🌫️ Neutral</button>
+  <button onclick="setMood('sad')">💔 Sad</button>
+</div>
 
-  function typeQuote() {
-    if (quoteIndex >= quotes.length) return;
-    const currentQuote = quotes[quoteIndex];
-    if (charIndex < currentQuote.length) {
-      quoteElement.innerHTML += currentQuote.charAt(charIndex);
-      charIndex++;
-      setTimeout(typeQuote, 40);
-    } else {
-      quoteIndex++;
-      charIndex = 0;
-      quoteElement = document.createElement('p');
-      quoteElement.classList.add('typewriter');
-      container.appendChild(quoteElement);
-      setTimeout(typeQuote, 600);
-    }
-  }
-  document.addEventListener('DOMContentLoaded', typeQuote);
-</script>
 <script>
-  const mainMessage = [
-    "This site is under construction.",
-    "A 10th edition project is launching soon.",
-    "Stay curious.",
-    "The story was never meant to end amd will not end, until the it goes back to the first day",
-    "Congratulations—Chapter 9 had to end. It's amazing to have 9 chapters in such a short time",
-    "Chapter 10 is launching soon; it will not be the end—there will be 11, 12, and beyond.",
-    "I will end all the chapters gracefully and on my own terms.",
-    "So long as I breathe, the ink will flow. Chill, Enjoy and Wait for the launch at the Unexpected Time"
-  ];
-  const msgContainer = document.getElementById('main-message');
-  let mIndex = 0;
-  let mChar = 0;
-  let msgEl = document.createElement('p');
-  msgEl.classList.add('typewriter');
-  msgContainer.appendChild(msgEl);
-  function typeMain() {
-    if (mIndex >= mainMessage.length) return;
-    const line = mainMessage[mIndex];
-    if (mChar < line.length) {
-      msgEl.innerHTML += line.charAt(mChar);
-      mChar++;
-      setTimeout(typeMain, 40);
+  function setMood(mood) {
+    const video = document.getElementById('bg-video');
+    const audio = document.getElementById('bg-audio');
+    const root = document.documentElement;
+    if (mood === 'hope') {
+      video.src = 'video-hope.mp4';
+      audio.src = 'music-hope.mp3';
+      root.style.setProperty('--accent', '#4caf50');
+    } else if (mood === 'rage') {
+      video.src = 'video-rage.mp4';
+      audio.src = 'music-rage.mp3';
+      root.style.setProperty('--accent', '#ff3c3c');
+    } else if (mood === 'sad') {
+      video.src = 'video-sad.mp4';
+      audio.src = 'music-sad.mp3';
+      root.style.setProperty('--accent', '#607d8b');
     } else {
-      mIndex++;
-      mChar = 0;
-      msgEl = document.createElement('p');
-      msgEl.classList.add('typewriter');
-      msgContainer.appendChild(msgEl);
-      setTimeout(typeMain, 600);
+      video.src = 'video-bg.mp4';
+      audio.src = 'music.mp3';
+      root.style.setProperty('--accent', '#e50914');
     }
+    audio.play();
   }
-  document.addEventListener('DOMContentLoaded', typeMain);
+</script>
+
+<!-- Auto Theme by Time -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const hour = new Date().getHours();
+    document.documentElement.dataset.theme = hour >= 7 && hour <= 18 ? 'light' : 'dark';
+  });
+</script>
+
+<!-- Click-to-Speak for Quotes -->
+<script>
+  document.addEventListener('click', function (e) {
+    if (e.target.matches('.section.quotes p')) {
+      const msg = new SpeechSynthesisUtterance(e.target.textContent);
+      window.speechSynthesis.speak(msg);
+    }
+  });
 </script>
 </body>
 </html>
