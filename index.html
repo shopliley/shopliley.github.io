@@ -6,7 +6,10 @@
   <title>ShopLiley</title>
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
+
+
     :root {
       --bg: #000;
       --text: #f0f0f0;
@@ -139,10 +142,76 @@
       padding: 10px;
       z-index: 999;
     }
+}#lockscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  color: white;
+}
+#lockscreen input {
+  padding: 10px;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 200px;
+  text-align: center;
+}
+#lockscreen button {
+  background: var(--accent);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+body.locked > :not(#lockscreen):not(script) {
+  display: none !important;
+}
+.hidden-mail {
+  position: fixed;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+#popup-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10001;
+  max-width: 80vw;
+  text-align: center;
+}
+}
   </style>
 </head>
-<body>
-<canvas id="inkCanvas"></canvas>
+<body class="locked">
+<div id="lockscreen">
+  <p>🔐 Enter Password to Access</p>
+  <input type="password" id="entry-pass" placeholder="Password">
+  <button onclick="unlockSite()">Unlock</button>
+</div><canvas id="inkCanvas"></canvas>
 <video autoplay muted loop playsinline id="bg-video"><source src="video-bg.mp4" type="video/mp4" /></video>
 
 <div class="navbar" id="navbar">
@@ -167,6 +236,17 @@
 <!-- MAIN MESSAGES -->
 <div class="section" id="main-message"></div>
 
+<div id="hidden-mails">
+  <div class="hidden-mail" style="top: 15%; left: 10%;" onclick="openHiddenMessage(0)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 25%; left: 70%;" onclick="openHiddenMessage(1)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 50%; left: 20%;" onclick="openHiddenMessage(2)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 60%; left: 80%;" onclick="openHiddenMessage(3)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 75%; left: 45%;" onclick="openHiddenMessage(4)">📬 Click here</div>
+</div>
+<div id="popup-message" style="display:none">
+  <div id="popup-text"></div>
+  <button onclick="closePopup()">Close</button>
+</div>
 
 <!-- QUOTES SECTION -->
 <div class="section quotes">
@@ -181,8 +261,7 @@
   <p>Some follow the story as it unfolds—</p>
   <p>and it will continue until it finds a better ending for everyone.</p>
 </div>
- <img src="image.png" alt="Gold Mine Image" style="max-width: 300px; width: 90%; height: auto; margin-top: 30px;">
-
+ 
 <div class="section" id="quotes-container"></div>
 
 <!-- LAWS SECTION -->
@@ -217,13 +296,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
 
 <script>
-const canvas = document.getElementById('inkCanvas'), ctx = canvas.getContext('2d');
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+
+
+const canvas = document.getElementById('inkCanvas');
+const ctx = canvas.getContext('2d');
 const drops = Array.from({ length: 50 }, () => ({
   x: Math.random() * canvas.width,
   y: Math.random() * canvas.height,
@@ -232,6 +308,12 @@ const drops = Array.from({ length: 50 }, () => ({
   dx: (Math.random() - 0.5) * 0.5,
   dy: Math.random() * -0.7 - 0.2
 }));
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 function drawInk() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drops.forEach(d => {
@@ -397,6 +479,40 @@ document.addEventListener('click', function (e) {
     window.speechSynthesis.speak(msg);
   }
 });
+
+function unlockSite() {
+  const pass = document.getElementById('entry-pass').value;
+  if (pass === 'thirtyeleven3011!') {
+    document.getElementById('lockscreen').style.display = 'none';
+    document.body.classList.remove('locked');
+  } else {
+    alert('Incorrect password');
+  }
+}const messages = [
+  "💌 You must learn to leave the table when love is no longer being served.",
+  "💌 She wanted closure. He just closed the door.",
+  "💌 Some messages were never meant to be read in the daylight.",
+  "💌 And yet, in silence, the loudest confessions were made.",
+  "💌 This was never about forgetting. It was always about surviving."
+];
+function openHiddenMessage(i) {
+  document.getElementById('popup-text').textContent = messages[i];
+  document.getElementById('popup-message').style.display = 'block';
+}
+function closePopup() {
+  document.getElementById('popup-message').style.display = 'none';
+}
+</script>
+<script>
+function unlockSite() {
+  const pass = document.getElementById('entry-pass').value;
+  if (pass === 'thirtyelevel3011!') {
+    document.getElementById('lockscreen').style.display = 'none';
+    document.body.classList.remove('locked');
+  } else {
+    alert('Incorrect password');
+  }
+}
 </script>
 </body>
 </html>
