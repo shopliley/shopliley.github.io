@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopLiley</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+
+
+    :root {
+      --bg: #000;
+      --text: #f0f0f0;
+      --accent: #e50914;
+    }
+    [data-theme="light"] {
+      --bg: #fff;
+      --text: #111;
+      --accent: #d32f2f;
+    }
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      padding-top: 100px;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 10px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    .navbar.shrink {
+      padding: 10px 5px;
+      background: rgba(0, 0, 0, 0.9);
+    }
+    .navbar a, .mood-buttons button, .theme-toggle {
+      color: var(--text);
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .navbar a:hover, .mood-buttons button:hover, .theme-toggle:hover {
+      color: var(--accent);
+      transform: scale(1.2);
+    }
+    .mood-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    video#bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      z-index: -2;
+      object-fit: cover;
+      filter: brightness(0.4);
+    }
+    canvas#inkCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    h1 {
+      font-size: 3.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+      margin-top: 100px;
+      overflow: hidden;
+      word-break: break-word;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+        white-space: normal;
+      }
+    }
+    .cursor {
+      display: inline-block;
+      background-color: var(--accent);
+      margin-left: 5px;
+      width: 10px;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .section, .clock-container {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section.quotes p {
+      font-style: italic;
+      color: #ccc;
+      margin: 15px 0;
+      max-width: 90vw;
+    }
+    .clock-container {
+      margin: 30px 0;
+    }
+    #disclaimer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      z-index: 999;
+    }
+}#lockscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  color: white;
+}
+#lockscreen input {
+  padding: 10px;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 200px;
+  text-align: center;
+}
+#lockscreen button {
+  background: var(--accent);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+body.locked > :not(#lockscreen):not(script) {
+  display: none !important;
+}
+.hidden-mail {
+  position: fixed;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+#popup-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10001;
+  max-width: 80vw;
+  text-align: center;
+}
+}
+  </style>
+</head>
+<body class="locked">
+<div id="lockscreen">
+  <p>🔐 Enter Password to Access</p>
+  <input type="password" id="entry-pass" placeholder="Password">
+  <button onclick="unlockSite()">Unlock</button>
+</div><canvas id="inkCanvas"></canvas>
+<video autoplay muted loop playsinline id="bg-video"><source src="video-bg.mp4" type="video/mp4" /></video>
+
+<div class="navbar" id="navbar">
+  <a href="index.html">Home</a>
+  <a href="memories.html">Memories</a>
+  <div class="audio-controls">
+    <button id="play-music">🔊</button>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+  </div>
+  <div class="mood-buttons">
+    <button onclick="setMood('neutral')">😶‍🌫️</button>
+    <button onclick="setMood('hope')">🕊️</button>
+    <button onclick="setMood('rage')">🔥</button>
+    <button onclick="setMood('sad')">💔</button>
+  </div>
+  <button class="theme-toggle" title="Toggle Theme">🌗</button>
+</div>
+
+<h1><span id="type-text"></span><span class="cursor"></span></h1>
+<div class="clock-container"><div class="clock"></div></div>
+
+<!-- MAIN MESSAGES -->
+<div class="section" id="main-message"></div>
+
+<div id="hidden-mails">
+  <div class="hidden-mail" style="top: 15%; left: 10%;" onclick="openHiddenMessage(0)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 25%; left: 70%;" onclick="openHiddenMessage(1)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 50%; left: 20%;" onclick="openHiddenMessage(2)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 60%; left: 80%;" onclick="openHiddenMessage(3)">📬 Click here</div>
+  <div class="hidden-mail" style="top: 75%; left: 45%;" onclick="openHiddenMessage(4)">📬 Click here</div>
+</div>
+<div id="popup-message" style="display:none">
+  <div id="popup-text"></div>
+  <button onclick="closePopup()">Close</button>
+</div>
+
+<!-- QUOTES SECTION -->
+<div class="section quotes">
+  <p>Just like the CountDown Timer, Everything will go back to Zero. There is no stopping.</p>
+  <p>In every chapter, all the characters will suffer, doubts will rise, until the writer finds a better ending</p>
+  <p>Years of pain.</p>
+  <p>Sleepless nights.</p>
+  <p>Loss of appetite—loyalty stayed, but peace didn’t.</p>
+  <p>Everyone deserves an honest life without overthinking and heartbreak.</p>
+  <p>While some found joy in keeping secrets, others were left to carry the weight.</p>
+  <p>The weight could have been erased, but it only grew.</p>
+  <p>Some follow the story as it unfolds—</p>
+  <p>and it will continue until it finds a better ending for everyone.</p>
+</div>
+ 
+<div class="section" id="quotes-container"></div>
+
+<!-- LAWS SECTION -->
+<div class="section laws">
+  <h2>The Top 5 Most Famous Laws in the World</h2>
+  <p><strong>Murphy’s Law:</strong> The more you fear something happening, the more likely it is to happen.</p>
+  <p><strong>Kidlin’s Law:</strong> If you can write the problem down clearly, then the matter is half solved.</p>
+  <p><strong>Gilbert’s Law:</strong> The biggest problem with a job is that no one tells you what to do.</p>
+  <p><strong>Falkland’s Law:</strong> When it is not necessary to make a decision, it is necessary not to make a decision.</p>
+  <p><strong>Parkinson’s Law:</strong> Work expands to fill the time available for its completion.</p>
+  <h3>Bonus Reflections:</h3>
+  <p><strong>Peter’s Principle:</strong> In a hierarchy, every employee tends to rise to their level of incompetence.</p>
+  <p><strong>Sutton’s Law:</strong> Go where the money is.</p>
+  <p><strong>Hofstadter’s Law:</strong> It always takes longer than you expect, even when you take Hofstadter’s Law into account.</p>
+  <p><strong>Goodhart’s Law:</strong> When a measure becomes a target, it ceases to be a good measure.</p>
+  <p><strong>Hanlon’s Razor:</strong> Never attribute to malice that which is adequately explained by stupidity.</p>
+</div>
+
+<!-- AUDIO -->
+<audio id="bg-audio" loop>
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- DISCLAIMER -->
+<div id="disclaimer">
+  This website is a personal expression project. All content is fictional, metaphorical, or artistic in nature.<br />
+  Any resemblance to actual persons, businesses, or events is purely coincidental.
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+
+<script>
+
+
+const canvas = document.getElementById('inkCanvas');
+const ctx = canvas.getContext('2d');
+const drops = Array.from({ length: 50 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 6 + 2,
+  alpha: Math.random() * 0.1 + 0.02,
+  dx: (Math.random() - 0.5) * 0.5,
+  dy: Math.random() * -0.7 - 0.2
+}));
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+function drawInk() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drops.forEach(d => {
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${d.alpha})`;
+    ctx.fill();
+    d.x += d.dx;
+    d.y += d.dy;
+    if (d.y < 0 || d.x < 0 || d.x > canvas.width) {
+      d.x = Math.random() * canvas.width;
+      d.y = canvas.height;
+    }
+  });
+  requestAnimationFrame(drawInk);
+}
+drawInk();
+
+// Title Typing
+const text = "INK HASN’T DRIED YET | LAUNCHING IN :", typeEl = document.getElementById('type-text');
+let idx = 0;
+function type() {
+  if (idx < text.length) {
+    typeEl.textContent += text[idx++];
+    setTimeout(type, 120);
+  }
+}
+document.addEventListener('DOMContentLoaded', type);
+
+// Main Message Typing
+const mainMessage = [
+  "This site is under construction.",
+  "A 10th edition project is launching soon.",
+  "Stay curious.",
+  "The story was never meant to end and will not end, until it goes back to the first day",
+  "Congratulations—Chapter 9 had to end. It's amazing to have 9 chapters in such a short time",
+  "Chapter 10 is launching soon; it will not be the end—there will be 11, 12, and beyond.",
+  "I will end all the chapters gracefully and on my own terms.",
+  "So long as I breathe, the ink will flow. Chill, Enjoy and Wait for the launch at the Unexpected Time",
+ "It should not be love, Not be intercaste, No More Lies, No More Dumping, No More Playing",
+];
+const msgContainer = document.getElementById('main-message');
+let mIndex = 0, mChar = 0, msgEl = document.createElement('p');
+msgEl.classList.add('typewriter');
+msgContainer.appendChild(msgEl);
+function typeMain() {
+  if (mIndex >= mainMessage.length) return;
+  const line = mainMessage[mIndex];
+  if (mChar < line.length) {
+    msgEl.innerHTML += line.charAt(mChar++);
+    setTimeout(typeMain, 40);
+  } else {
+    mIndex++;
+    mChar = 0;
+    msgEl = document.createElement('p');
+    msgEl.classList.add('typewriter');
+    msgContainer.appendChild(msgEl);
+    setTimeout(typeMain, 600);
+  }
+}
+document.addEventListener('DOMContentLoaded', typeMain);
+
+// Navbar shrink
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('shrink');
+  } else {
+    navbar.classList.remove('shrink');
+  }
+});
+
+// Music
+const music = document.getElementById('bg-audio');
+document.getElementById('play-music').onclick = () => {
+  music.paused ? music.play() : music.pause();
+};
+document.getElementById('volume-slider').oninput = e => {
+  music.volume = e.target.value;
+};
+
+// Mood
+function setMood(mood) {
+  const video = document.getElementById('bg-video');
+  const audio = document.getElementById('bg-audio');
+  const root = document.documentElement;
+  if (mood === 'hope') {
+    video.src = 'video-hope.mp4';
+    audio.src = 'music-hope.mp3';
+    root.style.setProperty('--accent', '#4caf50');
+  } else if (mood === 'rage') {
+    video.src = 'video-rage.mp4';
+    audio.src = 'music-rage.mp3';
+    root.style.setProperty('--accent', '#ff3c3c');
+  } else if (mood === 'sad') {
+    video.src = 'video-sad.mp4';
+    audio.src = 'music-sad.mp3';
+    root.style.setProperty('--accent', '#607d8b');
+  } else {
+    video.src = 'video-bg.mp4';
+    audio.src = 'music.mp3';
+    root.style.setProperty('--accent', '#e50914');
+  }
+  audio.play();
+}
+
+// Quotes
+const quotes = [
+  "1. How can we blame the wind for the mess if we were the one who opened the window.",
+  "2. There was once a rose with beautiful petals. I forgot it had stems hidden.",
+  "3. Boomerang Theory — what you throw out will always find its way back to you.",
+  "4. The view from the top of the building will look amazing until it starts to shake.",
+  "5. The more cuts, the better the final movie.",
+  "6. Some people set fire to bridges and then complain there's no way back.",
+  "7. Silence becomes a weapon only when it’s not theirs.",
+  "8. They said “don’t change,” and then walked away because I didn’t.",
+  "9. Healers don’t hold scalpels. Some just twist the knife slower.",
+  "10. If someone really values you, they won’t make you feel replaced.",
+  "11. Pain isn’t poetic, but those who survive it are.",
+  "12. Truth doesn’t need defense. Lies need rehearsals.",
+  "13. Working is only for distraction from the pain now.",
+  "14. Going to sleep with a heavy heart, waking up with the same and working 10 hrs shift is a tough one."
+];
+const container = document.getElementById('quotes-container');
+let quoteIndex = 0;
+function showQuote() {
+  if (quoteIndex >= quotes.length) return;
+  const p = document.createElement('p');
+  p.textContent = quotes[quoteIndex++];
+  container.appendChild(p);
+  setTimeout(showQuote, 2000);
+}
+document.addEventListener('DOMContentLoaded', showQuote);
+
+// FlipClock Countdown
+$(function(){
+  const secs = Math.floor((new Date('2025-12-31T00:00:00').getTime() - Date.now()) / 1000);
+  $('.clock').FlipClock(secs, { clockFace: 'DailyCounter', countdown: true });
+});
+
+// Reveal on Scroll
+const revealEls = document.querySelectorAll('.section, .clock-container');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+revealEls.forEach(el => obs.observe(el));
+
+// Auto Theme Switch
+window.addEventListener('DOMContentLoaded', () => {
+  const hour = new Date().getHours();
+  document.documentElement.dataset.theme = hour >= 7 && hour <= 18 ? 'light' : 'dark';
+});
+
+// Click-to-Speak Quotes
+document.addEventListener('click', function (e) {
+  if (e.target.matches('.section.quotes p')) {
+    const msg = new SpeechSynthesisUtterance(e.target.textContent);
+    window.speechSynthesis.speak(msg);
+  }
+});
+
+function unlockSite() {
+  const pass = document.getElementById('entry-pass').value;
+  if (pass === 'thirtyeleven3011!') {
+    document.getElementById('lockscreen').style.display = 'none';
+    document.body.classList.remove('locked');
+  } else {
+    alert('Incorrect password');
+  }
+}const messages = [
+  "💌 I will always love you",
+  "💌 I will never leave you",
+  "💌 I will wait for you forever",
+  "💌 I just want you to understand me",
+  "💌 You have left me unhealed"
+];
+function openHiddenMessage(i) {
+  document.getElementById('popup-text').textContent = messages[i];
+  document.getElementById('popup-message').style.display = 'block';
+}
+function closePopup() {
+  document.getElementById('popup-message').style.display = 'none';
+}
+</script>
+<script>
+function unlockSite() {
+  const pass = document.getElementById('entry-pass').value;
+  if (pass === 'thirtyeleven3011!') {
+    document.getElementById('lockscreen').style.display = 'none';
+    document.body.classList.remove('locked');
+  } else {
+    alert('Incorrect password');
+  }
+}
+</script>
+</body>
+</html>
